@@ -68,6 +68,6 @@ theme: oishi
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: github
+  type: git
   repo: https://github.com/choipun/choipun.github.io.git
   branch: master
