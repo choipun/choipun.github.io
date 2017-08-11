@@ -20,24 +20,25 @@
 		<div class="black-mask">
 			<div class="c-text-success"></div>
 			<footer>
-				<div class="pill-3 c">
-					<div class="btn-c-success">领取奇遇豪礼</div>
+				<div class="pill-5 c">
+					<div class="btn-b-6">领取奇遇豪礼</div>
 				</div>
 			</footer>
 		</div>
 	</section>
 	<!-- fail -->
 	<section v-else>
-		<footer>
-			<div class="pill-3 c"></div>
-		</footer>
 		<div class="black-mask">
 			<header class="c-text-fail"></header>
 			<div class="c-textarea">
 				<p>道歉信的内容在这里</p>
 			</div>
 			<div class="c-text-fail-2"></div>
-			<div class="btn-b-6">领取奇遇豪礼</div>
+			<footer class="relative">
+				<div class="pill-5 c">
+					<div class="btn-b-6">领取奇遇豪礼</div>
+				</div>
+			</footer>
 		</div>
 	</section>
 </main>
@@ -49,7 +50,7 @@ Vue.http.options.emulateHTTP = true;
 var vm = new Vue({
 	el: '#app',
 	data: {
-		match_answer: false
+		match_answer: true
 	}
 })
 </script>

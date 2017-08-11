@@ -170,6 +170,9 @@ input[disabled] {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 .app {
   position: absolute;
@@ -268,6 +271,34 @@ input[disabled] {
 }
 .app footer.onmask {
   z-index: 10;
+}
+.app footer.relative {
+  position: relative;
+  text-align: center;
+}
+.app footer .btn-b {
+  display: inline-block;
+  background: #281102;
+  border: 1px solid #ffac7b;
+  color: #fff;
+  font-size: .85rem;
+  width: 7.3rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  text-align: center;
+  margin: 2.75rem auto 0;
+  position: relative;
+  z-index: 10;
+}
+.app footer .btn-b:after {
+  content: '';
+  display: inline-block;
+  width: .55rem;
+  height: .625rem;
+  background: url('../images/triangle.png') center center no-repeat;
+  background-size: .55rem auto;
+  vertical-align: middle;
+  margin: -0.15rem auto auto 0.25rem;
 }
 .app .pill {
   display: block;
@@ -592,6 +623,7 @@ input[disabled] {
   margin: 1rem auto 0;
 }
 .btn-b-6 {
+  display: inline-block;
   background: #281102;
   border: 1px solid #ffac7b;
   color: #ff4800;
@@ -600,7 +632,7 @@ input[disabled] {
   height: 1.5rem;
   line-height: 1.5rem;
   text-align: center;
-  margin: 1.5rem auto 2.25rem;
+  margin: 2.75rem auto 0;
   position: relative;
   z-index: 10;
 }
@@ -816,4 +848,16 @@ input[disabled] {
 .pill-3.c {
   margin: 0 auto 2.25rem;
   text-align: center;
+}
+.pill-5 {
+  display: block;
+  height: 7.25rem;
+  background: url('../images/pill5.png') center center no-repeat;
+  background-size: contain;
+  margin: -0.5rem auto 0;
+  position: relative;
+}
+.pill-5.c {
+  text-align: center;
+  margin: .25rem auto 0;
 }

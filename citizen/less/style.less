@@ -27,12 +27,7 @@ img{max-width:100%;}
 
 /* End hide from IE-mac */
 input,textarea,select,option{-webkit-appearance:none;}
-input[disabled]{
-	color: #fff;  
-    -webkit-text-fill-color:#fff;
-    -webkit-opacity:1;  
-    opacity: 1;  
-}
+input[disabled]{color:#fff;-webkit-text-fill-color:#fff;-webkit-opacity:1;opacity:1;}
 [v-cloak]{display:none;}
 .black-mask {
 	position: fixed;
@@ -41,6 +36,9 @@ input[disabled]{
 	width: 100%;
 	height: 100%;
 	background: rgba(0, 0, 0, .6);
+	overflow-x: hidden;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
 }
 .app {
 	position: absolute;
@@ -117,7 +115,8 @@ input[disabled]{
 			margin-left: 4rem;
 			line-height: .8rem;
 			font-weight: bold;
-			&.b{
+
+			&.b {
 				color: #ff4800;
 				width: 3rem;
 				text-align: center;
@@ -144,6 +143,36 @@ input[disabled]{
 
 		&.onmask {
 			z-index: 10;
+		}
+		&.relative {
+			position: relative;
+			text-align: center;
+		}
+		.btn-b {
+			display: inline-block;
+			background: #281102;
+			border: 1px solid #ffac7b;
+			color: #fff;
+			font-size: .85rem;
+			text-align: center;
+			width: 7.3rem;
+			height: 1.5rem;
+			line-height: 1.5rem;
+			text-align: center;
+			margin: 2.75rem auto 0;
+			position: relative;
+			z-index: 10;
+
+			&:after {
+				content: '';
+				display: inline-block;
+				width: .55rem;
+				height: .625rem;
+				background: url('../images/triangle.png') center center no-repeat;
+				background-size: .55rem auto;
+				vertical-align: middle;
+				margin: -.15rem auto auto .25rem;
+			}
 		}
 	}
 	.pill {
@@ -444,7 +473,7 @@ input[disabled]{
 	width: 100%;
 	text-align: center;
 
-	select,.select {
+	select, .select {
 		background: #281102;
 		border: 1px solid #ffac7b;
 		color: #fff;
@@ -454,7 +483,7 @@ input[disabled]{
 		padding: 0 1.25rem;
 		text-align: center;
 	}
-	.select{
+	.select {
 		display: inline-block;
 		line-height: 3.15rem;
 	}
@@ -493,16 +522,17 @@ input[disabled]{
 	margin: 1rem auto 0;
 }
 .btn-b-6 {
+	display: inline-block;
 	background: #281102;
 	border: 1px solid #ffac7b;
-	color: rgb( 255, 72, 0 );
+	color: rgb(255, 72, 0);
 	font-size: .85rem;
 	text-align: center;
 	width: 7.3rem;
 	height: 1.5rem;
 	line-height: 1.5rem;
 	text-align: center;
-	margin: 1.5rem auto 2.25rem;
+	margin: 2.75rem auto 0;
 	position: relative;
 	z-index: 10;
 
@@ -528,7 +558,7 @@ input[disabled]{
 	display: inline-block;
 	background: #281102;
 	border: 1px solid #ffac7b;
-	color: rgb( 255, 72, 0 );
+	color: rgb(255, 72, 0);
 	font-size: .85rem;
 	text-align: center;
 	width: 7.3rem;
@@ -621,18 +651,19 @@ input[disabled]{
 		background-size: contain;
 	}
 }
-.myvideo-area{
+.myvideo-area {
 	position: absolute;
 	width: 100%;
 	height: 100%;
 	top: 0;
 	left: 0;
-	.myvideo{
+
+	.myvideo {
 		width: 100%;
-	    height: 100%;
-	    object-fit: contain;
+		height: 100%;
+		object-fit: contain;
 	}
-	.skip{
+	.skip {
 		position: absolute;
 		right: .5rem;
 		top: .5rem;
@@ -642,13 +673,14 @@ input[disabled]{
 		background-size: contain;
 	}
 }
-.a-3-title{
+.a-3-title {
 	width: 12.5rem;
 	height: 6.5rem;
 	background: url('../images/a-3-title.png') center center no-repeat;
 	background-size: contain;
 	margin: 1rem auto 0;
-	&.none{
+
+	&.none {
 		background: none;
 	}
 }
@@ -660,31 +692,30 @@ input[disabled]{
 	background-size: contain;
 	margin: -1.9rem auto 0;
 
-
 	.a-2-copy {
 		position: absolute;
 		width: 1.8rem;
 		height: 2rem;
-	    top: 2.25rem;
-    	right: .4rem;
+		top: 2.25rem;
+		right: .4rem;
 	}
 }
-.text-token{
+.text-token {
 	position: absolute;
-    top: 2.45rem;
-    left: .75rem;
-    color: #fff;
-    font-size: 1rem;
-    width: 8.8rem;
-    height: 1.5rem;
-    line-height: 1.5rem;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    text-align: center;
-    border: none;
-    background: none;
-    outline: none;
+	top: 2.45rem;
+	left: .75rem;
+	color: #fff;
+	font-size: 1rem;
+	width: 8.8rem;
+	height: 1.5rem;
+	line-height: 1.5rem;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	text-align: center;
+	border: none;
+	background: none;
+	outline: none;
 }
 .a-3-cat {
 	width: 9.05rem;
@@ -716,11 +747,25 @@ input[disabled]{
 	background-size: contain;
 	margin: 0 auto .35rem;
 	position: relative;
-	&.b-4{
+
+	&.b-4 {
 		margin: 0 auto 2.75rem;
 	}
-	&.c{
+	&.c {
 		margin: 0 auto 2.25rem;
 		text-align: center;
+	}
+}
+.pill-5 {
+	display: block;
+	height: 7.25rem;
+	background: url('../images/pill5.png') center center no-repeat;
+	background-size: contain;
+	margin: -0.5rem auto 0;
+	position: relative;
+
+	&.c {
+		text-align: center;
+		margin: .25rem auto 0;
 	}
 }

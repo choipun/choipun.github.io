@@ -85,12 +85,11 @@
 		<div class="b-3-textarea">
 			<textarea placeholder="写下你想说的话"></textarea>
 		</div>
-		<footer class="onmask">
-			<div class="pill-3"></div>
+		<footer class="onmask relative">
+			<div class="pill-5">
+				<div class="btn-b" v-on:click.stop.prevent="saveText">存入时间胶囊</div>
+			</div>
 		</footer>
-		<div class="select-time">
-			<div class="btn-b" v-on:click.stop.prevent="saveText">存入时间胶囊</div>
-		</div>
 	</section>
 	<!-- b-4-success -->
 	<section v-if="step == 4 && match_success">
@@ -141,17 +140,16 @@
 	</section>
 	<!-- b-6 道歉信-->
 	<section v-if="step == 6">
-		<footer>
-			<div class="pill-3"></div>
-		</footer>
 		<div class="black-mask">
 			<div class="b-6-title"></div>
 			<div class="b-3-textarea">
 				<textarea placeholder="写下你想说的话"></textarea>
 			</div>
-			<div class="select-time">
-				<div class="btn-b" v-on:click.stop.prevent="failText">我错了</div>
-			</div>
+			<footer class="onmask relative">
+				<div class="pill-5">
+					<div class="btn-b" v-on:click.stop.prevent="saveText">我错了</div>
+				</div>
+			</footer>
 		</div>
 	</section>
 </main>
