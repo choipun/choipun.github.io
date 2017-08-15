@@ -273,8 +273,9 @@ input[disabled] {
   z-index: 10;
 }
 .app footer.relative {
-  position: relative;
+  position: absolute;
   text-align: center;
+  z-index: 99;
 }
 .app footer .btn-b {
   display: inline-block;
@@ -860,4 +861,28 @@ input[disabled] {
 .pill-5.c {
   text-align: center;
   margin: .25rem auto 0;
+}
+.input-tip {
+  position: absolute;
+  top: 7.25rem;
+  right: 50%;
+  color: #fff;
+  text-shadow: 1px 1px #000;
+  text-align: right;
+}
+.input-tip h1 {
+  font-size: .8rem;
+}
+.input-tip h1:after {
+  content: '';
+  display: inline-block;
+  width: .55rem;
+  height: .625rem;
+  background: url('../images/triangle.png') center center no-repeat;
+  background-size: .55rem auto;
+  vertical-align: middle;
+  margin: -0.15rem auto auto 0.25rem;
+}
+.input-tip h2 {
+  font-size: .6rem;
 }

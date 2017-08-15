@@ -26,7 +26,7 @@
 		</section>
 		<!-- video -->
 		<section v-if="!skip_animate && gender" class="myvideo-area">
-			<video class="myvideo" id="myvideo" v-bind:src="video_src" autoplay webkit-playsinline playsinline></video>
+			<video class="myvideo" id="myvideo" v-bind:src="video_src" autoplay controls webkit-playsinline playsinline></video>
 			<div class="skip" v-on:click.stop.prevent="skipVideo"></div>
 		</section>
 		<!-- gif -->
@@ -39,6 +39,10 @@
 	<div class="black-mask" v-if="considering && !posted"></div>
 	<template v-if="!posted">
 		<header class="action-name"></header>
+		<div class="input-tip">
+			<h1>第一步:输入提示语</h1>
+			<h2>（你们最重要的日子是哪天）</h2>
+		</div>
 		<section class="bubbles">
 			<div class="bubble" v-bind:class="{'onmask':considering}"><textarea placeholder="输入提示语" v-model.trim="tip"></textarea></div>
 			<div class="bubble-tip">为了世界和平<br>给TA点提示吧</div>
@@ -68,7 +72,7 @@
 				</select>
 			</section>
 		</div>
-		<div class="data-box-tip">请选择日期</div>
+		<div class="data-box-tip">第二步:输入你想设定的时间</div>
 		<div class="btn-a" v-on:click.stop.prevent="saveToPill" v-if="!considering">存入时间胶囊</div>
 		<div class='a-btns' v-if="considering">
 			<div class="btn" v-on:click.stop.prevent="makeSure">你真的确认吗</div>
