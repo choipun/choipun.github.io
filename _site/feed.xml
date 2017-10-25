@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-10-25T17:06:24+08:00</updated><id>/</id><title type="html">Your awesome title</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">安装 Jekyll 踩坑记录</title><link href="/2017/10/install-jekyll" rel="alternate" type="text/html" title="安装 Jekyll 踩坑记录" /><published>2017-10-24T21:19:37+08:00</published><updated>2017-10-24T21:19:37+08:00</updated><id>/2017/10/install-jekyll</id><content type="html" xml:base="/2017/10/install-jekyll">&lt;p&gt;Transform your plain text into static websites and blogs.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-10-25T17:39:29+08:00</updated><id>/</id><title type="html">Choipun Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">安装 Jekyll 踩坑记录</title><link href="/2017/10/install-jekyll" rel="alternate" type="text/html" title="安装 Jekyll 踩坑记录" /><published>2017-10-24T21:19:37+08:00</published><updated>2017-10-24T21:19:37+08:00</updated><id>/2017/10/install-jekyll</id><content type="html" xml:base="/2017/10/install-jekyll">&lt;p&gt;What is Jekyll?&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://jekyllrb.com/&quot;&gt;jekyllrb.com&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Transform your plain text into static websites and blogs. &lt;a href=&quot;http://jekyllrb.com/&quot;&gt;jekyllrb.com&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;h2 id=&quot;安装&quot;&gt;安装&lt;/h2&gt;
 
-&lt;p&gt;需要有&lt;strong&gt;完整的&lt;/strong&gt; Ruby 开发环境，&lt;a href=&quot;https://jekyllrb.com/docs/installation/#requirements&quot;&gt;前置需求看这里&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;太（bu）长（dong）不（ying）看（yu）的，就愉快地跟我一起踩坑吧&lt;/p&gt;
+&lt;p&gt;需要有&lt;strong&gt;完整的 Ruby 开发环境&lt;/strong&gt;，&lt;a href=&quot;https://jekyllrb.com/docs/installation/#requirements&quot;&gt;前置需求看这里&lt;/a&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gem install jekyll
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -15,8 +15,8 @@
 
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Fetching: public_suffix-3.0.0.gem &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;100%&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 ERROR:  While executing gem ... &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Gem::FilePermissionError&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    You don&lt;span class=&quot;s1&quot;&gt;'t have write permissions for the /Library/Ruby/Gems/2.3.0 directory.
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+    You dont have write permissions &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;the /Library/Ruby/Gems/2.3.0 directory.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;没有写入权限。可以用 &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo&lt;/code&gt; 解决，往系统自带的 Ruby 库中塞东西&lt;/p&gt;
 
@@ -76,7 +76,7 @@ ERROR:  While executing gem ... &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Ge
 
 &lt;p&gt;安装完了再次启动服务试试&lt;/p&gt;
 
-&lt;p&gt;然后可以了？当然还是没有那么顺利&lt;/p&gt;
+&lt;p&gt;然后可以了？Nope&lt;/p&gt;
 
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Could not find gem &lt;span class=&quot;s1&quot;&gt;'minima (~&amp;gt; 2.0)'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;any of the gem sources listed &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;your Gemfile.
 Run &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;bundle install&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; to install missing gems.
@@ -105,50 +105,17 @@ Server running... press ctrl-c to stop.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;浏览器里打开看看，一切都是那么完美！&lt;/p&gt;
 
-&lt;h2 id=&quot;基础用法&quot;&gt;基础用法&lt;/h2&gt;
+&lt;h1 id=&quot;minima&quot;&gt;Minima&lt;/h1&gt;
 
-&lt;h3 id=&quot;本机预览&quot;&gt;本机预览&lt;/h3&gt;
+&lt;p&gt;minima 是初始化 Jekyll 的默认（也是首个）主题，乍一看没啥问题，就是代码高亮的背景色太丑了，得改。&lt;/p&gt;
 
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;jekyll serve
+&lt;p&gt;找到 minima 的安装目录&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;blundle show minima
+/usr/local/lib/ruby/gems/2.4.0/gems/minima-2.1.1
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;一个开发服务器将会运行在 http://localhost:4000/&lt;/p&gt;
-
-&lt;p&gt;Auto-regeneration（自动再生成文件）: 开启。使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;--no-watch&lt;/code&gt; 来关闭&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ jekyll serve --detach
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;功能和&lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;命令相同，但是会脱离终端在后台运行&lt;/p&gt;
-
-&lt;p&gt;如果你想关闭服务器，可以使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;kill -9 1234&lt;/code&gt; 命令，&lt;strong&gt;1234&lt;/strong&gt; 是进程号（PID）&lt;/p&gt;
-
-&lt;p&gt;如果你找不到进程号，那么就用 &lt;code class=&quot;highlighter-rouge&quot;&gt;ps aux | grep jekyll&lt;/code&gt; 命令来查看，然后关闭服务器。&lt;a href=&quot;http://unixhelp.ed.ac.uk/shell/jobz5.html&quot;&gt;更多&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;构建&quot;&gt;构建&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;jekyll build
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;当前文件夹中的内容将会生成到 &lt;code class=&quot;highlighter-rouge&quot;&gt;./_site&lt;/code&gt; 文件夹中&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;jekyll build &lt;span class=&quot;nt&quot;&gt;--destination&lt;/span&gt; &amp;lt;destination&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;当前文件夹中的内容将会生成到目标文件夹&lt;destination&gt;中&lt;/destination&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;jekyll build &lt;span class=&quot;nt&quot;&gt;--source&lt;/span&gt; &amp;lt;&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--destination&lt;/span&gt; &amp;lt;destination&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;指定源文件夹&lt;source /&gt;中的内容将会生成到目标文件夹&lt;destination&gt;中&lt;/destination&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;jekyll build &lt;span class=&quot;nt&quot;&gt;--watch&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;当前文件夹中的内容将会生成到 &lt;code class=&quot;highlighter-rouge&quot;&gt;./_site&lt;/code&gt; 文件夹中，查看改变，并且自动再生成&lt;/p&gt;
-
-&lt;p&gt;模板语法啥的，直接看官网就好了。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;开始浪吧！&lt;/strong&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">Transform your plain text into static websites and blogs.</summary></entry><entry><title type="html">Welcome to Jekyll!</title><link href="/2017/10/welcome-to-jekyll" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2017-10-24T19:54:37+08:00</published><updated>2017-10-24T19:54:37+08:00</updated><id>/2017/10/welcome-to-jekyll</id><content type="html" xml:base="/2017/10/welcome-to-jekyll">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+&lt;p&gt;然后就可以在 &lt;code class=&quot;highlighter-rouge&quot;&gt;_sass/minima/&lt;/code&gt; 这个目录下修改默认的样式了。&lt;/p&gt;</content><author><name></name></author><summary type="html">What is Jekyll?</summary></entry><entry><title type="html">Welcome to Jekyll!</title><link href="/2017/10/welcome-to-jekyll" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2017-10-24T19:54:37+08:00</published><updated>2017-10-24T19:54:37+08:00</updated><id>/2017/10/welcome-to-jekyll</id><content type="html" xml:base="/2017/10/welcome-to-jekyll">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
 
 &lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
 

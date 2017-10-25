@@ -85,9 +85,7 @@ blockquote {
   color: #828282;
   border-left: 4px solid #e8e8e8;
   padding-left: 15px;
-  font-size: 18px;
-  letter-spacing: -1px;
-  font-style: italic; }
+  font-size: 16px; }
   blockquote > :last-child {
     margin-bottom: 0; }
 
@@ -99,7 +97,7 @@ code {
   font-size: 15px;
   border: 1px solid #e8e8e8;
   border-radius: 3px;
-  background-color: #eef; }
+  background-color: #f2f2f2; }
 
 code {
   padding: 1px 5px; }
@@ -334,7 +332,7 @@ pre {
 .highlight {
   background: #fff; }
   .highlighter-rouge .highlight {
-    background: #eef; }
+    background: #f2f2f2; }
   .highlight .c {
     color: #998;
     font-style: italic; }

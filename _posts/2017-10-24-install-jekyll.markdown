@@ -3,15 +3,16 @@ layout: post
 title:  "安装 Jekyll 踩坑记录"
 date:   2017-10-24 21:19:37 +0800
 ---
-Transform your plain text into static websites and blogs.
 
-[jekyllrb.com](http://jekyllrb.com/)
+
+What is Jekyll?
+
+> Transform your plain text into static websites and blogs. [jekyllrb.com](http://jekyllrb.com/)
 
 ## 安装
 
-需要有**完整的** Ruby 开发环境，[前置需求看这里](https://jekyllrb.com/docs/installation/#requirements)
+需要有**完整的 Ruby 开发环境**，[前置需求看这里](https://jekyllrb.com/docs/installation/#requirements)
 
-太（bu）长（dong）不（ying）看（yu）的，就愉快地跟我一起踩坑吧
 
 ```bash
 $ gem install jekyll
@@ -22,7 +23,7 @@ macOS 会遇到这个坑
 ```bash
 Fetching: public_suffix-3.0.0.gem (100%)
 ERROR:  While executing gem ... (Gem::FilePermissionError)
-    You don't have write permissions for the /Library/Ruby/Gems/2.3.0 directory.
+    You dont have write permissions for the /Library/Ruby/Gems/2.3.0 directory.
 ```
 
 没有写入权限。可以用 `sudo` 解决，往系统自带的 Ruby 库中塞东西
@@ -93,7 +94,7 @@ $ gem install bundler
 
 安装完了再次启动服务试试
 
-然后可以了？当然还是没有那么顺利
+然后可以了？Nope
 
 ```bash
 Could not find gem 'minima (~> 2.0)' in any of the gem sources listed in your Gemfile.
@@ -127,54 +128,15 @@ Server running... press ctrl-c to stop.
 ```
 浏览器里打开看看，一切都是那么完美！
 
-## 基础用法
+# Minima
 
-### 本机预览
+minima 是初始化 Jekyll 的默认（也是首个）主题，乍一看没啥问题，就是代码高亮的背景色太丑了，得改。
 
-```bash
-$ jekyll serve
-```
-
-一个开发服务器将会运行在 http://localhost:4000/
-
-Auto-regeneration（自动再生成文件）: 开启。使用 `--no-watch` 来关闭
-
-```
-$ jekyll serve --detach
-```
-功能和`jekyll serve`命令相同，但是会脱离终端在后台运行
-
-如果你想关闭服务器，可以使用 `kill -9 1234` 命令，**1234** 是进程号（PID）
-
-如果你找不到进程号，那么就用 `ps aux | grep jekyll` 命令来查看，然后关闭服务器。[更多](http://unixhelp.ed.ac.uk/shell/jobz5.html).
-
-### 构建
+找到 minima 的安装目录
 
 ```bash
-$ jekyll build
+$ blundle show minima
+/usr/local/lib/ruby/gems/2.4.0/gems/minima-2.1.1
 ```
 
-当前文件夹中的内容将会生成到 `./_site` 文件夹中
-
-
-```bash
-$ jekyll build --destination <destination>
-```
-
-当前文件夹中的内容将会生成到目标文件夹<destination>中
-
-```bash
-$ jekyll build --source <source> --destination <destination>
-```
-
-指定源文件夹<source>中的内容将会生成到目标文件夹<destination>中
-
-```bash
-$ jekyll build --watch
-```
-
-当前文件夹中的内容将会生成到 `./_site` 文件夹中，查看改变，并且自动再生成
-
-模板语法啥的，直接看官网就好了。
-
-**开始浪吧！**
+然后就可以在 `_sass/minima/` 这个目录下修改默认的样式了。
