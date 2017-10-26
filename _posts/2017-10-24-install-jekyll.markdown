@@ -138,4 +138,12 @@ $ blundle show minima
 /usr/local/lib/ruby/gems/2.4.0/gems/minima-2.1.1
 ```
 
-然后就可以在 `_sass/minima/` 这个目录下修改默认的样式了。
+然后就可以在 `_sass/minima/` 这个目录下修改默认的样式了？
+
+**跟我一样天真就白费劲了。** 本机预览没什么问题，传到 gitpage 上就还是**原来的样子**。
+
+按照 Jekyll 官网说法是，需要根据主题目录，额外以相同路径建立同名文件在自己的博客下，或者新增文件。
+
+> Let’s say, for a second example, you want to override Minima’s footer. In your Jekyll site, create an `_includes` folder and add a file in it called `footer.html`. Jekyll will now use your site’s `footer.html` file instead of the `footer.html` file from the Minima theme gem.
+
+相当于是强制备份吧，折腾坏了也方便还原。

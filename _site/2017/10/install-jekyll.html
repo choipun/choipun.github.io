@@ -10,7 +10,8 @@
   <meta name="description" content="What is Jekyll?">
 
   <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="http://localhost:4000/2017/10/install-jekyll">
+  <link rel="stylesheet" href="/assets/choipun.css">
+  <link rel="canonical" href="/2017/10/install-jekyll">
   <link rel="alternate" type="application/rss+xml" title="Choipun" href="/feed.xml">
   
   
@@ -202,7 +203,17 @@ Server running... press ctrl-c to stop.
 /usr/local/lib/ruby/gems/2.4.0/gems/minima-2.1.1
 </code></pre></div></div>
 
-<p>然后就可以在 <code class="highlighter-rouge">_sass/minima/</code> 这个目录下修改默认的样式了。</p>
+<p>然后就可以在 <code class="highlighter-rouge">_sass/minima/</code> 这个目录下修改默认的样式了？</p>
+
+<p><strong>跟我一样天真就白费劲了。</strong> 本机预览没什么问题，传到 gitpage 上就还是<strong>原来的样子</strong>。</p>
+
+<p>按照 Jekyll 官网说法是，需要根据主题目录，额外以相同路径建立同名文件在自己的博客下，或者新增文件。</p>
+
+<blockquote>
+  <p>Let’s say, for a second example, you want to override Minima’s footer. In your Jekyll site, create an <code class="highlighter-rouge">_includes</code> folder and add a file in it called <code class="highlighter-rouge">footer.html</code>. Jekyll will now use your site’s <code class="highlighter-rouge">footer.html</code> file instead of the <code class="highlighter-rouge">footer.html</code> file from the Minima theme gem.</p>
+</blockquote>
+
+<p>相当于是强制备份吧，折腾坏了也方便还原。</p>
 
   </div>
 
