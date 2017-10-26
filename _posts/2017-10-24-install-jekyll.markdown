@@ -4,7 +4,6 @@ title:  "安装 Jekyll 踩坑记录"
 date:   2017-10-24 21:19:37 +0800
 ---
 
-
 What is Jekyll?
 
 > Transform your plain text into static websites and blogs. [jekyllrb.com](http://jekyllrb.com/)
@@ -39,7 +38,7 @@ $ brew install ruby
 还要修改一下 `$PATH`
 
 ```bash
-vim ~/.bash_profile
+$ vim ~/.bash_profile
 ```
 
 写入这句
@@ -51,7 +50,7 @@ export PATH=/usr/local/bin:$PATH
 然后应用
 
 ```bash
-source ~/.bash_profile
+$ source ~/.bash_profile
 ```
 
 再次尝试安装，可以开始下载了！ 不过还是报了错误，大意是说，缺少安装必要的工具，查看 .log 
