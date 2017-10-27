@@ -2,6 +2,7 @@
 layout: post
 title:  "安装 Jekyll 踩坑记录"
 date:   2017-10-24 21:19:37 +0800
+comments: true
 ---
 
 What is Jekyll?
