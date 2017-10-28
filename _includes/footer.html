@@ -1,0 +1,14 @@
+<footer class="site-footer choipun">
+  <div class="container">
+    <ul class="list-inline text-center">
+      {% if site.github_username %}
+      <li>
+        {% include icon-github.html username=site.github_username %}
+      </li>
+      {% endif %}
+    </ul>
+    <p class="copyright text-muted">
+      Copyright © {{ site.title | escape }} 2017
+    </p>
+  </div>
+</footer>

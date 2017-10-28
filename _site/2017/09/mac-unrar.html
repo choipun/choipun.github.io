@@ -6,12 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Time</title>
-  <meta name="description" content="与你一起探索未知世界">
+  <title>macOS通过终端解压rar文件</title>
+  <meta name="description" content="通过 homebrew 安装 unrar">
 
   <link rel="stylesheet" href="/assets/main.css">
   <link rel="stylesheet" href="/assets/choipun.css">
-  <link rel="canonical" href="http://localhost:4000/time/">
+  <link rel="canonical" href="http://localhost:4000/2017/09/mac-unrar">
   <link rel="alternate" type="application/rss+xml" title="Choipun" href="/feed.xml">
   
   
@@ -73,52 +73,38 @@
 
     <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <style type="text/css" media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 4em;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-  .tip {
-    font-size: .8em;
-    color: #999;
-  }
-</style>
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
-<div class="container">
-  <h1>TIME</h1>
-  <p><strong id="time"></strong></p>
-  <p class="tip">From 2017-10-01 12:00:00</p>
-  <p class="tip">从开始，到现在</p>
-</div>
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">macOS通过终端解压rar文件</h1>
+    <p class="post-meta">
+      <time datetime="2017-09-15T15:23:47+08:00" itemprop="datePublished">
+        
+        Sep 15, 2017
+      </time>
+      </p>
+  </header>
 
-<script>
-  var timeEl = document.getElementById('time');
-  var start = new Date('2017-10-01 12:00:00').getTime();
+  <div class="post-content" itemprop="articleBody">
+    <p>通过 homebrew 安装 unrar</p>
 
-  CountDown();
-  setInterval(function() {
-    CountDown();
-  }, 1000);
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>brew install unrar  
+</code></pre></div></div>
 
-  function CountDown() {
-    var now = new Date().getTime();
-    var deta = (now - start) / 1000;
-    var d = Math.floor(deta / 60 / 60 / 24);
-    var h = Math.floor(deta / 60 / 60) - (d * 24);
-    var m = Math.floor(deta / 60) - (d * 24 * 60) - (h * 60);
-    var s = Math.floor(deta - (d * 24 * 60 * 60) - (h * 60 * 60) - (m * 60));
+<p>进入 <code class="highlighter-rouge">.rar</code> 文件目录</p>
 
-    timeEl.innerHTML = d + ' days ' + h + ' hours ' + m + ' minutes ' + s + ' secends';
-  }
-</script>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>unrar x filename.rar
+</code></pre></div></div>
 
+<p>即可解压到当前文件夹</p>
+
+  </div>
+
+  
+    
+
+  
+</article>
       </div>
     </main>
 

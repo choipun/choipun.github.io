@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Windwos服务端搭建Shadowsocks</title>
+  <meta name="description" content="服务端">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="stylesheet" href="/assets/choipun.css">
+  <link rel="canonical" href="http://localhost:4000/2017/09/install-shadowsocks-in-windows-server">
+  <link rel="alternate" type="application/rss+xml" title="Choipun" href="/feed.xml">
+  
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper">
+    
+    
+    <a class="site-title" href="/">Choipun</a>
+  
+    
+      <nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+              <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+              <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+          
+            
+            
+          
+            
+            
+            <a class="page-link" href="/about/">About</a>
+            
+          
+            
+            
+          
+            
+            
+            <a class="page-link" href="/time/">Time</a>
+            
+          
+            
+            
+          
+            
+            
+          
+        </div>
+      </nav>
+    
+  </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Windwos服务端搭建Shadowsocks</h1>
+    <p class="post-meta">
+      <time datetime="2017-09-07T19:00:00+08:00" itemprop="datePublished">
+        
+        Sep 7, 2017
+      </time>
+      </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <h1 id="服务端">服务端</h1>
+
+<h4 id="安装-python">安装 Python</h4>
+
+<p>首先去到 Python 官网下载 Python V2 ：<a href="https://www.python.org/downloads/">点击前往</a></p>
+
+<p><a href="https://www.python.org/ftp/python/2.7.14/python-2.7.14rc1.msi">32位系统点我</a></p>
+
+<p><a href="https://www.python.org/ftp/python/2.7.14/python-2.7.14rc1.amd64.msi">64位系统点我</a></p>
+
+<p><strong>注意：最好是根据现在系统的环境来选择，并且要与OpenSSL对应，不能用32位 Python 与64位的 OpenSSL 搭配使用。</strong></p>
+
+<h4 id="安装-openssl">安装 OpenSSL</h4>
+
+<p>同样去到 OpenSSL 官网下载：<a href="https://slproweb.com/products/Win32OpenSSL.html">OpenSSL</a></p>
+
+<p><a href="https://slproweb.com/download/Win32OpenSSL-1_0_2L.exe">32位系统点我</a></p>
+
+<p><a href="https://slproweb.com/download/Win64OpenSSL-1_0_2L.exe">64位系统点我</a></p>
+
+<p>这里需要注意</p>
+
+<p>OpenSSL 需要 <strong>Visual C++ 2008 Redistributables</strong> 支持</p>
+
+<p><a href="http://www.microsoft.com/downloads/details.aspx?familyid=9B2DA534-3E03-4391-8A4D-074B9F2BC1BF">32位系统点我</a></p>
+
+<p><a href="http://www.microsoft.com/downloads/details.aspx?familyid=bd2a6171-e2d6-4230-b809-9a8d7548c1b6">64位系统点我</a></p>
+
+<h4 id="安装-shadowsocks">安装 Shadowsocks</h4>
+
+<p>安装完成后，如按照默认路径，使用方法如下</p>
+
+<p>打开 cmd</p>
+
+<blockquote>
+  <p>（Windows Server 2012 R2 系统可按 Windows 图标+X+A打开管理员权限的命令提示符）</p>
+</blockquote>
+
+<p>进入 Python 目录</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd C:\Python27\Scripts
+</code></pre></div></div>
+
+<p>也可以用资源管理器进入到该目录，然后按住 Shift + 鼠标右键，选择 <strong>在此处打开命令窗口</strong></p>
+
+<p>然后输入</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install shadowsocks
+</code></pre></div></div>
+
+<p>看到多出来几个文件，显示finished之类的字样就是下载成功了。</p>
+
+<h4 id="配置-shadowsocks">配置 Shadowsocks</h4>
+
+<p>同样需要在 C:\Python27\Scripts 运行命令提示符(管理员)</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssserver.exe -p 8893 -k password -m aes-256-cfb
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">8893</code> 为服务器端口，<code class="highlighter-rouge">password</code> 为密码，到时在客户端填上服务器的 IP 及此处设置的端口和密码就能使用了</p>
+
+<p>当然，也可以使用配置文件的方法，在 C:\Python27\Scripts 新建一个名为 shadowsocks.json 的文件，以记事本打开</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"server"</span><span class="p">:</span><span class="s2">"localhost"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"server_port"</span><span class="p">:</span><span class="mi">8893</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"local_address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"127.0.0.1"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"local_port"</span><span class="p">:</span><span class="mi">1080</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"password"</span><span class="p">:</span><span class="s2">"password"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"timeout"</span><span class="p">:</span><span class="mi">300</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"method"</span><span class="p">:</span><span class="s2">"aes-256-cfb"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"fast_open"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>然后运行</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssserver.exe -c C:\Python27\Scripts\shadowsocks.json
+</code></pre></div></div>
+
+<h1 id="客户端">客户端</h1>
+
+<p>Shadowsocks 客户端官网下载页面：<a href="https://shadowsocks.org/en/download/clients.html">点我前往</a></p>
+
+<p>解压到任意目录，双击启动 <strong>Shadowsocks.exe</strong>，可以在右下角的系统任务栏看到一个 <strong>纸飞机</strong> 的图标，右键纸飞机图标，勾选设置</p>
+
+<ul>
+  <li>启用系统代理</li>
+  <li>允许来自局域网的连接</li>
+</ul>
+
+<p>点开 <strong>服务器</strong> –&gt; <strong>编辑服务器</strong>：</p>
+
+<p>对应 shadowsocks.json 配置文件，对照相同项目来填写。填写完以后按 <strong>确定</strong> 保存配置。</p>
+
+<p>接着右键纸飞机图标 –&gt; <strong>服务器</strong>，勾选刚刚设置的那个。</p>
+
+  </div>
+
+  
+    
+
+  
+</article>
+      </div>
+    </main>
+
+    <footer class="site-footer choipun">
+  <div class="container">
+    <ul class="list-inline text-center">
+      
+      <li>
+        <a href="https://github.com/choipun" target="_blank"><span class="icon icon--github"><svg viewBox="0 0 16 16" width="32px" height="32px"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span></a>
+
+      </li>
+      
+    </ul>
+    <p class="copyright text-muted">
+      Copyright © Choipun 2017
+    </p>
+  </div>
+</footer>
+
+  </body>
+
+</html>

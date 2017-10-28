@@ -1,0 +1,20 @@
+---
+layout: post
+title:  "macOS通过终端解压rar文件"
+date:   2017-09-15 15:23:47 +0800
+comments: true
+---
+
+通过 homebrew 安装 unrar
+
+```bash
+$ brew install unrar  
+```
+
+进入 `.rar` 文件目录
+
+```bash
+$ unrar x filename.rar
+```
+
+即可解压到当前文件夹

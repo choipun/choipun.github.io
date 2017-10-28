@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "安装 Jekyll 踩坑记录"
+title:  "使用Jekyll搭建博客的踩坑记录"
 date:   2017-10-24 21:19:37 +0800
 comments: true
 ---
@@ -9,7 +9,7 @@ What is Jekyll?
 
 > Transform your plain text into static websites and blogs. [jekyllrb.com](http://jekyllrb.com/)
 
-## 安装
+# 安装
 
 需要有**完整的 Ruby 开发环境**，[前置需求看这里](https://jekyllrb.com/docs/installation/#requirements)
 
@@ -143,8 +143,8 @@ $ blundle show minima
 
 **跟我一样天真就白费劲了。** 本机预览没什么问题，传到 gitpage 上就还是**原来的样子**。
 
-按照 Jekyll 官网说法是，需要根据主题目录，额外以相同路径建立同名文件在自己的博客下，或者新增文件。
-
 > Let’s say, for a second example, you want to override Minima’s footer. In your Jekyll site, create an `_includes` folder and add a file in it called `footer.html`. Jekyll will now use your site’s `footer.html` file instead of the `footer.html` file from the Minima theme gem.
+
+按照 Jekyll 官网说法是，需要根据主题目录，额外以相同路径建立同名文件在自己的博客下，或者新增文件。
 
 相当于是强制备份吧，折腾坏了也方便还原。

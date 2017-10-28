@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>macOS自带PHP环境配置</title>
+  <meta name="description" content="以下内容运行环境 macOS Sierra 10.12.6">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="stylesheet" href="/assets/choipun.css">
+  <link rel="canonical" href="http://localhost:4000/2017/10/php-env-in-mac">
+  <link rel="alternate" type="application/rss+xml" title="Choipun" href="/feed.xml">
+  
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper">
+    
+    
+    <a class="site-title" href="/">Choipun</a>
+  
+    
+      <nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+              <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+              <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+          
+            
+            
+          
+            
+            
+            <a class="page-link" href="/about/">About</a>
+            
+          
+            
+            
+          
+            
+            
+            <a class="page-link" href="/time/">Time</a>
+            
+          
+            
+            
+          
+            
+            
+          
+        </div>
+      </nav>
+    
+  </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">macOS自带PHP环境配置</h1>
+    <p class="post-meta">
+      <time datetime="2017-10-18T19:00:00+08:00" itemprop="datePublished">
+        
+        Oct 18, 2017
+      </time>
+      </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <blockquote>
+  <p>以下内容运行环境 macOS Sierra 10.12.6</p>
+</blockquote>
+
+<blockquote>
+  <p>升级到 macOS High Sierra 10.13 之后，需要重新配置 httpd-vhosts.conf 文件，重启 MySQL 服务</p>
+</blockquote>
+
+<h1 id="apache">Apache</h1>
+
+<p>先把执行权限调整成 root</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>su -
+</code></pre></div></div>
+
+<p>开启服务</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apachectl start
+</code></pre></div></div>
+
+<p>看到 <a href="http://localhost/">http://localhost/</a> 显示 <strong>It works!</strong> 说明Apache已经正常运作。</p>
+
+<p>根目录在 /Library/WebServer/Documents 中。</p>
+
+<p>显示 Apache 版本</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apachectl <span class="nt">-v</span>
+</code></pre></div></div>
+
+<p>重启</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apachectl restart
+
+</code></pre></div></div>
+
+<h1 id="php">PHP</h1>
+
+<p>开启PHP之前，先把现有的 httpd.conf 备份一下</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> /etc/apache2/
+<span class="nv">$ </span>cp httpd.conf httpd.conf.bak
+</code></pre></div></div>
+
+<p>打开 httpd.conf 找到以下这行，删除前面的 <code class="highlighter-rouge">#</code> 解除注释。</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#LoadModule php5_module libexec/apache2/libphp5.so
+</code></pre></div></div>
+
+<p>然后重启Apache服务</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apachectl restart
+</code></pre></div></div>
+
+<p>可以在根目录下写入一个 phpinfo.php</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nb">phpinfo</span><span class="p">();</span> <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>然后打开 <a href="http://localhost/phpinfo.php">http://localhost/phpinfo.php</a> 看看是否能获取到信息。</p>
+
+<p>查看PHP版本</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php <span class="nt">-v</span>
+</code></pre></div></div>
+
+<p>显示为5.6.3</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PHP 5.6.30 <span class="o">(</span>cli<span class="o">)</span> <span class="o">(</span>built: Feb  7 2017 16:18:37<span class="o">)</span> 
+Copyright <span class="o">(</span>c<span class="o">)</span> 1997-2016 The PHP Group
+Zend Engine v2.6.0, Copyright <span class="o">(</span>c<span class="o">)</span> 1998-2016 Zend Technologies
+</code></pre></div></div>
+
+<p>有点旧，升级之！</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl <span class="nt">-s</span> https://php-osx.liip.ch/install.sh | bash <span class="nt">-s</span> 7.1
+</code></pre></div></div>
+
+<p>此时并不是覆盖原来的版本，而是下载了一个新的版本。 
+需要修改默认指向的路径。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>vim ~/.bash_profile
+</code></pre></div></div>
+
+<p>进入vim模式后按 i 键进入编辑状态，插入这一行：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span>/usr/local/php5-7.1.8-20170817-170852/bin:<span class="nv">$PATH</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong>以下载的时候显示的路径为准，后面的数字应该是不一样的。</strong></p>
+
+<p>然后按 esc 键，输入 <code class="highlighter-rouge">:wq</code> 保存并退出。</p>
+
+<p>接着执行这句：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">source</span> ~/.bash_profile
+</code></pre></div></div>
+
+<p>再次查看PHP版本就会发现已经更新好了。</p>
+
+<p>最后，把 httpd.conf 中刚刚开启过的 <code class="highlighter-rouge">php5_module</code> 再注释掉，否则会导致冲突。</p>
+
+<p>再次查看 <a href="http://localhost/phpinfo.php">http://localhost/phpinfo.php</a> 页面，此时显示的版本为7.1.8 ，一切完美。</p>
+
+<h1 id="多站点配置">多站点配置</h1>
+
+<p>在站点根目录下建个 test 文件夹，即 /Library/WebServer/Documents/test</p>
+
+<p>打开 test 并放个 index.php 进去，随便内容写点什么。</p>
+
+<p>接着需要开启vhost服务，打开 httpd.conf，找到以下内容并删除前面的 <code class="highlighter-rouge">#</code></p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Include /private/etc/apache2/extra/httpd-vhosts.conf
+</code></pre></div></div>
+
+<p>接着，前往 /etc/apache2/extra，编辑 httpd-vhosts.conf 添加如下内容</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;VirtualHost</span> <span class="err">*:80</span><span class="nt">&gt;</span>
+    DocumentRoot "/Library/WebServer/Documents/test"
+    ServerName www.test.com
+<span class="nt">&lt;/VirtualHost&gt;</span>
+</code></pre></div></div>
+
+<p>前往 /etc，编辑 hosts 添加本地域名解析规则。建议是直接复制现有的内容，直接修改就好，不要自己写。</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>127.0.0.1	www.test.com
+</code></pre></div></div>
+
+<p>配置完毕后，重启一下 Apache 服务</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apachectl restart
+</code></pre></div></div>
+
+<p>最后，打开地址栏，输入 <a href="http://www.test.com/">http://www.test.com/</a>，看到了之前新建的 index.php 的内容，说明配置成功！</p>
+
+<h1 id="mysql">MySQL</h1>
+
+<h4 id="通过-homebrew-来安装">通过 homebrew 来安装</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>brew install mysql
+</code></pre></div></div>
+
+<p>会顺便安装依赖工具 openSSL，当看到 🍺 标志就说明安装成功了。</p>
+
+<p>可以看下有哪些可用命令及相关信息。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mysql <span class="nt">--help</span>
+</code></pre></div></div>
+
+<p>安装完成后要做点简单配置</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">unset </span>TMPDIR
+mysql_install_db <span class="nt">--verbose</span> <span class="nt">--user</span><span class="o">=</span><span class="sb">`</span>whoami<span class="sb">`</span> <span class="nt">--basedir</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>brew <span class="nt">--prefix</span> mysql<span class="k">)</span><span class="s2">"</span> <span class="nt">--datadir</span><span class="o">=</span>/usr/local/var/mysql <span class="nt">--tmpdir</span><span class="o">=</span>/tmp
+</code></pre></div></div>
+
+<p>会看到报错提示未知变量</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql_install_db: <span class="o">[</span>ERROR] unknown variable <span class="s1">'tmpdir=/tmp'</span>
+2017-09-07 16:35:03 <span class="o">[</span>ERROR]   Unrecognized options
+</code></pre></div></div>
+<p>不知道是不是就我遇到了这个情况，暂时没有搜索到什么解决方案，跳过貌似没有什么影响。</p>
+
+<h4 id="启动mysql">启动MySQL</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql.server start
+</code></pre></div></div>
+
+<h4 id="安全配置">安全配置</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>/usr/local/Cellar/mysql/5.7.19/bin/mysql_secure_installation
+</code></pre></div></div>
+
+<p><strong>版本号以实际安装的为准</strong>，可以先查询看下</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mysql <span class="nt">--version</span>
+</code></pre></div></div>
+
+<p>显示如下信息</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mysql  Ver 14.14 Distrib 5.7.19, <span class="k">for </span>osx10.12 <span class="o">(</span>x86_64<span class="o">)</span> using  EditLine wrapper
+</code></pre></div></div>
+<p>也就是 <code class="highlighter-rouge">Distrib </code> 后面的 <code class="highlighter-rouge">5.7.19</code></p>
+
+<p>之后就是一些设置了。</p>
+
+<p>都是英文看不懂？<strong>macOS很方便的一点就是选中单词以后，双指轻触，就可以查询单词意思。</strong></p>
+
+<p>homebrew 安装的 mysql 的数据存储位置为 <strong>/usr/local/var/mysql</strong>。 可以通过 <code class="highlighter-rouge">find / -name databasename</code> 的方式根据数据库名称找到具体位置。</p>
+
+<h4 id="mysql-基本操作">MySQL 基本操作</h4>
+
+<p>登录mysql</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>mysql <span class="nt">-uroot</span> <span class="nt">-p</span>
+</code></pre></div></div>
+
+<p>会提示需要输入密码，完成后就可以连接上去了。</p>
+
+<p>这个时候，命令行会变成这种形式：</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysql</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>查看数据库列表</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">show</span> <span class="n">databases</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong>注意：所有的 MySQL 操作语句都不能省略后面的</strong> <code class="highlighter-rouge">;</code></p>
+
+<p>显示如下结果</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">+</span><span class="c1">--------------------+</span>
+<span class="o">|</span> <span class="k">Database</span>           <span class="o">|</span>
+<span class="o">+</span><span class="c1">--------------------+</span>
+<span class="o">|</span> <span class="n">information_schema</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">mysql</span>              <span class="o">|</span>
+<span class="o">|</span> <span class="n">performance_schema</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">sys</span>                <span class="o">|</span>
+<span class="o">+</span><span class="c1">--------------------+</span>
+<span class="mi">4</span> <span class="k">rows</span> <span class="k">in</span> <span class="k">set</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span> <span class="n">sec</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>创新数据库</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">create</span> <span class="k">database</span> <span class="n">mydb</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>打开数据库</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysql</span><span class="o">&gt;</span> <span class="n">use</span> <span class="n">mydb</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>查看数据表</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">show</span> <span class="n">tables</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="gui工具">GUI工具</h4>
+
+<p>总是敲命令行比较麻烦，也不太直观。可以使用 GUI 工具来进行操作</p>
+
+<p>推荐：</p>
+
+<ul>
+  <li><a href="http://www.sequelpro.com/">Sequel Pro</a></li>
+  <li><a href="https://www.phpmyadmin.net/">phpMyAdmin</a></li>
+</ul>
+
+  </div>
+
+  
+    
+
+  
+</article>
+      </div>
+    </main>
+
+    <footer class="site-footer choipun">
+  <div class="container">
+    <ul class="list-inline text-center">
+      
+      <li>
+        <a href="https://github.com/choipun" target="_blank"><span class="icon icon--github"><svg viewBox="0 0 16 16" width="32px" height="32px"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span></a>
+
+      </li>
+      
+    </ul>
+    <p class="copyright text-muted">
+      Copyright © Choipun 2017
+    </p>
+  </div>
+</footer>
+
+  </body>
+
+</html>
