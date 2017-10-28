@@ -3,6 +3,7 @@ layout: post
 title:  "Hello, BLOG"
 date:   2017-10-28 14:54:37 +0800
 comments: true
+banner: '/assets/images/whale+lowpoly.png'
 --- 
 
 一直以来就有写笔记的习惯，记录日常接触到的新内容，或者踩到的坑。时间一长，笔记也就多了起来。
