@@ -3,6 +3,7 @@ layout: post
 title:  "使用Jekyll搭建博客的踩坑记录"
 date:   2017-10-24 21:19:37 +0800
 comments: true
+banner: '/assets/images/jekyll-banner.png'
 ---
 
 What is Jekyll?
