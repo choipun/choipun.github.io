@@ -3,6 +3,7 @@ layout: post
 title:  "macOS自带PHP环境配置"
 date:   2017-10-18 19:00:00 +0800
 comments: true
+tags: macOS
 ---
 
 > 以下内容运行环境 macOS Sierra 10.12.6

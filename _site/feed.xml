@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-10-28T20:21:24+08:00</updated><id>/</id><title type="html">Choipun</title><subtitle>与你一起探索未知世界</subtitle><author><name>Choipun</name></author><entry><title type="html">Hello, BLOG</title><link href="/2017/10/hello-blog" rel="alternate" type="text/html" title="Hello, BLOG" /><published>2017-10-28T14:54:37+08:00</published><updated>2017-10-28T14:54:37+08:00</updated><id>/2017/10/hello-blog</id><content type="html" xml:base="/2017/10/hello-blog">&lt;p&gt;一直以来就有写笔记的习惯，记录日常接触到的新内容，或者踩到的坑。时间一长，笔记也就多了起来。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-10-30T15:32:17+08:00</updated><id>/</id><title type="html">Choipun</title><subtitle>与你一起探索未知世界</subtitle><author><name>Choipun</name></author><entry><title type="html">Hello, BLOG</title><link href="/2017/10/hello-blog" rel="alternate" type="text/html" title="Hello, BLOG" /><published>2017-10-28T14:54:37+08:00</published><updated>2017-10-28T14:54:37+08:00</updated><id>/2017/10/hello-blog</id><content type="html" xml:base="/2017/10/hello-blog">&lt;p&gt;一直以来就有写笔记的习惯，记录日常接触到的新内容，或者踩到的坑。时间一长，笔记也就多了起来。&lt;/p&gt;
 
 &lt;p&gt;要是分享出来，一不小心帮到别人，那也是很棒的。&lt;/p&gt;
 
@@ -63,7 +63,7 @@
 
 &lt;p&gt;修改基础 &lt;code class=&quot;highlighter-rouge&quot;&gt;font-family&lt;/code&gt; 为更符合中文显示的系列字体。&lt;/p&gt;
 
-&lt;p&gt;文章增加可选的顶图选项。&lt;/p&gt;</content><author><name>Choipun</name></author><summary type="html">一直以来就有写笔记的习惯，记录日常接触到的新内容，或者踩到的坑。时间一长，笔记也就多了起来。</summary></entry><entry><title type="html">使用Jekyll搭建博客的踩坑记录</title><link href="/2017/10/install-jekyll" rel="alternate" type="text/html" title="使用Jekyll搭建博客的踩坑记录" /><published>2017-10-24T21:19:37+08:00</published><updated>2017-10-24T21:19:37+08:00</updated><id>/2017/10/install-jekyll</id><content type="html" xml:base="/2017/10/install-jekyll">&lt;p&gt;What is Jekyll?&lt;/p&gt;
+&lt;p&gt;文章增加可选的顶图选项。&lt;/p&gt;</content><author><name>Choipun</name></author><category term="life" /><summary type="html">一直以来就有写笔记的习惯，记录日常接触到的新内容，或者踩到的坑。时间一长，笔记也就多了起来。</summary></entry><entry><title type="html">使用Jekyll搭建博客的踩坑记录</title><link href="/2017/10/install-jekyll" rel="alternate" type="text/html" title="使用Jekyll搭建博客的踩坑记录" /><published>2017-10-24T21:19:37+08:00</published><updated>2017-10-24T21:19:37+08:00</updated><id>/2017/10/install-jekyll</id><content type="html" xml:base="/2017/10/install-jekyll">&lt;p&gt;What is Jekyll?&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;Transform your plain text into static websites and blogs. &lt;a href=&quot;http://jekyllrb.com/&quot;&gt;jekyllrb.com&lt;/a&gt;&lt;/p&gt;
@@ -168,6 +168,7 @@ Installing minima 2.1.1
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Server address: http://127.0.0.1:4000/
 Server running... press ctrl-c to stop.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;p&gt;浏览器里打开看看，一切都是那么完美！&lt;/p&gt;
 
 &lt;h1 id=&quot;minima&quot;&gt;Minima&lt;/h1&gt;
@@ -190,7 +191,7 @@ Server running... press ctrl-c to stop.
 
 &lt;p&gt;按照 Jekyll 官网说法是，需要根据主题目录，额外以相同路径建立同名文件在自己的博客下，或者新增文件。&lt;/p&gt;
 
-&lt;p&gt;相当于是强制备份吧，折腾坏了也方便还原。&lt;/p&gt;</content><author><name>Choipun</name></author><summary type="html">What is Jekyll?</summary></entry><entry><title type="html">Windows Server IIS 6.0 安装域名证书</title><link href="/2017/10/windwos-server-ssl" rel="alternate" type="text/html" title="Windows Server IIS 6.0 安装域名证书" /><published>2017-10-22T19:00:00+08:00</published><updated>2017-10-22T19:00:00+08:00</updated><id>/2017/10/windwos-server-ssl</id><content type="html" xml:base="/2017/10/windwos-server-ssl">&lt;p&gt;假设已经获取到 &lt;code class=&quot;highlighter-rouge&quot;&gt;.pfx&lt;/code&gt; 格式证书：&lt;/p&gt;
+&lt;p&gt;相当于是强制备份吧，折腾坏了也方便还原。&lt;/p&gt;</content><author><name>Choipun</name></author><category term="jekyll" /><summary type="html">What is Jekyll?</summary></entry><entry><title type="html">Windows Server IIS 6.0 安装域名证书</title><link href="/2017/10/windwos-server-ssl" rel="alternate" type="text/html" title="Windows Server IIS 6.0 安装域名证书" /><published>2017-10-22T19:00:00+08:00</published><updated>2017-10-22T19:00:00+08:00</updated><id>/2017/10/windwos-server-ssl</id><content type="html" xml:base="/2017/10/windwos-server-ssl">&lt;p&gt;假设已经获取到 &lt;code class=&quot;highlighter-rouge&quot;&gt;.pfx&lt;/code&gt; 格式证书：&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;打开IIS&lt;/li&gt;
@@ -237,7 +238,7 @@ Server running... press ctrl-c to stop.
   &lt;li&gt;替换文件为刚刚保存的&lt;strong&gt;redirect.html&lt;/strong&gt;，点击&lt;strong&gt;确定&lt;/strong&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;测试一下， 以 &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt; 开头访问网站，自动跳转到了 &lt;code class=&quot;highlighter-rouge&quot;&gt;https&lt;/code&gt; 开头的地址，说明设置成功!&lt;/p&gt;</content><author><name>Choipun</name></author><summary type="html">假设已经获取到 .pfx 格式证书：</summary></entry><entry><title type="html">macOS自带PHP环境配置</title><link href="/2017/10/php-env-in-mac" rel="alternate" type="text/html" title="macOS自带PHP环境配置" /><published>2017-10-18T19:00:00+08:00</published><updated>2017-10-18T19:00:00+08:00</updated><id>/2017/10/php-env-in-mac</id><content type="html" xml:base="/2017/10/php-env-in-mac">&lt;blockquote&gt;
+&lt;p&gt;测试一下， 以 &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt; 开头访问网站，自动跳转到了 &lt;code class=&quot;highlighter-rouge&quot;&gt;https&lt;/code&gt; 开头的地址，说明设置成功!&lt;/p&gt;</content><author><name>Choipun</name></author><category term="windows" /><summary type="html">假设已经获取到 .pfx 格式证书：</summary></entry><entry><title type="html">macOS自带PHP环境配置</title><link href="/2017/10/php-env-in-mac" rel="alternate" type="text/html" title="macOS自带PHP环境配置" /><published>2017-10-18T19:00:00+08:00</published><updated>2017-10-18T19:00:00+08:00</updated><id>/2017/10/php-env-in-mac</id><content type="html" xml:base="/2017/10/php-env-in-mac">&lt;blockquote&gt;
   &lt;p&gt;以下内容运行环境 macOS Sierra 10.12.6&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -483,7 +484,7 @@ mysql_install_db &lt;span class=&quot;nt&quot;&gt;--verbose&lt;/span&gt; &lt;spa
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.sequelpro.com/&quot;&gt;Sequel Pro&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.phpmyadmin.net/&quot;&gt;phpMyAdmin&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Choipun</name></author><summary type="html">以下内容运行环境 macOS Sierra 10.12.6</summary></entry><entry><title type="html">macOS通过终端解压rar文件</title><link href="/2017/09/mac-unrar" rel="alternate" type="text/html" title="macOS通过终端解压rar文件" /><published>2017-09-15T15:23:47+08:00</published><updated>2017-09-15T15:23:47+08:00</updated><id>/2017/09/mac-unrar</id><content type="html" xml:base="/2017/09/mac-unrar">&lt;p&gt;通过 homebrew 安装 unrar&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>Choipun</name></author><category term="macOS" /><summary type="html">以下内容运行环境 macOS Sierra 10.12.6</summary></entry><entry><title type="html">macOS通过终端解压rar文件</title><link href="/2017/09/mac-unrar" rel="alternate" type="text/html" title="macOS通过终端解压rar文件" /><published>2017-09-15T15:23:47+08:00</published><updated>2017-09-15T15:23:47+08:00</updated><id>/2017/09/mac-unrar</id><content type="html" xml:base="/2017/09/mac-unrar">&lt;p&gt;通过 homebrew 安装 unrar&lt;/p&gt;
 
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;brew install unrar  
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -493,7 +494,7 @@ mysql_install_db &lt;span class=&quot;nt&quot;&gt;--verbose&lt;/span&gt; &lt;spa
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;unrar x filename.rar
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;即可解压到当前文件夹&lt;/p&gt;</content><author><name>Choipun</name></author><summary type="html">通过 homebrew 安装 unrar</summary></entry><entry><title type="html">Windwos服务端搭建Shadowsocks</title><link href="/2017/09/install-shadowsocks-in-windows-server" rel="alternate" type="text/html" title="Windwos服务端搭建Shadowsocks" /><published>2017-09-07T19:00:00+08:00</published><updated>2017-09-07T19:00:00+08:00</updated><id>/2017/09/install-shadowsocks-in-windows-server</id><content type="html" xml:base="/2017/09/install-shadowsocks-in-windows-server">&lt;h1 id=&quot;服务端&quot;&gt;服务端&lt;/h1&gt;
+&lt;p&gt;即可解压到当前文件夹&lt;/p&gt;</content><author><name>Choipun</name></author><category term="macOS" /><summary type="html">通过 homebrew 安装 unrar</summary></entry><entry><title type="html">Windwos服务端搭建Shadowsocks</title><link href="/2017/09/install-shadowsocks-in-windows-server" rel="alternate" type="text/html" title="Windwos服务端搭建Shadowsocks" /><published>2017-09-07T19:00:00+08:00</published><updated>2017-09-07T19:00:00+08:00</updated><id>/2017/09/install-shadowsocks-in-windows-server</id><content type="html" xml:base="/2017/09/install-shadowsocks-in-windows-server">&lt;h1 id=&quot;服务端&quot;&gt;服务端&lt;/h1&gt;
 
 &lt;h4 id=&quot;安装-python&quot;&gt;安装 Python&lt;/h4&gt;
 
@@ -588,4 +589,4 @@ mysql_install_db &lt;span class=&quot;nt&quot;&gt;--verbose&lt;/span&gt; &lt;spa
 
 &lt;p&gt;对应 shadowsocks.json 配置文件，对照相同项目来填写。填写完以后按 &lt;strong&gt;确定&lt;/strong&gt; 保存配置。&lt;/p&gt;
 
-&lt;p&gt;接着右键纸飞机图标 –&amp;gt; &lt;strong&gt;服务器&lt;/strong&gt;，勾选刚刚设置的那个。&lt;/p&gt;</content><author><name>Choipun</name></author><summary type="html">服务端</summary></entry></feed>
+&lt;p&gt;接着右键纸飞机图标 –&amp;gt; &lt;strong&gt;服务器&lt;/strong&gt;，勾选刚刚设置的那个。&lt;/p&gt;</content><author><name>Choipun</name></author><category term="windows" /><summary type="html">服务端</summary></entry></feed>

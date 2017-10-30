@@ -55,6 +55,11 @@
           
             
             
+            <a class="page-link" href="/tags/">Tags</a>
+            
+          
+            
+            
             <a class="page-link" href="/time/">Time</a>
             
           
@@ -88,6 +93,24 @@
         <h2>
           <a class="post-link" href="/2017/10/hello-blog">Hello, BLOG</a>
         </h2>
+        <div class="post-content-preview">
+          一直以来就有写笔记的习惯，记录日常接触到的新内容，或者踩到的坑。时间一长，笔记也就多了起来。
+
+要是分享出来，一不小心帮到别人，那也是很棒的。
+
+那就搭个博客吧。
+
+用什么搭建
+
+其实之前试过用 WordPress，主要问题是：
+
+
+  需要购买服务器（或虚拟主机） + 域名
+  国内的服务器需要备案
+  用 markdown 来写内容需要安装插件来实现
+    
+      当然直接复制 ...
+        </div>
       </li>
     
       <li>
@@ -96,6 +119,24 @@
         <h2>
           <a class="post-link" href="/2017/10/install-jekyll">使用Jekyll搭建博客的踩坑记录</a>
         </h2>
+        <div class="post-content-preview">
+          What is Jekyll?
+
+
+  Transform your plain text into static websites and blogs. jekyllrb.com
+
+
+安装
+
+需要有完整的 Ruby 开发环境，前置需求看这里
+
+$ gem install jekyll
+
+
+macOS 会遇到这个坑
+
+Fetching: public_suffix-3.0.0.gem (10...
+        </div>
       </li>
     
       <li>
@@ -104,6 +145,25 @@
         <h2>
           <a class="post-link" href="/2017/10/windwos-server-ssl">Windows Server IIS 6.0 安装域名证书</a>
         </h2>
+        <div class="post-content-preview">
+          假设已经获取到 .pfx 格式证书：
+
+
+  打开IIS
+  选择网站 –&gt; 点击右键 –&gt; 属性
+  点击 目录安全性 选项卡
+  安全通信一栏，点击服务器证书
+  选择从.pfx文件导入证书
+  导入证书，输入证书密码，一直点击下一步，即可完成。
+
+
+强制必须以 https 打开：
+
+
+  回到安全通信一栏，点击编辑
+  勾选 要求安全通道（SSL）
+  勾选 要求128位加...
+        </div>
       </li>
     
       <li>
@@ -112,6 +172,29 @@
         <h2>
           <a class="post-link" href="/2017/10/php-env-in-mac">macOS自带PHP环境配置</a>
         </h2>
+        <div class="post-content-preview">
+          
+  以下内容运行环境 macOS Sierra 10.12.6
+
+
+
+  升级到 macOS High Sierra 10.13 之后，需要重新配置 httpd-vhosts.conf 文件，重启 MySQL 服务
+
+
+Apache
+
+先把执行权限调整成 root
+
+$ sudo su -
+
+
+开启服务
+
+$ sudo apachectl start
+
+
+看到 http://localho...
+        </div>
       </li>
     
       <li>
@@ -120,6 +203,20 @@
         <h2>
           <a class="post-link" href="/2017/09/mac-unrar">macOS通过终端解压rar文件</a>
         </h2>
+        <div class="post-content-preview">
+          通过 homebrew 安装 unrar
+
+$ brew install unrar  
+
+
+进入 .rar 文件目录
+
+$ unrar x filename.rar
+
+
+即可解压到当前文件夹
+
+        </div>
       </li>
     
       <li>
@@ -128,6 +225,29 @@
         <h2>
           <a class="post-link" href="/2017/09/install-shadowsocks-in-windows-server">Windwos服务端搭建Shadowsocks</a>
         </h2>
+        <div class="post-content-preview">
+          服务端
+
+安装 Python
+
+首先去到 Python 官网下载 Python V2 ：点击前往
+
+32位系统点我
+
+64位系统点我
+
+注意：最好是根据现在系统的环境来选择，并且要与OpenSSL对应，不能用32位 Python 与64位的 OpenSSL 搭配使用。
+
+安装 OpenSSL
+
+同样去到 OpenSSL 官网下载：OpenSSL
+
+32位系统点我
+
+64位系统点我
+
+这里需要...
+        </div>
       </li>
     
   </ul>

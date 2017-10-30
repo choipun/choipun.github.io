@@ -4,6 +4,7 @@ title:  "使用Jekyll搭建博客的踩坑记录"
 date:   2017-10-24 21:19:37 +0800
 comments: true
 banner: '/assets/images/jekyll-banner.png'
+tags: jekyll
 ---
 
 What is Jekyll?
@@ -127,6 +128,7 @@ $ bundle exec jekyll serve
 Server address: http://127.0.0.1:4000/
 Server running... press ctrl-c to stop.
 ```
+
 浏览器里打开看看，一切都是那么完美！
 
 # Minima
