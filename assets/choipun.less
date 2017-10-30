@@ -129,16 +129,22 @@ blockquote {
 	}
 	.time-container {
 		position: absolute;
-	    top: 40%;
+	    top: 50%;
 	    left: 50%;
 	    transform: translate(-50%,-50%);
-	    max-width: 600px;
+	    width: 100%;
+	    max-width: 750px;
 	    text-align: center;
+	    box-sizing: border-box;
+	    padding: 0 20px;
 
 		h1 {
-			font-size: 4em;
-			line-height: 1;
+			font-size: 2.4rem;
+			line-height: normal;
 			letter-spacing: -1px;
+			margin: 0;
+			font-family: Times New Roman,Georgia;
+			letter-spacing: .5rem;
 		}
 		.tip {
 			font-size: .8em;
@@ -147,16 +153,19 @@ blockquote {
 
 		.time-record {
 			display: flex;
-			margin-bottom: 30px;
+			margin: 1rem 0;
+			width: 100%;
+			padding: 1rem 0;
+			border-top: 1px solid rgba(255, 255, 255, .5);
+			border-bottom: 1px solid rgba(255, 255, 255, .5);
 			hgroup {
 				flex:1;
-				padding: 10px 10px;
-				border-top: 1px solid rgba(255, 255, 255, .5);
-				border-bottom: 1px solid rgba(255, 255, 255, .5);
 			}
 			.num {
-				font-size: 3em;
+				font-family: Menlo,Courier New,Consolas,Monaco,monospace;
+				font-size: 2.4rem;
 				line-height: normal;
+
 			}
 			small {
 				text-transform: uppercase;
@@ -196,7 +205,8 @@ blockquote {
 		    fill: rgba(255, 255, 255, .8);
 		}
 		.copyright {
-			color: rgba(255, 255, 255, .8)
+			color: rgba(255, 255, 255, .8);
+			margin: 10px 0 30px;
 		}
 	}
 
