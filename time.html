@@ -1,32 +1,20 @@
 ---
-layout: default
-title: Time
+layout: time
 permalink: /time/
 ---
 
-<style type="text/css" media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 4em;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-  .tip {
-    font-size: .8em;
-    color: #999;
-  }
-</style>
-<div class="container">
+<div class="mask"></div>
+
+{% include header.html %}
+
+<div class="time-container">
   <h1>TIME</h1>
-  <p><strong id="time"></strong></p>
+  <div class="time-record" id="time"></div>
   <p class="tip">From 2017-10-01 12:00:00</p>
   <p class="tip">从开始，到现在</p>
 </div>
+
+{% include footer.html %}
 
 <script>
   var timeEl = document.getElementById('time');
@@ -46,6 +34,25 @@ permalink: /time/
     var m = Math.floor(deta / 60) - (d * 24 * 60) - (h * 60);
     var s = Math.floor(deta - (d * 24 * 60 * 60) - (h * 60 * 60) - (m * 60));
 
-    timeEl.innerHTML = d + ' days ' + h + ' hours ' + m + ' minutes ' + s + ' secends';
+    var template = `
+    <hgroup>
+      <div class="num">${d}</div>
+      <small>days</small>
+    </hgroup>
+    <hgroup>
+      <div class="num">${h}</div>
+      <small>hours</small>
+    </hgroup>
+    <hgroup>
+      <div class="num">${m}</div>
+      <small>minutes</small>
+    </hgroup>
+    <hgroup>
+      <div class="num">${s}</div>
+      <small>secends</small>
+    </hgroup>
+    `;
+
+    timeEl.innerHTML = template;
   }
 </script>

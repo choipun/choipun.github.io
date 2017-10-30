@@ -1,3 +1,30 @@
+base:body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{margin:0;padding:0;}
+fieldset,img{border:0;}
+:focus{outline:0;}
+address,caption,cite,code,dfn,em,th,var,optgroup{font-weight:normal;font-style:normal;}
+h1,h2,h3,h4,h5,h6{font-weight:normal;font-size:100%;}
+abbr,acronym{border:0;font-variant:normal;}
+input,button,textarea,select,optgroup,option{font-weight:inherit;font-style:inherit;font-size:inherit;font-family:inherit;}
+code,kbd,samp,tt{font-size:100%;}
+input,button,textarea,select{*font-size:100%;}
+body{line-height:1.5;}
+ol,ul{list-style:none;}
+table{border-collapse:collapse;border-spacing:0;}
+caption,th{text-align:left;}
+sup,sub{font-size:100%;}
+:link,:visited,ins{text-decoration:none;}
+blockquote,q{quotes:none;}
+blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}
+main{display:block;}
+*::selection{background-color:#ccc;}
+img{max-width:100%;}
+
+.clearfix:after{clear:both;display:block;visibility:hidden;height:0;content:".";}
+.clearfix{display:inline-block;}
+/* Hides from IE-mac \*/ 
+* html .clearfix{height:1%;}
+.clearfix{display:block;}
+/* End hide from IE-mac */
 body {
 	font: 400 16px/1.5 -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,PingFang SC,Source Han Sans CN,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif;
 }
@@ -52,6 +79,10 @@ blockquote {
 	    color: #868e96;
 	    line-height: 1.5;
     	margin: 30px 0;
+
+    	a {
+    		color: inherit;
+    	}
 	}
 }
 
@@ -76,4 +107,108 @@ blockquote {
 		}
 	}
 	
+}
+.main-time{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	-webkit-text-size-adjust: none;
+    background-attachment: fixed;
+    background: url('/assets/images/gif_03.gif') center center no-repeat;
+    background-size: cover;
+    color: #fff;
+
+    .mask{
+	    width: 100%;
+	    height: 100%;
+	    position: fixed;
+	    top: 0px;
+	    left: 0px;
+	    background: transparent url('/assets/images/pattern.png') repeat top left;
+	}
+	.time-container {
+		position: absolute;
+	    top: 40%;
+	    left: 50%;
+	    transform: translate(-50%,-50%);
+	    max-width: 600px;
+	    text-align: center;
+
+		h1 {
+			font-size: 4em;
+			line-height: 1;
+			letter-spacing: -1px;
+		}
+		.tip {
+			font-size: .8em;
+			color: rgba(255, 255, 255, .75);
+		}
+
+		.time-record {
+			display: flex;
+			margin-bottom: 30px;
+			hgroup {
+				flex:1;
+				padding: 10px 10px;
+				border-top: 1px solid rgba(255, 255, 255, .5);
+				border-bottom: 1px solid rgba(255, 255, 255, .5);
+			}
+			.num {
+				font-size: 3em;
+				line-height: normal;
+			}
+			small {
+				text-transform: uppercase;
+				font-size: .6em;
+				line-height: normal;
+			}
+		}
+	 }
+
+	.site-header{
+		border: none;
+		.site-title {
+			color: #fff;
+			text-shadow: 0 1px 3px rgba(0,0,0,.25);
+			&:visited{
+				color: #fff;
+			}
+		}
+		.trigger {
+			a {
+				color: #fff;
+				&:visited{
+					color: #fff;
+				}
+			}
+		}
+	}
+
+	.site-footer.choipun{
+		position: absolute;
+	    bottom: 0;
+	    left: 0;
+	    padding: 0;
+	    border: none;
+	    width: 100%;
+	    .icon > svg path {
+		    fill: rgba(255, 255, 255, .8);
+		}
+		.copyright {
+			color: rgba(255, 255, 255, .8)
+		}
+	}
+
+
+	@media screen and (max-width: 600px) {
+		.site-nav {
+			background: none;
+			border: none;
+			.menu-icon > svg path {
+			    fill: #fff;
+			}
+		}
+	}
+
 }
