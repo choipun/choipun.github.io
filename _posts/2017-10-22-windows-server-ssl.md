@@ -49,3 +49,15 @@ tags: windows
 3. 替换文件为刚刚保存的**redirect.html**，点击**确定**
 
 测试一下， 以 `http` 开头访问网站，自动跳转到了 `https` 开头的地址，说明设置成功!
+
+顺便说下生成SSL证书，需要验证域名，要求建立个文件 .well-known/pki-validation/
+
+windows下直接新建文件夹，重命名成 `.well-known` 是无法创建成功的。
+
+解决办法：打开 cmd 进入网站根目录
+
+```cmd
+> d:
+> cd dirname
+> md .well-known
+```
