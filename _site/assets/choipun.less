@@ -1,41 +1,60 @@
-*::selection{background-color:#ccc;}
-img{max-width:100%;}
+*::selection {
+	background-color: #ccc;
+}
 
-.clearfix:after{clear:both;display:block;visibility:hidden;height:0;content:".";}
-.clearfix{display:inline-block;}
-/* Hides from IE-mac \*/ 
-* html .clearfix{height:1%;}
-.clearfix{display:block;}
+img {
+	max-width: 100%;
+}
+
+.clearfix:after {
+	clear: both;
+	display: block;
+	visibility: hidden;
+	height: 0;
+	content: ".";
+}
+
+.clearfix {
+	display: inline-block;
+}
+
+/* Hides from IE-mac \*/
+* html .clearfix {
+	height: 1%;
+}
+
+.clearfix {
+	display: block;
+}
+
 /* End hide from IE-mac */
 body {
-	font: 400 16px/1.5 -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,PingFang SC,Source Han Sans CN,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif;
+	font: 400 16px/1.5 -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, PingFang SC, Source Han Sans CN, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
 }
 
 .highlighter-rouge .highlight {
-    background: #f2f2f2;
+	background: #f2f2f2;
 }
-.site-nav .page-link {
-	text-transform: uppercase;
-	letter-spacing: 1px;
-}
-pre, code {
-    background-color: #f2f2f2;
+
+pre,
+code {
+	background-color: #f2f2f2;
 }
 
 blockquote {
-    font-size: 16px;
-    letter-spacing: 0;
-    font-style: normal;
+	font-size: 16px;
+	letter-spacing: 0;
+	font-style: normal;
 }
 
 .site-footer.choipun {
 	padding: 60px 0 30px;
 
 	.container {
-	    padding: 0 15px;
-	    margin: 0 auto;
+		padding: 0 15px;
+		margin: 0 auto;
 
-	    ul {
+		ul {
 			list-style: none;
 			margin: 0;
 			padding: 0;
@@ -47,25 +66,30 @@ blockquote {
 
 				a {
 					color: #333;
-				    transition: all .2s;
-				    touch-action: manipulation;
+					transition: all .2s;
+					touch-action: manipulation;
 				}
-			}
-		}
-	}
-	
-	.copyright {
-	    font-size: 14px;
-	    margin-bottom: 0;
-	    text-align: center;
-	    color: #868e96;
-	    line-height: 1.5;
-    	margin: 30px 0;
 
-    	a {
-    		color: inherit;
-    	}
+			}
+
+		}
+
 	}
+
+	.copyright {
+		font-size: 14px;
+		margin-bottom: 0;
+		text-align: center;
+		color: #868e96;
+		line-height: 1.5;
+		margin: 30px 0;
+
+		a {
+			color: inherit;
+		}
+
+	}
+
 }
 
 .post-banner {
@@ -74,51 +98,55 @@ blockquote {
 	overflow: hidden;
 }
 
-
 .post-list {
 	& > li {
 		.post-content-preview {
 			padding-bottom: 30px;
 			border-bottom: 1px solid #e8e8e8;
 		}
+
 	}
+
 	& > li:last-child {
 		.post-content-preview {
 			padding: 0;
 			border-bottom: none;
 		}
+
 	}
-	
+
 }
-.main-time{
+
+.main-time {
 	position: absolute;
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
 	-webkit-text-size-adjust: none;
-    background-attachment: fixed;
-    background: url('/assets/images/deer.jpg') center center no-repeat;
-    background-size: cover;
-    color: #fff;
+	background-attachment: fixed;
+	background: url('/assets/images/deer.jpg') center center no-repeat;
+	background-size: cover;
+	color: #fff;
 
-    .mask{
-	    width: 100%;
-	    height: 100%;
-	    position: fixed;
-	    top: 0px;
-	    left: 0px;
-	    background: rgba(0, 0, 0, .25) url('/assets/images/pattern.png') repeat top left;
+	.mask {
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		top: 0px;
+		left: 0px;
+		background: rgba(0, 0, 0, .25) url('/assets/images/pattern.png') repeat top left;
 	}
+
 	.time-container {
 		position: absolute;
-	    top: 45%;
-	    left: 50%;
-	    transform: translate(-50%,-50%);
-	    width: 100%;
-	    max-width: 750px;
-	    text-align: center;
-	    box-sizing: border-box;
-	    padding: 0 20px;
+		top: 45%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 100%;
+		max-width: 750px;
+		text-align: center;
+		box-sizing: border-box;
+		padding: 0 20px;
 
 		h1 {
 			font-size: 60px;
@@ -126,6 +154,7 @@ blockquote {
 			letter-spacing: -1px;
 			margin: 0;
 		}
+
 		.tip {
 			font-size: .8em;
 			color: rgba(255, 255, 255, .75);
@@ -138,67 +167,44 @@ blockquote {
 			padding: .6rem 0;
 			border-top: 1px solid rgba(255, 255, 255, .5);
 			border-bottom: 1px solid rgba(255, 255, 255, .5);
+
 			hgroup {
-				flex:1;
+				flex: 1;
 			}
+
 			.num {
-				font-family: Menlo,Courier New,Consolas,Monaco,monospace;
+				font-family: Menlo, Courier New, Consolas, Monaco, monospace;
 				font-size: 2.4rem;
 				line-height: normal;
-
 			}
+
 			small {
 				text-transform: uppercase;
 				font-size: .6em;
 				line-height: normal;
 			}
-		}
-	 }
 
-	.site-header{
-		border: none;
-		.site-title {
-			color: #fff;
-			text-shadow: 0 1px 3px rgba(0,0,0,.25);
-			&:visited{
-				color: #fff;
-			}
 		}
-		.trigger {
-			a {
-				color: #fff;
-				&:visited{
-					color: #fff;
-				}
-			}
-		}
+
 	}
 
-	.site-footer.choipun{
+	.site-footer.choipun {
 		position: absolute;
-	    bottom: 0;
-	    left: 0;
-	    padding: 0;
-	    border: none;
-	    width: 100%;
-	    .icon > svg path {
-		    fill: rgba(255, 255, 255, .8);
+		bottom: 0;
+		left: 0;
+		padding: 0;
+		border: none;
+		width: 100%;
+
+		.icon > svg path {
+			fill: rgba(255, 255, 255, .8);
 		}
+
 		.copyright {
 			color: rgba(255, 255, 255, .8);
 			margin: 10px 0 30px;
 		}
-	}
 
-
-	@media screen and (max-width: 600px) {
-		.site-nav {
-			background: none;
-			border: none;
-			.menu-icon > svg path {
-			    fill: #fff;
-			}
-		}
 	}
 
 }
@@ -207,4 +213,96 @@ blockquote {
 	position: absolute;
 	bottom: 0;
 	left: 0;
+}
+
+.site-header {
+	height: 320px;
+	border: none;
+	.bg {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		overflow: hidden;
+
+		img {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			max-width: none;
+			object-fit: cover;
+		}
+
+		.mask {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			background: rgba(0, 0, 0, .5) url('/assets/images/pattern.png') repeat top left;
+		}
+
+	}
+
+	.wrapper {
+		position: relative;
+
+		.site-title {
+			color: #fff;
+			letter-spacing: 2px;
+			font-weight: 200;
+
+			&:visited {
+				color: #fff;
+			}
+
+		}
+
+		.site-nav {
+			.page-link {
+				color: #fff;
+				font-size: 12px;
+				text-transform: uppercase;
+				letter-spacing: 2px;
+
+				&:visited {
+					color: #fff;
+				}
+
+			}
+
+		}
+
+	}
+
+}
+
+
+.page-content {
+	.wrapper {
+		.home {
+			.post-list {
+				li {
+					h2 {
+						.post-link {
+							color: inherit;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.site-nav {
+		background: rgba(0, 0, 0, .5);
+		border: none;
+		.menu-icon > svg path {
+			fill:rgba(255, 255, 255, .75);
+		}
+	}
 }

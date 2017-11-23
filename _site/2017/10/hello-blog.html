@@ -21,7 +21,13 @@
   <body>
 
     <header class="site-header" role="banner">
-
+  
+  <div class="bg">
+    
+    <img src="/assets/images/whale-lowpoly.png">
+    <div class="mask"></div>
+  </div>
+  
   <div class="wrapper">
     
     
@@ -33,9 +39,9 @@
         <label for="nav-trigger">
           <span class="menu-icon">
             <svg viewBox="0 0 18 15" width="18px" height="15px">
-              <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
-              <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
-              <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+              <path fill="#fff" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+              <path fill="#fff" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+              <path fill="#fff" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
             </svg>
           </span>
         </label>
@@ -87,11 +93,11 @@
       </time>
       </p>
   </header>
-  
+  <!-- 
   <div class="post-banner">
-    <img src="/assets/images/whale+lowpoly.png">
+    <img src="/assets/images/whale-lowpoly.png">
   </div>
-  
+   -->
   <div class="post-content" itemprop="articleBody">
     <p>一直以来就有写笔记的习惯，记录日常接触到的新内容，或者踩到的坑。时间一长，笔记也就多了起来。</p>
 
@@ -146,20 +152,11 @@
 
 <p>遇到的坑可以看这里：<a href="/2017/10/install-jekyll">使用Jekyll搭建博客的踩坑记录</a></p>
 
-<h1 id="开启评论">开启评论</h1>
+<h1 id="模板">模板</h1>
 
-<p>使用的默认主题 <a href="https://github.com/jekyll/minima">Minima</a> 自带了 <a href="https://disqus.com/">Disqus</a>，所以只需要申请一个 Disqus 账号，补充一下相关配置即可。相比于 <a href="https://github.com/duoshuo">多说</a> 我还是更喜欢 Disqus 界面的简洁大方。</p>
+<p>参考了 <a href="https://github.com/BlackrockDigital/startbootstrap-clean-blog-jekyll/">Clean Blog </a> 的样式，基于 Jekyll 的默认模板 <a href="https://github.com/jekyll/minima">Minima</a> 进行二次修改，基本看不到 Minima的影子了。</p>
 
-<h1 id="修改记录">修改记录</h1>
-
-<p>底部模板，参考 <a href="https://github.com/BlackrockDigital/startbootstrap-clean-blog-jekyll/">Clean Blog Jekyll Theme</a> 的底部样式，放大图标，仅保留主要描述。</p>
-
-<p>增加 <a href="/time/">Time</a> 页面，记录博客的年龄。</p>
-
-<p>修改基础 <code class="highlighter-rouge">font-family</code> 为更符合中文显示的系列字体。</p>
-
-<p>文章增加可选的顶图选项。</p>
-
+<p>看到 <a href="http://www.wkun.com/">WKUN</a> 有个记录站点成长的页面非常漂亮，所以自己也增加了一个 <a href="/time/">Time</a> 页面来记录博客的年龄。</p>
 
   </div>
 

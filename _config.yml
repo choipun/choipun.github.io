@@ -45,3 +45,6 @@ disqus:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+
+default_banner: "/assets/images/default-banner.jpg"

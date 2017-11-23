@@ -22,7 +22,7 @@
         <div class="mask"></div>
 
 <header class="site-header" role="banner">
-
+  
   <div class="wrapper">
     
     
@@ -34,9 +34,9 @@
         <label for="nav-trigger">
           <span class="menu-icon">
             <svg viewBox="0 0 18 15" width="18px" height="15px">
-              <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
-              <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
-              <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+              <path fill="#fff" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+              <path fill="#fff" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+              <path fill="#fff" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
             </svg>
           </span>
         </label>
@@ -101,133 +101,7 @@
   </div>
 </footer>
 
-<script>
-  const getFontSize = function() {
-    const oHtml = document.documentElement;
-    const screenWidth = oHtml.clientWidth;
-    if (screenWidth <= 375) {
-      oHtml.style.fontSize = '20px';
-    } else if (screenWidth >= 750) {
-      oHtml.style.fontSize = '40px';
-    } else {
-      oHtml.style.fontSize = screenWidth / (750 / 40) + 'px';
-    }
-  }
-
-  getFontSize();
-
-  window.onresize = function() {
-    getFontSize();
-  }
-
-  const timeEl = document.getElementById('time');
-  const start = new Date('2017/10/01 12:00:00').getTime();
-
-  CountDown();
-  setInterval(function() {
-    CountDown();
-  }, 1000);
-
-  function CountDown() {
-    const now = new Date().getTime();
-    const deta = (now - start) / 1000;
-    const d = Math.floor(deta / 60 / 60 / 24);
-    const h = Math.floor(deta / 60 / 60) - (d * 24);
-    const m = Math.floor(deta / 60) - (d * 24 * 60) - (h * 60);
-    const s = Math.floor(deta - (d * 24 * 60 * 60) - (h * 60 * 60) - (m * 60));
-
-    const template = `
-    <hgroup>
-      <div class="num">${d}</div>
-      <small>days</small>
-    </hgroup>
-    <hgroup>
-      <div class="num">${h}</div>
-      <small>hours</small>
-    </hgroup>
-    <hgroup>
-      <div class="num">${m}</div>
-      <small>minutes</small>
-    </hgroup>
-    <hgroup>
-      <div class="num">${s}</div>
-      <small>secends</small>
-    </hgroup>
-    `;
-
-    timeEl.innerHTML = template;
-  }
-
-  ~(function() {
-    const c = document.getElementById('bubbles');
-    const x = c.getContext('2d');
-    const f = () => {
-      c.width = window.innerWidth;
-      c.height = window.innerHeight / 2;
-    }
-    f();
-    window.onresize = () => {
-      f();
-    }
-    const {
-      random,
-      floor,
-      sin,
-      cos,
-      abs,
-      PI
-    } = Math;
-
-    let [min, max, t, a] = [5, 15, 100, []];
-    let n = floor(c.width / 100);
-    const rf = (a, b) => floor(random() * (b - a) + a);
-    const nb = () => ({
-      r: rf(min, max),
-      x: rf(0, c.width),
-      y: rf(0, c.height),
-      ap: 0,
-      maxap: random() * .5
-    });
-
-    while (n--) {
-      a = [nb(), ...a];
-    }
-
-    const main = () => {
-      x.clearRect(0, 0, c.width, c.height);
-      a.forEach((o, i) => {
-        let ap;
-        const d = o.y - o.r;
-
-        if (d <= 0) {
-          ap = 0;
-        } else if (d > 0 && d <= t) {
-          ap = .5 * (d / t);
-        } else {
-          ap = .5;
-        }
-
-        x.beginPath();
-        x.arc(o.x, o.y, o.r, 0, PI * 2, false);
-        x.closePath();
-        x.fillStyle = `rgba(255, 255, 255, ${o.ap * ap})`;
-        x.fill();
-
-        o.y = o.y - max / o.r / 3;
-        o.x = o.x + sin(o.y / 100);
-        if (o.ap < o.maxap) {
-          o.ap = o.ap + 1 / 100;
-        }
-
-        if (d < 0 || o.x + o.r < 0 || o.x - o.r > c.width) {
-          a.splice(i, 1, nb());
-        }
-      })
-      return requestAnimationFrame(main);
-    }
-    main();
-  })();
-</script>
+<script src="/assets/js/time.js"></script>
     </main>
   </body>
 </html>

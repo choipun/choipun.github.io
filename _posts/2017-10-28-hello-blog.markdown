@@ -3,7 +3,7 @@ layout: post
 title:  "Hello, BLOG"
 date:   2017-10-28 14:54:37 +0800
 comments: true
-banner: '/assets/images/whale+lowpoly.png'
+banner: '/assets/images/whale-lowpoly.png'
 tags: life
 --- 
 
@@ -46,17 +46,8 @@ tags: life
 
 遇到的坑可以看这里：[使用Jekyll搭建博客的踩坑记录](/2017/10/install-jekyll)
 
-# 开启评论
+# 模板
 
-使用的默认主题 [Minima](https://github.com/jekyll/minima) 自带了 [Disqus](https://disqus.com/)，所以只需要申请一个 Disqus 账号，补充一下相关配置即可。相比于 [多说](https://github.com/duoshuo) 我还是更喜欢 Disqus 界面的简洁大方。
+参考了 [Clean Blog ](https://github.com/BlackrockDigital/startbootstrap-clean-blog-jekyll/) 的样式，基于 Jekyll 的默认模板 [Minima](https://github.com/jekyll/minima) 进行二次修改，基本看不到 Minima的影子了。
 
-# 修改记录
-
-底部模板，参考 [Clean Blog Jekyll Theme](https://github.com/BlackrockDigital/startbootstrap-clean-blog-jekyll/) 的底部样式，放大图标，仅保留主要描述。
-
-增加 [Time](/time/) 页面，记录博客的年龄。
-
-修改基础 `font-family` 为更符合中文显示的系列字体。
-
-文章增加可选的顶图选项。
-
+看到 [WKUN](http://www.wkun.com/) 有个记录站点成长的页面非常漂亮，所以自己也增加了一个 [Time](/time/) 页面来记录博客的年龄。

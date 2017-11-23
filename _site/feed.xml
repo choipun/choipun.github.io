@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-11-01T18:44:25+08:00</updated><id>/</id><title type="html">Choipun</title><subtitle>与你一起探索未知世界</subtitle><author><name>Choipun</name></author><entry><title type="html">Hello, BLOG</title><link href="/2017/10/hello-blog" rel="alternate" type="text/html" title="Hello, BLOG" /><published>2017-10-28T14:54:37+08:00</published><updated>2017-10-28T14:54:37+08:00</updated><id>/2017/10/hello-blog</id><content type="html" xml:base="/2017/10/hello-blog">&lt;p&gt;一直以来就有写笔记的习惯，记录日常接触到的新内容，或者踩到的坑。时间一长，笔记也就多了起来。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-11-23T19:55:20+08:00</updated><id>/</id><title type="html">Choipun</title><subtitle>与你一起探索未知世界</subtitle><author><name>Choipun</name></author><entry><title type="html">Hello, BLOG</title><link href="/2017/10/hello-blog" rel="alternate" type="text/html" title="Hello, BLOG" /><published>2017-10-28T14:54:37+08:00</published><updated>2017-10-28T14:54:37+08:00</updated><id>/2017/10/hello-blog</id><content type="html" xml:base="/2017/10/hello-blog">&lt;p&gt;一直以来就有写笔记的习惯，记录日常接触到的新内容，或者踩到的坑。时间一长，笔记也就多了起来。&lt;/p&gt;
 
 &lt;p&gt;要是分享出来，一不小心帮到别人，那也是很棒的。&lt;/p&gt;
 
@@ -51,19 +51,11 @@
 
 &lt;p&gt;遇到的坑可以看这里：&lt;a href=&quot;/2017/10/install-jekyll&quot;&gt;使用Jekyll搭建博客的踩坑记录&lt;/a&gt;&lt;/p&gt;
 
-&lt;h1 id=&quot;开启评论&quot;&gt;开启评论&lt;/h1&gt;
+&lt;h1 id=&quot;模板&quot;&gt;模板&lt;/h1&gt;
 
-&lt;p&gt;使用的默认主题 &lt;a href=&quot;https://github.com/jekyll/minima&quot;&gt;Minima&lt;/a&gt; 自带了 &lt;a href=&quot;https://disqus.com/&quot;&gt;Disqus&lt;/a&gt;，所以只需要申请一个 Disqus 账号，补充一下相关配置即可。相比于 &lt;a href=&quot;https://github.com/duoshuo&quot;&gt;多说&lt;/a&gt; 我还是更喜欢 Disqus 界面的简洁大方。&lt;/p&gt;
+&lt;p&gt;参考了 &lt;a href=&quot;https://github.com/BlackrockDigital/startbootstrap-clean-blog-jekyll/&quot;&gt;Clean Blog &lt;/a&gt; 的样式，基于 Jekyll 的默认模板 &lt;a href=&quot;https://github.com/jekyll/minima&quot;&gt;Minima&lt;/a&gt; 进行二次修改，基本看不到 Minima的影子了。&lt;/p&gt;
 
-&lt;h1 id=&quot;修改记录&quot;&gt;修改记录&lt;/h1&gt;
-
-&lt;p&gt;底部模板，参考 &lt;a href=&quot;https://github.com/BlackrockDigital/startbootstrap-clean-blog-jekyll/&quot;&gt;Clean Blog Jekyll Theme&lt;/a&gt; 的底部样式，放大图标，仅保留主要描述。&lt;/p&gt;
-
-&lt;p&gt;增加 &lt;a href=&quot;/time/&quot;&gt;Time&lt;/a&gt; 页面，记录博客的年龄。&lt;/p&gt;
-
-&lt;p&gt;修改基础 &lt;code class=&quot;highlighter-rouge&quot;&gt;font-family&lt;/code&gt; 为更符合中文显示的系列字体。&lt;/p&gt;
-
-&lt;p&gt;文章增加可选的顶图选项。&lt;/p&gt;</content><author><name>Choipun</name></author><category term="life" /><summary type="html">一直以来就有写笔记的习惯，记录日常接触到的新内容，或者踩到的坑。时间一长，笔记也就多了起来。</summary></entry><entry><title type="html">使用Jekyll搭建博客的踩坑记录</title><link href="/2017/10/install-jekyll" rel="alternate" type="text/html" title="使用Jekyll搭建博客的踩坑记录" /><published>2017-10-24T21:19:37+08:00</published><updated>2017-10-24T21:19:37+08:00</updated><id>/2017/10/install-jekyll</id><content type="html" xml:base="/2017/10/install-jekyll">&lt;p&gt;What is Jekyll?&lt;/p&gt;
+&lt;p&gt;看到 &lt;a href=&quot;http://www.wkun.com/&quot;&gt;WKUN&lt;/a&gt; 有个记录站点成长的页面非常漂亮，所以自己也增加了一个 &lt;a href=&quot;/time/&quot;&gt;Time&lt;/a&gt; 页面来记录博客的年龄。&lt;/p&gt;</content><author><name>Choipun</name></author><category term="life" /><summary type="html">一直以来就有写笔记的习惯，记录日常接触到的新内容，或者踩到的坑。时间一长，笔记也就多了起来。</summary></entry><entry><title type="html">使用Jekyll搭建博客的踩坑记录</title><link href="/2017/10/install-jekyll" rel="alternate" type="text/html" title="使用Jekyll搭建博客的踩坑记录" /><published>2017-10-24T21:19:37+08:00</published><updated>2017-10-24T21:19:37+08:00</updated><id>/2017/10/install-jekyll</id><content type="html" xml:base="/2017/10/install-jekyll">&lt;p&gt;What is Jekyll?&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;Transform your plain text into static websites and blogs. &lt;a href=&quot;http://jekyllrb.com/&quot;&gt;jekyllrb.com&lt;/a&gt;&lt;/p&gt;
