@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-11-24T13:48:20+08:00</updated><id>/</id><title type="html">Choipun</title><subtitle>与你一起探索未知世界</subtitle><author><name>Choipun</name></author><entry><title type="html">谈谈WEB安全问题</title><link href="/2017/11/web-security" rel="alternate" type="text/html" title="谈谈WEB安全问题" /><published>2017-11-24T13:23:00+08:00</published><updated>2017-11-24T13:23:00+08:00</updated><id>/2017/11/web-security</id><content type="html" xml:base="/2017/11/web-security">&lt;p&gt;新项目上线也有一段时间了，主要是一个小型文章发布系统，支持运营人员登录后台自行操作，处理文章的增删改查。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-11-24T14:20:14+08:00</updated><id>/</id><title type="html">Choipun</title><subtitle>与你一起探索未知世界</subtitle><author><name>Choipun</name></author><entry><title type="html">谈谈WEB安全问题</title><link href="/2017/11/web-security" rel="alternate" type="text/html" title="谈谈WEB安全问题" /><published>2017-11-24T13:23:00+08:00</published><updated>2017-11-24T13:23:00+08:00</updated><id>/2017/11/web-security</id><content type="html" xml:base="/2017/11/web-security">&lt;p&gt;新项目上线也有一段时间了，主要是一个小型文章发布系统，支持运营人员登录后台自行操作，处理文章的增删改查。&lt;/p&gt;
 
 &lt;p&gt;除了基本业务实现外，在数据安全防范方面，我也算是收获了一些心得。&lt;/p&gt;
 
@@ -88,8 +88,9 @@ Header set X-Frame-Options &quot;SAMEORIGIN&quot;
 
 &lt;p&gt;登录界面需要增加一个二维码，防止机器批量注册及跨站登录。&lt;/p&gt;
 
-&lt;p&gt;然而现在有个新兴职业“打字员”，通过人肉方式暴力破解，已经越来越让验证码的有效性变得岌岌可危。知乎上也不乏有各路大神讨论、分享成功拿下诸如&lt;strong&gt;网易云、极验&lt;/strong&gt;等验证码的心得。感兴趣的戳这里 &lt;a href=&quot;https://www.zhihu.com/question/32209043&quot;&gt;滑块验证码（滑动验证码）相比图形验证码，破解难度如何？ - 知乎&lt;/a&gt;
-只靠验证码还不够，可以在用户首次登录之后，要求用户绑定一下谷歌验证器，等于是二重防护。&lt;/p&gt;
+&lt;p&gt;然而现在有个新兴职业“打字员”，通过人肉方式暴力破解，已经越来越让验证码的有效性变得岌岌可危。知乎上也不乏有各路大神讨论、分享成功拿下诸如&lt;strong&gt;网易云、极验&lt;/strong&gt;等验证码的心得。感兴趣的戳这里 &lt;a href=&quot;https://www.zhihu.com/question/32209043&quot;&gt;滑块验证码（滑动验证码）相比图形验证码，破解难度如何？ - 知乎&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;只靠验证码还不够，可以在用户首次登录之后，要求用户绑定一下谷歌验证器，等于是二重防护。&lt;/p&gt;
 
 &lt;p&gt;能破解得了二维码，但是你不知道人家的验证器上面跳动的数字是啥~&lt;/p&gt;
 
