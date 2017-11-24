@@ -11,7 +11,7 @@ What is Jekyll?
 
 > Transform your plain text into static websites and blogs. [jekyllrb.com](http://jekyllrb.com/)
 
-# 安装
+## 安装
 
 需要有**完整的 Ruby 开发环境**，[前置需求看这里](https://jekyllrb.com/docs/installation/#requirements)
 
@@ -131,7 +131,7 @@ Server running... press ctrl-c to stop.
 
 浏览器里打开看看，一切都是那么完美！
 
-# Minima
+## Minima
 
 minima 是初始化 Jekyll 的默认（也是首个）主题，乍一看没啥问题，就是代码高亮的背景色太丑了，得改。
 

@@ -93,6 +93,27 @@
     
       <li>
         
+        <span class="post-meta">Nov 24, 2017</span>
+        <h2>
+          <a class="post-link" href="/2017/11/web-security">谈谈WEB安全问题</a>
+        </h2>
+        <div class="post-content-preview">
+          新项目上线也有一段时间了，主要是一个小型文章发布系统，支持运营人员登录后台自行操作，处理文章的增删改查。
+
+除了基本业务实现外，在数据安全防范方面，我也算是收获了一些心得。
+
+关于XSS
+
+XSS 即 Cross-site scripting，跨站脚本攻击，输入代码注入的一种。
+
+关于 XSS 更多信息，看这里 Cross-site scripting
+
+虽然文章发布功能只在公司内部开放，但...
+        </div>
+      </li>
+    
+      <li>
+        
         <span class="post-meta">Oct 28, 2017</span>
         <h2>
           <a class="post-link" href="/2017/10/hello-blog">Hello, BLOG</a>
@@ -147,10 +168,12 @@ Fetching: public_suffix-3.0.0.gem (10...
         
         <span class="post-meta">Oct 22, 2017</span>
         <h2>
-          <a class="post-link" href="/2017/10/windows-server-ssl">Windows Server IIS 6.0 安装域名证书</a>
+          <a class="post-link" href="/2017/10/windows-server-ssl">Windows Server 安装域名证书</a>
         </h2>
         <div class="post-content-preview">
-          假设已经获取到 .pfx 格式证书：
+          IIS 6
+
+假设已经获取到 .pfx 格式证书：
 
 
   打开IIS
@@ -166,7 +189,7 @@ Fetching: public_suffix-3.0.0.gem (10...
 
   回到安全通信一栏，点击编辑
   勾选 要求安全通道（SSL）
-  勾选 要求128位加...
+  勾选 ...
         </div>
       </li>
     
@@ -236,9 +259,10 @@ $ unrar x filename.rar
 
 首先去到 Python 官网下载 Python V2 ：点击前往
 
-32位系统点我
 
-64位系统点我
+  32位
+  64位
+
 
 注意：最好是根据现在系统的环境来选择，并且要与OpenSSL对应，不能用32位 Python 与64位的 OpenSSL 搭配使用。
 
@@ -246,11 +270,14 @@ $ unrar x filename.rar
 
 同样去到 OpenSSL 官网下载：OpenSSL
 
-32位系统点我
 
-64位系统点我
+  32位
+  64位
 
-这里需要...
+
+这里需要注意
+
+Op...
         </div>
       </li>
     

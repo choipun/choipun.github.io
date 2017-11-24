@@ -1,10 +1,11 @@
 ---
 layout: post
-title:  "Windows Server IIS 6.0 安装域名证书"
+title:  "Windows Server 安装域名证书"
 date:   2017-10-22 19:00:00 +0800
 comments: true
 tags: windows
 ---
+## IIS 6
 
 假设已经获取到 `.pfx` 格式证书：
 

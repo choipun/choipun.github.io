@@ -12,7 +12,13 @@ layout: default
       </time>
       {% if page.author %}
         • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ page.author }}</span></span>
-      {% endif %}</p>
+      {% endif %}
+      {% if page.tags %}
+        {% for tag in page.tags %}
+        <span>• {{tag}}</span>
+        {% endfor %}
+      {% endif %}
+    </p>
   </header>
   <!-- {% if page.banner %}
   <div class="post-banner">

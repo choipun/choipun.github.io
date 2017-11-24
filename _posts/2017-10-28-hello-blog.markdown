@@ -13,7 +13,7 @@ tags: life
 
 那就搭个博客吧。
 
-# 用什么搭建
+## 用什么搭建
 
 其实之前试过用 [WordPress](https://cn.wordpress.org/)，主要问题是：
 
@@ -46,7 +46,7 @@ tags: life
 
 遇到的坑可以看这里：[使用Jekyll搭建博客的踩坑记录](/2017/10/install-jekyll)
 
-# 模板
+## 模板
 
 参考了 [Clean Blog ](https://github.com/BlackrockDigital/startbootstrap-clean-blog-jekyll/) 的样式，基于 Jekyll 的默认模板 [Minima](https://github.com/jekyll/minima) 进行二次修改，基本看不到 Minima的影子了。
 

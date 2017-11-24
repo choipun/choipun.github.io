@@ -91,7 +91,13 @@
         
         Oct 18, 2017
       </time>
-      </p>
+      
+      
+        
+        <span>• macOS</span>
+        
+      
+    </p>
   </header>
   <!--  -->
   <div class="post-content" itemprop="articleBody">
@@ -103,7 +109,7 @@
   <p>升级到 macOS High Sierra 10.13 之后，需要重新配置 httpd-vhosts.conf 文件，重启 MySQL 服务</p>
 </blockquote>
 
-<h1 id="apache">Apache</h1>
+<h2 id="apache">Apache</h2>
 
 <p>先把执行权限调整成 root</p>
 
@@ -127,10 +133,9 @@
 <p>重启</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apachectl restart
-
 </code></pre></div></div>
 
-<h1 id="php">PHP</h1>
+<h2 id="php">PHP</h2>
 
 <p>开启PHP之前，先把现有的 httpd.conf 备份一下</p>
 
@@ -198,7 +203,7 @@ Zend Engine v2.6.0, Copyright <span class="o">(</span>c<span class="o">)</span> 
 
 <p>再次查看 <a href="http://localhost/phpinfo.php">http://localhost/phpinfo.php</a> 页面，此时显示的版本为7.1.8 ，一切完美。</p>
 
-<h1 id="多站点配置">多站点配置</h1>
+<h2 id="多站点配置">多站点配置</h2>
 
 <p>在站点根目录下建个 test 文件夹，即 /Library/WebServer/Documents/test</p>
 
@@ -229,9 +234,9 @@ Zend Engine v2.6.0, Copyright <span class="o">(</span>c<span class="o">)</span> 
 
 <p>最后，打开地址栏，输入 <a href="http://www.test.com/">http://www.test.com/</a>，看到了之前新建的 index.php 的内容，说明配置成功！</p>
 
-<h1 id="mysql">MySQL</h1>
+<h2 id="mysql">MySQL</h2>
 
-<h4 id="通过-homebrew-来安装">通过 homebrew 来安装</h4>
+<h3 id="通过-homebrew-来安装">通过 homebrew 来安装</h3>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>brew install mysql
 </code></pre></div></div>
@@ -256,12 +261,12 @@ mysql_install_db <span class="nt">--verbose</span> <span class="nt">--user</span
 </code></pre></div></div>
 <p>不知道是不是就我遇到了这个情况，暂时没有搜索到什么解决方案，跳过貌似没有什么影响。</p>
 
-<h4 id="启动mysql">启动MySQL</h4>
+<h3 id="启动mysql">启动MySQL</h3>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql.server start
 </code></pre></div></div>
 
-<h4 id="安全配置">安全配置</h4>
+<h3 id="安全配置">安全配置</h3>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>/usr/local/Cellar/mysql/5.7.19/bin/mysql_secure_installation
 </code></pre></div></div>
@@ -283,7 +288,7 @@ mysql_install_db <span class="nt">--verbose</span> <span class="nt">--user</span
 
 <p>homebrew 安装的 mysql 的数据存储位置为 <strong>/usr/local/var/mysql</strong>。 可以通过 <code class="highlighter-rouge">find / -name databasename</code> 的方式根据数据库名称找到具体位置。</p>
 
-<h4 id="mysql-基本操作">MySQL 基本操作</h4>
+<h3 id="mysql-基本操作">MySQL 基本操作</h3>
 
 <p>登录mysql</p>
 
@@ -332,7 +337,7 @@ mysql_install_db <span class="nt">--verbose</span> <span class="nt">--user</span
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">show</span> <span class="n">tables</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="gui工具">GUI工具</h4>
+<h3 id="gui工具">GUI工具</h3>
 
 <p>总是敲命令行比较麻烦，也不太直观。可以使用 GUI 工具来进行操作</p>
 

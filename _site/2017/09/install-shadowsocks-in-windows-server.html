@@ -91,39 +91,48 @@
         
         Sep 7, 2017
       </time>
-      </p>
+      
+      
+        
+        <span>• windows</span>
+        
+      
+    </p>
   </header>
   <!--  -->
   <div class="post-content" itemprop="articleBody">
-    <h1 id="服务端">服务端</h1>
+    <h2 id="服务端">服务端</h2>
 
-<h4 id="安装-python">安装 Python</h4>
+<h3 id="安装-python">安装 Python</h3>
 
 <p>首先去到 Python 官网下载 Python V2 ：<a href="https://www.python.org/downloads/">点击前往</a></p>
 
-<p><a href="https://www.python.org/ftp/python/2.7.14/python-2.7.14rc1.msi">32位系统点我</a></p>
-
-<p><a href="https://www.python.org/ftp/python/2.7.14/python-2.7.14rc1.amd64.msi">64位系统点我</a></p>
+<ul>
+  <li><a href="https://www.python.org/ftp/python/2.7.14/python-2.7.14rc1.msi">32位</a></li>
+  <li><a href="https://www.python.org/ftp/python/2.7.14/python-2.7.14rc1.amd64.msi">64位</a></li>
+</ul>
 
 <p><strong>注意：最好是根据现在系统的环境来选择，并且要与OpenSSL对应，不能用32位 Python 与64位的 OpenSSL 搭配使用。</strong></p>
 
-<h4 id="安装-openssl">安装 OpenSSL</h4>
+<h3 id="安装-openssl">安装 OpenSSL</h3>
 
 <p>同样去到 OpenSSL 官网下载：<a href="https://slproweb.com/products/Win32OpenSSL.html">OpenSSL</a></p>
 
-<p><a href="https://slproweb.com/download/Win32OpenSSL-1_0_2L.exe">32位系统点我</a></p>
-
-<p><a href="https://slproweb.com/download/Win64OpenSSL-1_0_2L.exe">64位系统点我</a></p>
+<ul>
+  <li><a href="https://slproweb.com/download/Win32OpenSSL-1_0_2L.exe">32位</a></li>
+  <li><a href="https://slproweb.com/download/Win64OpenSSL-1_0_2L.exe">64位</a></li>
+</ul>
 
 <p>这里需要注意</p>
 
 <p>OpenSSL 需要 <strong>Visual C++ 2008 Redistributables</strong> 支持</p>
 
-<p><a href="http://www.microsoft.com/downloads/details.aspx?familyid=9B2DA534-3E03-4391-8A4D-074B9F2BC1BF">32位系统点我</a></p>
+<ul>
+  <li><a href="http://www.microsoft.com/downloads/details.aspx?familyid=9B2DA534-3E03-4391-8A4D-074B9F2BC1BF">32位</a></li>
+  <li><a href="http://www.microsoft.com/downloads/details.aspx?familyid=bd2a6171-e2d6-4230-b809-9a8d7548c1b6">64位</a></li>
+</ul>
 
-<p><a href="http://www.microsoft.com/downloads/details.aspx?familyid=bd2a6171-e2d6-4230-b809-9a8d7548c1b6">64位系统点我</a></p>
-
-<h4 id="安装-shadowsocks">安装 Shadowsocks</h4>
+<h3 id="安装-shadowsocks">安装 Shadowsocks</h3>
 
 <p>安装完成后，如按照默认路径，使用方法如下</p>
 
@@ -147,7 +156,7 @@
 
 <p>看到多出来几个文件，显示finished之类的字样就是下载成功了。</p>
 
-<h4 id="配置-shadowsocks">配置 Shadowsocks</h4>
+<h3 id="配置-shadowsocks">配置 Shadowsocks</h3>
 
 <p>同样需要在 C:\Python27\Scripts 运行命令提示符(管理员)</p>
 
@@ -175,7 +184,7 @@
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssserver.exe -c C:\Python27\Scripts\shadowsocks.json
 </code></pre></div></div>
 
-<h1 id="客户端">客户端</h1>
+<h2 id="客户端">客户端</h2>
 
 <p>Shadowsocks 客户端官网下载页面：<a href="https://shadowsocks.org/en/download/clients.html">点我前往</a></p>
 

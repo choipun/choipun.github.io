@@ -6,35 +6,32 @@ comments: true
 tags: windows
 ---
 
-# 服务端
+## 服务端
 
-#### 安装 Python
+### 安装 Python
 
 首先去到 Python 官网下载 Python V2 ：[点击前往](https://www.python.org/downloads/)
 
-[32位系统点我](https://www.python.org/ftp/python/2.7.14/python-2.7.14rc1.msi)
-
-[64位系统点我](https://www.python.org/ftp/python/2.7.14/python-2.7.14rc1.amd64.msi)
+- [32位](https://www.python.org/ftp/python/2.7.14/python-2.7.14rc1.msi)
+- [64位](https://www.python.org/ftp/python/2.7.14/python-2.7.14rc1.amd64.msi)
 
 **注意：最好是根据现在系统的环境来选择，并且要与OpenSSL对应，不能用32位 Python 与64位的 OpenSSL 搭配使用。**
 
-#### 安装 OpenSSL
+### 安装 OpenSSL
 
 同样去到 OpenSSL 官网下载：[OpenSSL](https://slproweb.com/products/Win32OpenSSL.html)
 
-[32位系统点我](https://slproweb.com/download/Win32OpenSSL-1_0_2L.exe)
-
-[64位系统点我](https://slproweb.com/download/Win64OpenSSL-1_0_2L.exe)
+- [32位](https://slproweb.com/download/Win32OpenSSL-1_0_2L.exe)
+- [64位](https://slproweb.com/download/Win64OpenSSL-1_0_2L.exe)
 
 这里需要注意
 
 OpenSSL 需要 **Visual C++ 2008 Redistributables** 支持
 
-[32位系统点我](http://www.microsoft.com/downloads/details.aspx?familyid=9B2DA534-3E03-4391-8A4D-074B9F2BC1BF)
+- [32位](http://www.microsoft.com/downloads/details.aspx?familyid=9B2DA534-3E03-4391-8A4D-074B9F2BC1BF)
+- [64位](http://www.microsoft.com/downloads/details.aspx?familyid=bd2a6171-e2d6-4230-b809-9a8d7548c1b6)
 
-[64位系统点我](http://www.microsoft.com/downloads/details.aspx?familyid=bd2a6171-e2d6-4230-b809-9a8d7548c1b6)
-
-#### 安装 Shadowsocks
+### 安装 Shadowsocks
 
 安装完成后，如按照默认路径，使用方法如下
 
@@ -58,7 +55,7 @@ pip install shadowsocks
 
 看到多出来几个文件，显示finished之类的字样就是下载成功了。
 
-#### 配置 Shadowsocks
+### 配置 Shadowsocks
 
 同样需要在 C:\Python27\Scripts 运行命令提示符(管理员)
 
@@ -89,7 +86,7 @@ ssserver.exe -p 8893 -k password -m aes-256-cfb
 ssserver.exe -c C:\Python27\Scripts\shadowsocks.json
 ```
 
-# 客户端
+## 客户端
 
 Shadowsocks 客户端官网下载页面：[点我前往](https://shadowsocks.org/en/download/clients.html)
 

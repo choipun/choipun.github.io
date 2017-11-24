@@ -10,7 +10,7 @@ tags: macOS
 
 > 升级到 macOS High Sierra 10.13 之后，需要重新配置 httpd-vhosts.conf 文件，重启 MySQL 服务
 
-# Apache
+## Apache
 
 先把执行权限调整成 root
 
@@ -38,10 +38,9 @@ $ sudo apachectl -v
 
 ```bash
 $ sudo apachectl restart
-
 ```
 
-# PHP
+## PHP
 
 开启PHP之前，先把现有的 httpd.conf 备份一下
 
@@ -119,7 +118,7 @@ $ source ~/.bash_profile
 
 再次查看 [http://localhost/phpinfo.php](http://localhost/phpinfo.php) 页面，此时显示的版本为7.1.8 ，一切完美。
 
-# 多站点配置
+## 多站点配置
 
 在站点根目录下建个 test 文件夹，即 /Library/WebServer/Documents/test 
 
@@ -154,9 +153,9 @@ $ sudo apachectl restart
 
 最后，打开地址栏，输入 [http://www.test.com/](http://www.test.com/)，看到了之前新建的 index.php 的内容，说明配置成功！
 
-# MySQL
+## MySQL
 
-#### 通过 homebrew 来安装
+### 通过 homebrew 来安装
 
 ```bash
 $ brew install mysql
@@ -185,13 +184,13 @@ mysql_install_db: [ERROR] unknown variable 'tmpdir=/tmp'
 ```
 不知道是不是就我遇到了这个情况，暂时没有搜索到什么解决方案，跳过貌似没有什么影响。
 
-#### 启动MySQL
+### 启动MySQL
 
 ```bash
 mysql.server start
 ```
 
-#### 安全配置
+### 安全配置
 
 ```bash
 $ /usr/local/Cellar/mysql/5.7.19/bin/mysql_secure_installation
@@ -216,7 +215,7 @@ $ mysql  Ver 14.14 Distrib 5.7.19, for osx10.12 (x86_64) using  EditLine wrapper
 
 homebrew 安装的 mysql 的数据存储位置为 **/usr/local/var/mysql**。 可以通过 `find / -name databasename` 的方式根据数据库名称找到具体位置。
 
-#### MySQL 基本操作
+### MySQL 基本操作
 
 登录mysql
 
@@ -272,7 +271,7 @@ mysql> use mydb;
 mysql> show tables;
 ```
 
-#### GUI工具
+### GUI工具
 
 总是敲命令行比较麻烦，也不太直观。可以使用 GUI 工具来进行操作
 
