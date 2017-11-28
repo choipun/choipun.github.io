@@ -49,6 +49,7 @@ blockquote {
 
 .site-footer.choipun {
 	padding: 60px 0 30px;
+	border: none;
 
 	.container {
 		padding: 0 15px;
@@ -85,7 +86,7 @@ blockquote {
 		margin: 30px 0;
 
 		a {
-			color: inherit;
+			color: #42b983;
 		}
 
 	}
@@ -118,21 +119,29 @@ blockquote {
 }
 
 .post-content {
-	h1,h2,h3,h4 {
+	h1,
+	h2,
+	h3,
+	h4 {
 		font-weight: 600;
 	}
+
 	h1 {
 		font-size: 2em;
 	}
+
 	h2 {
 		font-size: 1.5em;
 	}
+
 	h3 {
 		font-size: 1.25em;
 	}
+
 	h4 {
 		font-size: 1em;
 	}
+
 }
 
 .main-time {
@@ -221,6 +230,11 @@ blockquote {
 		.copyright {
 			color: rgba(255, 255, 255, .8);
 			margin: 10px 0 30px;
+
+			a {
+				color: inherit;
+			}
+
 		}
 
 	}
@@ -236,6 +250,7 @@ blockquote {
 .site-header {
 	height: 320px;
 	border: none;
+
 	.bg {
 		position: absolute;
 		width: 100%;
@@ -260,7 +275,7 @@ blockquote {
 			height: 100%;
 			top: 0;
 			left: 0;
-			background: rgba(0, 0, 0, .5) url('/assets/images/pattern.png') repeat top left;
+			background: rgba(0, 0, 0, .15) url('/assets/images/pattern.png') repeat top left;
 		}
 
 	}
@@ -298,7 +313,6 @@ blockquote {
 
 }
 
-
 .page-content {
 	.wrapper {
 		.home {
@@ -308,19 +322,53 @@ blockquote {
 						.post-link {
 							color: inherit;
 						}
+
 					}
+
 				}
+
 			}
+
 		}
+
 	}
+
 }
 
-@media screen and (max-width: 600px) {
+ul.tags {
+	margin: 0;
+
+	li {
+		list-style: none;
+
+		h2 {
+			margin: 20px 0;
+			color: #42b983;
+			font-weight: 200;
+		}
+
+		p {
+			margin: 20px 0 0 0;
+			padding-bottom: 20px;
+			border-bottom: 1px solid #e8e8e8;
+			font-weight: 500;
+		}
+
+		a {
+			color: inherit;
+		}
+
+	}
+
+}
+
+@media screen and (max-width:600px) {
 	.site-nav {
 		background: rgba(0, 0, 0, .5);
 		border: none;
+
 		.menu-icon > svg path {
-			fill:rgba(255, 255, 255, .75);
+			fill: rgba(255, 255, 255, .75);
 		}
 
 		.trigger {
@@ -328,6 +376,9 @@ blockquote {
 				padding: 15px 20px;
 				margin-left: 0;
 			}
+
 		}
+
 	}
+
 }

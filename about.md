@@ -2,6 +2,7 @@
 layout: page
 title: About
 permalink: /about/
+banner: '/assets/images/walle.jpg'
 ---
 
 > This is what I do.

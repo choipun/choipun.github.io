@@ -56,6 +56,7 @@ const bubblesAnimation = () => {
         c.width = window.innerWidth;
         c.height = window.innerHeight / 2;
     }
+    f();
 
     const {
         random,
@@ -115,7 +116,7 @@ const bubblesAnimation = () => {
     }
     main();
 
-    f();
+    
     return f;
 }
 

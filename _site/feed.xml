@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-11-24T14:20:14+08:00</updated><id>/</id><title type="html">Choipun</title><subtitle>与你一起探索未知世界</subtitle><author><name>Choipun</name></author><entry><title type="html">谈谈WEB安全问题</title><link href="/2017/11/web-security" rel="alternate" type="text/html" title="谈谈WEB安全问题" /><published>2017-11-24T13:23:00+08:00</published><updated>2017-11-24T13:23:00+08:00</updated><id>/2017/11/web-security</id><content type="html" xml:base="/2017/11/web-security">&lt;p&gt;新项目上线也有一段时间了，主要是一个小型文章发布系统，支持运营人员登录后台自行操作，处理文章的增删改查。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-11-28T18:44:58+08:00</updated><id>/</id><title type="html">Choipun</title><subtitle>与你一起探索未知世界</subtitle><author><name>Choipun</name></author><entry><title type="html">谈谈WEB安全问题</title><link href="/2017/11/web-security" rel="alternate" type="text/html" title="谈谈WEB安全问题" /><published>2017-11-24T13:23:00+08:00</published><updated>2017-11-24T13:23:00+08:00</updated><id>/2017/11/web-security</id><content type="html" xml:base="/2017/11/web-security">&lt;p&gt;新项目上线也有一段时间了，主要是一个小型文章发布系统，支持运营人员登录后台自行操作，处理文章的增删改查。&lt;/p&gt;
 
-&lt;p&gt;除了基本业务实现外，在数据安全防范方面，我也算是收获了一些心得。&lt;/p&gt;
+&lt;p&gt;除了基本业务实现外，还要考虑一些安全预防问题。&lt;/p&gt;
 
 &lt;h2 id=&quot;关于xss&quot;&gt;关于XSS&lt;/h2&gt;
 
