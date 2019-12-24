@@ -1,0 +1,115 @@
+---
+permalink: /cris/
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Merry Christmas</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    html, body {
+        height: 100%;
+        background: #063b21;
+    }
+    main {
+        height: 100%;
+        background: url('/assets/images/forcris.jpg') center center no-repeat;
+        background-size: cover;
+        max-width: 640px;
+        margin: 0 auto;
+    }
+    .canvas-bubbles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    </style>
+</head>
+<body>
+<main>
+    <canvas id="bubbles" class="canvas-bubbles"></canvas>
+</main>
+<script>
+const bubblesAnimation = () => {
+    const c = document.getElementById('bubbles');
+    const x = c.getContext('2d');
+    const f = () => {
+        c.width = window.innerWidth;
+        c.height = window.innerHeight;
+    }
+    f();
+
+    const {
+        random,
+        floor,
+        sin,
+        cos,
+        abs,
+        PI
+    } = Math;
+
+    let [min, max, t, a] = [5, 15, 100, []];
+    let n = floor(c.width / 50);
+    const rf = (a, b) => floor(random() * (b - a) + a);
+    const nb = () => ({
+        r: rf(min, max),
+        x: rf(0, c.width),
+        y: rf(0, c.height),
+        n: 0,
+        m: random() * .5
+    });
+
+    while (n--) {
+        a = [nb(), ...a];
+    }
+
+    const main = () => {
+        x.clearRect(0, 0, c.width, c.height);
+        a.forEach((o, i) => {
+            let n;
+            const d = o.y - o.r;
+
+            if (d <= 0) {
+                n = 0;
+            } else if (d > 0 && d <= t) {
+                n = .5 * (d / t);
+            } else {
+                n = .5;
+            }
+
+            x.beginPath();
+            x.arc(o.x, o.y, o.r, 0, PI * 2, false);
+            x.closePath();
+            x.fillStyle = `rgba(255, 255, 255, ${o.n * n})`;
+            x.fill();
+
+            o.y = o.y - max / o.r / 3;
+            o.x = o.x + sin(o.y / 100);
+            if (o.n < o.m) {
+                o.n = o.n + 1 / 100;
+            }
+
+            if (d < 0 || o.x + o.r < 0 || o.x - o.r > c.width) {
+                a.splice(i, 1, nb());
+            }
+        })
+        return requestAnimationFrame(main);
+    }
+    main();
+
+    
+    return f;
+}
+bubblesAnimation()
+</script>
+</body>
+</html>

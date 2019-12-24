@@ -11,7 +11,7 @@ dl, dd, ol, ul, figure {
  * Basic styling
  */
 body {
-  font: 400 16px/1.5 -apple-system, SF UI Display, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
+  font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #111;
   background-color: #fdfdfd;
   -webkit-text-size-adjust: 100%;
@@ -85,7 +85,9 @@ blockquote {
   color: #828282;
   border-left: 4px solid #e8e8e8;
   padding-left: 15px;
-  font-size: 16px; }
+  font-size: 18px;
+  letter-spacing: -1px;
+  font-style: italic; }
   blockquote > :last-child {
     margin-bottom: 0; }
 
@@ -97,7 +99,7 @@ code {
   font-size: 15px;
   border: 1px solid #e8e8e8;
   border-radius: 3px;
-  background-color: #f2f2f2; }
+  background-color: #eef; }
 
 code {
   padding: 1px 5px; }
@@ -332,7 +334,7 @@ pre {
 .highlight {
   background: #fff; }
   .highlighter-rouge .highlight {
-    background: #f2f2f2; }
+    background: #eef; }
   .highlight .c {
     color: #998;
     font-style: italic; }
