@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "macOS通过终端解压rar文件"
+title:  "macOS 通过终端解压 .rar 文件"
 date:   2017-09-15 15:23:47 +0800
 comments: true
 tags: macOS

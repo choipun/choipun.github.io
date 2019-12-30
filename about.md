@@ -7,7 +7,7 @@ banner: '/assets/images/about.jpg'
 
 > This is what I do.
 
-Hi, I'm Choipun (pronounced /'tʃɔɪbɜn/), worked as a Web Front-End Developer.
+Hi, I'm Choipun (pronounced /'tʃɔɪbɜn/), working as a Full-Stack Web Developer.
 
 Now I'm living in a foreign country. Apart from studying and working, it is more about seeing the world.
 

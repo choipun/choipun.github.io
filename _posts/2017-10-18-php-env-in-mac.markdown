@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "macOS自带PHP环境配置"
+title:  "macOS 自带 PHP 环境配置"
 date:   2017-10-18 19:00:00 +0800
 comments: true
 tags: macOS

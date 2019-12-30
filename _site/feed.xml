@@ -1,4 +1,511 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-12-24T19:55:10+08:00</updated><id>http://localhost:4000/</id><title type="html">Choipun</title><subtitle>与你一起探索未知世界</subtitle><author><name>Choipun</name></author><entry><title type="html">谈谈WEB安全问题</title><link href="http://localhost:4000/2017/11/web-security" rel="alternate" type="text/html" title="谈谈WEB安全问题" /><published>2017-11-24T13:23:00+08:00</published><updated>2017-11-24T13:23:00+08:00</updated><id>http://localhost:4000/2017/11/web-security</id><content type="html" xml:base="http://localhost:4000/2017/11/web-security">&lt;p&gt;新项目上线也有一段时间了，主要是一个小型文章发布系统，支持运营人员登录后台自行操作，处理文章的增删改查。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-12-30T21:08:44+08:00</updated><id>http://localhost:4000/</id><title type="html">Choipun</title><subtitle>与你一起探索未知世界</subtitle><author><name>Choipun</name></author><entry><title type="html">Vue CLI 3 + Laravel 混合部署</title><link href="http://localhost:4000/2019/11/laravel-vue-develope" rel="alternate" type="text/html" title="Vue CLI 3 + Laravel 混合部署" /><published>2019-11-18T21:16:00+08:00</published><updated>2019-11-18T21:16:00+08:00</updated><id>http://localhost:4000/2019/11/laravel-vue-develope</id><content type="html" xml:base="http://localhost:4000/2019/11/laravel-vue-develope">&lt;h2 id=&quot;需求说明&quot;&gt;需求说明&lt;/h2&gt;
+
+&lt;p&gt;使用 Laravel 提供 API 服务，并使用 Vue CLI 构建前端页面。最终生成的静态页面作为 Laravel 的模板。&lt;/p&gt;
+
+&lt;h2 id=&quot;过程&quot;&gt;过程&lt;/h2&gt;
+
+&lt;p&gt;使用 Laravel 命令创建项目并进入项目文件夹。&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Laravel new my-project
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;my-project
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;在 Laravel 项目文件夹中移除前端脚手架，并创建 Vue 项目&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rm &lt;span class=&quot;nt&quot;&gt;-rf&lt;/span&gt; package.json webpack.mix.js yarn.lock resources/assets
+vue create frontend
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;创建 &lt;strong&gt;frontend/vue.config.js&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// 在开发期间设置代理转发API请求&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;devServer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;proxy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'http://laracon.test'&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// 输出构建好的静态文件到 Laravel 的 public 目录下&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;outputDir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'../public'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// 修改生成的 HTML 文件的位置，确保只在生产环境才这样&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;indexPath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;NODE_ENV&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'production'&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'../resources/views/index.blade.php'&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'index.html'&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;frontend/package.json&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-diff highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;scripts&quot;: {
+  &quot;serve&quot;: &quot;vue-cli-service serve&quot;,
+&lt;span class=&quot;gd&quot;&gt;- &quot;build&quot;: &quot;vue-cli-service build&quot;,
+&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+ &quot;build&quot;: &quot;rm -rf ../public/{js,css,img} &amp;amp;&amp;amp; vue-cli-service build --no-clean&quot;,
+&lt;/span&gt;  &quot;lint&quot;: &quot;vue-cli-service lint&quot;
+},
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;配置 Laravel&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;routes/web.php&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;Route&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'SpaController@index'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;app/Http/Controllers/SpaController.php&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;App\Http\Controllers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Illuminate\Http\Request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SpaController&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Controller&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'index'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;参考与致谢：&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/yyx990803/laravel-vue-cli-3&quot;&gt;Laravel + Vue CLI 3&lt;/a&gt;&lt;/p&gt;</content><author><name>Choipun</name></author><category term="web" /><category term="vue" /><summary type="html">需求说明</summary></entry><entry><title type="html">Vue CLI 3 + Socket.io 配置记录</title><link href="http://localhost:4000/2018/07/Vue-cli-3.0-socket.io" rel="alternate" type="text/html" title="Vue CLI 3 + Socket.io 配置记录" /><published>2018-07-14T21:16:00+08:00</published><updated>2018-07-14T21:16:00+08:00</updated><id>http://localhost:4000/2018/07/Vue-cli-3.0-socket.io</id><content type="html" xml:base="http://localhost:4000/2018/07/Vue-cli-3.0-socket.io">&lt;h2 id=&quot;创建&quot;&gt;创建&lt;/h2&gt;
+
+&lt;p&gt;创建项目使用如下命令&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;vue create project-name
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;我是手动安装了下列依赖：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Babel&lt;/li&gt;
+  &lt;li&gt;Router&lt;/li&gt;
+  &lt;li&gt;Vuex&lt;/li&gt;
+  &lt;li&gt;CSS Pre-processors&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;语法检查啥的，为了开发方便我是暂时略过（已经体验过被 Eslint 支配的恐惧）&lt;/p&gt;
+
+&lt;p&gt;开发环境&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm run serve &lt;span class=&quot;nt&quot;&gt;--open&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;添加 &lt;code class=&quot;highlighter-rouge&quot;&gt;--open&lt;/code&gt; 意思是直接打开浏览器&lt;/p&gt;
+
+&lt;p&gt;构建模式&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm run build
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;后面可以指定跟上 &lt;code class=&quot;highlighter-rouge&quot;&gt;--dest&lt;/code&gt; 指定输出目录 (默认值：&lt;code class=&quot;highlighter-rouge&quot;&gt;dist&lt;/code&gt;)&lt;/p&gt;
+
+&lt;h3 id=&quot;修改输出目录&quot;&gt;修改输出目录&lt;/h3&gt;
+
+&lt;p&gt;通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue.config.js&lt;/code&gt; 来配置&lt;/p&gt;
+
+&lt;p&gt;pc端&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;outputDir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'../application/views/index/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;assetsDir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'../../../static-pc/'&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;移动端&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;outputDir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'../application/views/mobile/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;assetsDir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'../../../static-mobile/'&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;axios&quot;&gt;axios&lt;/h2&gt;
+
+&lt;p&gt;同样的先另外下载 &lt;code class=&quot;highlighter-rouge&quot;&gt;axios&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm install &lt;span class=&quot;nt&quot;&gt;--save-dev&lt;/span&gt; axios
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;接着在 &lt;code class=&quot;highlighter-rouge&quot;&gt;main.js&lt;/code&gt; 中配置，引入 &lt;code class=&quot;highlighter-rouge&quot;&gt;axios&lt;/code&gt; 并添加到 &lt;code class=&quot;highlighter-rouge&quot;&gt;Vue&lt;/code&gt; 的原型上&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;axios&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'axios'&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;assign&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Vue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;axios&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;然后就可以用这样的形式来请求数据&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;axios&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/user/list/?r=1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;跨域问题&quot;&gt;跨域问题&lt;/h3&gt;
+
+&lt;p&gt;通过设置开发环境代理来解决&lt;/p&gt;
+
+&lt;p&gt;修改 vue-cli 根目录下的 vue.config.js（没有这个文件就新建一个），写入以下内容&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;devServer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;proxy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'http://www.telechat.ap'&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;proxy&lt;/code&gt; 里面的内容改成自己后端运行环境的地址&lt;/p&gt;
+
+&lt;h2 id=&quot;router&quot;&gt;Router&lt;/h2&gt;
+
+&lt;p&gt;PC端页面为了开发方便，并未使用路由功能。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;因为页面首次渲染需要由PHP获取路由当中的房间号 &lt;code class=&quot;highlighter-rouge&quot;&gt;/?r=xxx&lt;/code&gt; 信息，从而判断房间号是否真实有效&lt;/li&gt;
+  &lt;li&gt;使用了路由功能导致地址栏变为 &lt;code class=&quot;highlighter-rouge&quot;&gt;/#/?r=xxx&lt;/code&gt; 会使得PHP无法获取该参数。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;登录、注册等页面均是以组件模式嵌入主页模板中，因此不用路由并无影响。&lt;/p&gt;
+
+&lt;p&gt;移动端若是不方便改为这种形式，那么可以在加载完成之后，手动向服务端发送房间号，根据返回结果决定是否继续显示后续逻辑。&lt;/p&gt;
+
+&lt;p&gt;具体接口、参数再议。&lt;/p&gt;
+
+&lt;h2 id=&quot;vuex&quot;&gt;Vuex&lt;/h2&gt;
+
+&lt;p&gt;Vuex是本项目的核心功能。&lt;/p&gt;
+
+&lt;p&gt;配置方式基本没有变化，不需要写入 &lt;code class=&quot;highlighter-rouge&quot;&gt;Vue&lt;/code&gt; 的原型中，就可以直接在项目中使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;this.$store&lt;/code&gt; 来访问&lt;/p&gt;
+
+&lt;p&gt;为了直观清晰，最好是分成若干小模块来写这部分内容。例如&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;namespaced&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;mutations&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;login&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;namespaced&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;mutations&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;actions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  	&lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;store&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Vuex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;modules&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;login&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;store&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;上文添加了 &lt;code class=&quot;highlighter-rouge&quot;&gt;namespaced &lt;/code&gt; 属性来方便地引用各个模块的内容。&lt;/p&gt;
+
+&lt;p&gt;为了方便跟踪 &lt;code class=&quot;highlighter-rouge&quot;&gt;socket.io&lt;/code&gt; 事件，需要将通讯相关功能写在状态管理当中，下文详细说明。&lt;/p&gt;
+
+&lt;h2 id=&quot;socketio&quot;&gt;Socket.io&lt;/h2&gt;
+
+&lt;p&gt;首先安装依赖&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm install &lt;span class=&quot;nt&quot;&gt;--save-dev&lt;/span&gt; socket.io-client
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;在状态管理的配置文件 &lt;code class=&quot;highlighter-rouge&quot;&gt;src/store.js&lt;/code&gt; 中引入&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;io&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'socket.io-client'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Socket.io 与 Vuex 该如何联动，如何在各个模块外部也能读取/调用模块内的内容，下面是一个例子：&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 定义一个 socks 模块&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;socks&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;namespaced&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;messages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;actions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;sayHello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'hello world'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 实例化&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;store&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Vuex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;modules&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;login&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;socks&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 通过 store 来访问模块内的内容&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dispatch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'socks/sayHello'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;store&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;查看控制台，看到显示了 &lt;code class=&quot;highlighter-rouge&quot;&gt;hello world&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;既然可以在外部调用，那么就可以放在 socket.io 的各个事件中执行了，例如&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;socket&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;io&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'https://socket.heloves.me?r=1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'connect'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dispatch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'socks/sayHello'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;公共函数&quot;&gt;公共函数&lt;/h2&gt;
+
+&lt;p&gt;在 &lt;code class=&quot;highlighter-rouge&quot;&gt;src/assets/js&lt;/code&gt; 目录下建立个 &lt;code class=&quot;highlighter-rouge&quot;&gt;utils.js&lt;/code&gt;（或其他命名） 写入以下内容&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;charCode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;charCodeAt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;nameFix&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Hi'&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[...&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toUpperCase&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;charCode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;nameFix&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;在需要使用的地方引入，例如&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nameFix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'@/assets/js/utils'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;表示只引入 &lt;code class=&quot;highlighter-rouge&quot;&gt;nameFix&lt;/code&gt; 函数，多个函数则以逗号 &lt;code class=&quot;highlighter-rouge&quot;&gt;,&lt;/code&gt; 分隔&lt;/p&gt;
+
+&lt;p&gt;若是作为 &lt;code class=&quot;highlighter-rouge&quot;&gt;filters&lt;/code&gt; 使用&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nameFix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'@/assets/js/utils'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;filters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;nameFix&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;然后就可以在 &lt;code class=&quot;highlighter-rouge&quot;&gt;HTML&lt;/code&gt; 片段中以过滤器的方式使用&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{{ user.username | nameFix }}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;其他公共函数的使用方式以此类推。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;参考文档： &lt;a href=&quot;https://cli.vuejs.org/config/#global-cli-config&quot;&gt;https://cli.vuejs.org/config/#global-cli-config&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name>Choipun</name></author><category term="socket.io" /><category term="vue" /><summary type="html">创建</summary></entry><entry><title type="html">Socket.io 在服务器上的部署记录</title><link href="http://localhost:4000/2018/06/websocket-im" rel="alternate" type="text/html" title="Socket.io 在服务器上的部署记录" /><published>2018-06-27T15:33:00+08:00</published><updated>2018-06-27T15:33:00+08:00</updated><id>http://localhost:4000/2018/06/websocket-im</id><content type="html" xml:base="http://localhost:4000/2018/06/websocket-im">&lt;ul&gt;
+  &lt;li&gt;operating system: Centos&lt;/li&gt;
+  &lt;li&gt;server: Nginx and Nodejs&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;启动-websocket-服务&quot;&gt;启动 WebSocket 服务&lt;/h2&gt;
+
+&lt;p&gt;挂起&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;nohup node index.js &amp;amp;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;查看进程 MacOS&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;jobs&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;如果无法找到，就使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;ps&lt;/code&gt; 命令&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ps -aux|grep index.js
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;关闭进程&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;kill&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;pid]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;nginx-配置反向代理&quot;&gt;Nginx 配置反向代理&lt;/h2&gt;
+
+&lt;p&gt;以下配置还升级了协议，从 &lt;code class=&quot;highlighter-rouge&quot;&gt;ws://&lt;/code&gt; 升级为 &lt;code class=&quot;highlighter-rouge&quot;&gt;wss://&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;需要域名本身开启了SSL&lt;/p&gt;
+
+&lt;div class=&quot;language-nginx highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;location&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;        
+  &lt;span class=&quot;c1&quot;&gt;# 此处改为 socket.io 后端的 ip 和端口即可
+&lt;/span&gt;  &lt;span class=&quot;kn&quot;&gt;proxy_pass&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;http://127.0.0.1:5000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;kn&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Upgrade&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$http_upgrade&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kn&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Connection&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;upgrade&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kn&quot;&gt;proxy_http_version&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kn&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;X-Forwarded-For&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$proxy_add_x_forwarded_for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kn&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Host&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Choipun</name></author><category term="socket.io" /><summary type="html">operating system: Centos server: Nginx and Nodejs</summary></entry><entry><title type="html">基于 Vue CLI 的全栈开发记录</title><link href="http://localhost:4000/2018/01/vue-cli-full-stack" rel="alternate" type="text/html" title="基于 Vue CLI 的全栈开发记录" /><published>2018-01-01T21:30:00+08:00</published><updated>2018-01-01T21:30:00+08:00</updated><id>http://localhost:4000/2018/01/vue-cli-full-stack</id><content type="html" xml:base="http://localhost:4000/2018/01/vue-cli-full-stack">&lt;h2 id=&quot;概要&quot;&gt;概要&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;调试接口跨域问题&lt;/li&gt;
+  &lt;li&gt;axios 全局配置&lt;/li&gt;
+  &lt;li&gt;直接数据渲染&lt;/li&gt;
+  &lt;li&gt;vuex管理登录状态&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;window.isDev = isNaN(Number('&amp;lt;?= 1 ?&amp;gt;'))&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;SSE长连接&lt;/li&gt;
+  &lt;li&gt;Eslint 排除检查&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;调试接口跨域问题&quot;&gt;调试接口跨域问题&lt;/h2&gt;
+
+&lt;p&gt;安装 vue-cli 时选的是默认模板 webpack&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm install &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; vue-cli
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;vue init webpack project
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;project
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm install
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm run dev
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;首先需要面对的问题是跨域，搜索一番，可以使用基于 node.js 的代理中间件 &lt;a href=&quot;https://github.com/chimurai/http-proxy-middleware#http-proxy-middleware&quot;&gt;http-proxy-middleware&lt;/a&gt; 来解决问题。
+在应用目录下 &lt;code class=&quot;highlighter-rouge&quot;&gt;/config/index.js&lt;/code&gt; 中，作者已经预留了配置项 &lt;code class=&quot;highlighter-rouge&quot;&gt;proxyTable: {}&lt;/code&gt;，往这里面填东西就好了。&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;proxyTable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;s1&quot;&gt;'/api'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'http://www.test.com'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;changeOrigin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;pathRewrite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;s1&quot;&gt;'^/api'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/api'&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;在开发环境中，由 node.js 拦截一切 &lt;code class=&quot;highlighter-rouge&quot;&gt;/api&lt;/code&gt; 的请求，并代理访问 &lt;code class=&quot;highlighter-rouge&quot;&gt;http://www.test.com/api&lt;/code&gt; 将数据返回给前端。&lt;/p&gt;
+
+&lt;p&gt;例如&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;axios&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/api/user?id=123'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;实际访问的是 &lt;code class=&quot;highlighter-rouge&quot;&gt;http://www.test.com/api/user?id=123&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;axios-全局配置&quot;&gt;axios 全局配置&lt;/h2&gt;
+
+&lt;p&gt;由于一直使用的 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue-resource&lt;/code&gt; 已不再维护更新，所以转投 &lt;a href=&quot;https://github.com/axios/axios&quot;&gt;axios&lt;/a&gt; 的怀抱。
+作为一个高频使用插件，在每次需要用到 &lt;code class=&quot;highlighter-rouge&quot;&gt;axios&lt;/code&gt; 的时候都 &lt;code class=&quot;highlighter-rouge&quot;&gt;import&lt;/code&gt; 一次也是挺麻烦的，所以可以直接写进 &lt;code class=&quot;highlighter-rouge&quot;&gt;Vue&lt;/code&gt; 的原型里&lt;/p&gt;
+
+&lt;p&gt;打开入口文件 &lt;code class=&quot;highlighter-rouge&quot;&gt;src/main.js&lt;/code&gt; 添加&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;axios&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'axios'&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;Vue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$http&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;axios&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;这样就可以使用在任意模板文件中使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;this.$http&lt;/code&gt; 来代替 &lt;code class=&quot;highlighter-rouge&quot;&gt;axios&lt;/code&gt; 了。&lt;/p&gt;
+
+&lt;h2 id=&quot;直接数据渲染&quot;&gt;直接数据渲染&lt;/h2&gt;
+
+&lt;p&gt;实际应用场景中，还是有许多免不了需要由 PHP 直接将数据渲染到页面上的时候，例如 &lt;code class=&quot;highlighter-rouge&quot;&gt;csrf-token&lt;/code&gt; 以及 &lt;code class=&quot;highlighter-rouge&quot;&gt;session&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;vue-cli 构建环境依赖于 node.js，而 PHP 又运行于 apache，开发环境直接渲染是不可能了，只能将数据渲染到生成的生产环境模板页面中。&lt;/p&gt;
+
+&lt;p&gt;修改配置文件 &lt;code class=&quot;highlighter-rouge&quot;&gt;/config/index.js&lt;/code&gt; 将生成的文件扩展名改为 &lt;code class=&quot;highlighter-rouge&quot;&gt;.php&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__dirname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'../dist/index.php'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;有需要 PHP 直接渲染的数据，写在项目目录下的模板文件 index.html 中&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isDev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;isNaN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'&amp;lt;?= 1 ?&amp;gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;例如上述代码中，由于 node.js 不能识别 PHP 代码，所以可以用这种方式来判断当前是处于生产环境还是开发环境。&lt;/p&gt;
+
+&lt;p&gt;回到一开始的问题，比如 &lt;code class=&quot;highlighter-rouge&quot;&gt;session&lt;/code&gt; 验证，在模板上添加了 &lt;code class=&quot;highlighter-rouge&quot;&gt;csrf-token&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;csrf-token&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;content=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&amp;lt;?= $_SESSION['csrf-token'] ?&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;开发环境当中，发送请求的时候带上这个 token&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/api/post?action=add'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;s1&quot;&gt;'csrf-token'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;querySelector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'meta[name=&quot;csrf-token&quot;]'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;content&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;将会直接把 &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;?= $_SESSION['csrf-token'] ?&amp;gt;&lt;/code&gt; 作为普通字符串发送到服务端，而不是具体的 token 值。&lt;/p&gt;
+
+&lt;p&gt;我想到的方案是：由于前后端/数据库部署在本机上，所以可以判断请求来源，不对来自 &lt;code class=&quot;highlighter-rouge&quot;&gt;127.0.0.1&lt;/code&gt; 的请求做拦截处理。上线之后这种方案要被伪造，只能是攻击者登录到了服务器上面去吧？不过攻击者都登录服务器了，还伪造这玩意儿干嘛……&lt;/p&gt;
+
+&lt;p&gt;对于后端部分不在本机的，只能老老实实 &lt;code class=&quot;highlighter-rouge&quot;&gt;npm run build&lt;/code&gt; 之后发布到线上测试了。或者调试期间后端同学关闭掉相关验证，测试没问题了发布线上的时候再开启验证。&lt;/p&gt;
+
+&lt;h2 id=&quot;eslint-排除检查&quot;&gt;Eslint 排除检查&lt;/h2&gt;
+
+&lt;p&gt;安装 vur-cli 的时候一个手抖，开启了 &lt;a href=&quot;https://eslint.org/&quot;&gt;Eslint&lt;/a&gt; 语法检查，刚开始的时候没有适应他的规则，感觉自己好像一下子都不会写代码了。&lt;/p&gt;
+
+&lt;p&gt;适应一段时间，上手了感觉就没啥问题。不过，自己能按照 Eslint 规则来写，插件未必呀～所以当引入某些插件的时候，控制台 warning 停不下来！！！把插件改成符合 Eslint 规范的格式？别闹了……&lt;/p&gt;
+
+&lt;p&gt;第三方插件都是放在 &lt;code class=&quot;highlighter-rouge&quot;&gt;/src/assets/libs&lt;/code&gt; 目录下，所以必须排除掉对这个文件夹的内容做检查&lt;/p&gt;
+
+&lt;p&gt;打开 .eslintignore 把路径添加进去&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/src/assets/libs/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;世界瞬间就清净了。&lt;/p&gt;
+
+&lt;h2 id=&quot;实时数据推送&quot;&gt;实时数据推送&lt;/h2&gt;
+
+&lt;p&gt;后台系统中有一项审核功能，运营人员希望在活动推广期间能实时获得新消息提醒，告诉运营有多少条待审核数据，而不需要自己去定时刷新页面。&lt;/p&gt;
+
+&lt;p&gt;作为一个有逼格的开发者，当然不会使用客户端定时轮询的方式来获取更新，我所想到的有以下方式&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;websocket&lt;/li&gt;
+  &lt;li&gt;SSE + 长连接&lt;/li&gt;
+  &lt;li&gt;LeanCloud LiveQuery 实现&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;虽说 &lt;code class=&quot;highlighter-rouge&quot;&gt;websocket&lt;/code&gt; 很强大，但是开发门槛摆在那里，只是为了这个小功能而花费那么大的精力没什么必要。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SSE&lt;/code&gt; 即 &lt;code class=&quot;highlighter-rouge&quot;&gt;server send event&lt;/code&gt;（服务端发送事件）是一开始选择的方案。实现逻辑如下：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;客户端发起请求&lt;/li&gt;
+  &lt;li&gt;服务端挂起该请求&lt;/li&gt;
+  &lt;li&gt;服务端定时获取数据库的数据并比对结果，当数据发生变化的时候发送数据到前端&lt;/li&gt;
+  &lt;li&gt;前端接收到更新更改显示的状态&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;主要解决了前端代码不够优雅的问题，一次请求，就能获得源源不断的数据推送。&lt;/p&gt;
+
+&lt;p&gt;不过嘛，其实就是把客户端定时轮询交给了后端去做，依旧没有解决性能浪费的问题。而且当客户端关闭之后，服务端还一直 hold 住这个请求不能及时关闭也是挺傻的。&lt;/p&gt;
+
+&lt;p&gt;好在这是用于后台系统，同时只会有一两个运营人员做审核工作。若是用于并发量大一些的场景无疑就是捉襟见肘了。&lt;/p&gt;
+
+&lt;p&gt;一开始不用 &lt;a href=&quot;https://leancloud.cn/docs/livequery-guide.html&quot;&gt;LiveQuery&lt;/a&gt; 主要是不想将这种小功能分离到第三方平台去做，但权衡利弊，LiveQuery 基于 &lt;code class=&quot;highlighter-rouge&quot;&gt;websocket&lt;/code&gt; 实现，看起来就很靠谱的样子啊。照着&lt;a href=&quot;https://leancloud.cn/docs/livequery-guide.html&quot;&gt;官方文档&lt;/a&gt;实现，没什么问题，就成了现在所使用的方案。&lt;/p&gt;</content><author><name>Choipun</name></author><category term="web" /><category term="vue" /><summary type="html">概要</summary></entry><entry><title type="html">谈谈 Web 安全问题</title><link href="http://localhost:4000/2017/11/web-security" rel="alternate" type="text/html" title="谈谈 Web 安全问题" /><published>2017-11-24T13:23:00+08:00</published><updated>2017-11-24T13:23:00+08:00</updated><id>http://localhost:4000/2017/11/web-security</id><content type="html" xml:base="http://localhost:4000/2017/11/web-security">&lt;p&gt;新项目上线也有一段时间了，主要是一个小型文章发布系统，支持运营人员登录后台自行操作，处理文章的增删改查。&lt;/p&gt;
 
 &lt;p&gt;除了基本业务实现外，还要考虑一些安全预防问题。&lt;/p&gt;
 
@@ -14,7 +521,7 @@
 
 &lt;p&gt;使用 &lt;strong&gt;Mustache&lt;/strong&gt; 语法 (双大括号) 的文本插值&lt;/p&gt;
 
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;span&amp;gt;&lt;/span&gt;Message: &lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;span&amp;gt;&lt;/span&gt;Message: {{ msg }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;双大括号会将数据解释为普通文本，而非 HTML 代码。&lt;/p&gt;
@@ -96,7 +603,103 @@ Header set X-Frame-Options &quot;SAMEORIGIN&quot;
 
 &lt;h2 id=&quot;最后&quot;&gt;最后&lt;/h2&gt;
 
-&lt;p&gt;大致就是这些了，以上也仅仅只是我所接触到的内容，对于整个WEB安全防范而言可能并不全面，如果对本文有什么疑问或者其他建议，还望在下方给我留言。&lt;/p&gt;</content><author><name>Choipun</name></author><category term="web" /><category term="security" /><summary type="html">新项目上线也有一段时间了，主要是一个小型文章发布系统，支持运营人员登录后台自行操作，处理文章的增删改查。</summary></entry><entry><title type="html">Hello, BLOG</title><link href="http://localhost:4000/2017/10/hello-blog" rel="alternate" type="text/html" title="Hello, BLOG" /><published>2017-10-28T14:54:37+08:00</published><updated>2017-10-28T14:54:37+08:00</updated><id>http://localhost:4000/2017/10/hello-blog</id><content type="html" xml:base="http://localhost:4000/2017/10/hello-blog">&lt;p&gt;一直以来就有写笔记的习惯，记录日常接触到的新内容，或者踩到的坑。时间一长，笔记也就多了起来。&lt;/p&gt;
+&lt;p&gt;大致就是这些了，以上也仅仅只是我所接触到的内容，对于整个WEB安全防范而言可能并不全面，如果对本文有什么疑问或者其他建议，还望在下方给我留言。&lt;/p&gt;</content><author><name>Choipun</name></author><category term="web" /><category term="security" /><summary type="html">新项目上线也有一段时间了，主要是一个小型文章发布系统，支持运营人员登录后台自行操作，处理文章的增删改查。</summary></entry><entry><title type="html">基于 PHP popen() 运行终端命令</title><link href="http://localhost:4000/2017/11/php-popen" rel="alternate" type="text/html" title="基于 PHP popen() 运行终端命令" /><published>2017-11-03T20:40:00+08:00</published><updated>2017-11-03T20:40:00+08:00</updated><id>http://localhost:4000/2017/11/php-popen</id><content type="html" xml:base="http://localhost:4000/2017/11/php-popen">&lt;h2 id=&quot;前言&quot;&gt;前言&lt;/h2&gt;
+
+&lt;p&gt;最近在用系统自带的终端工具来查询域名的解析，总是重复输入命令感觉有些麻烦，因此就搞了个图形化界面出来调用终端命令。&lt;/p&gt;
+
+&lt;p&gt;当然了，只是为了查询域名解析的话可以用其他的工具，比如 PHP 的原生函数 &lt;code class=&quot;highlighter-rouge&quot;&gt;dns_get_record()&lt;/code&gt;，这边主要是想记录一下PHP运行终端函数的过程。&lt;/p&gt;
+
+&lt;p&gt;所使用的核心函数&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;popen / pclose&lt;/li&gt;
+  &lt;li&gt;is_executable&lt;/li&gt;
+  &lt;li&gt;feof&lt;/li&gt;
+  &lt;li&gt;fread&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;正文&quot;&gt;正文&lt;/h2&gt;
+
+&lt;p&gt;首先用 &lt;code class=&quot;highlighter-rouge&quot;&gt;is_executable&lt;/code&gt; 查找输入的命令是否存在且可执行，返回 &lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt; 或者 &lt;code class=&quot;highlighter-rouge&quot;&gt;false&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;find_command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;s1&quot;&gt;'/bin'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s1&quot;&gt;'/sbin'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s1&quot;&gt;'/usr/bin'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s1&quot;&gt;'/usr/sbin'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s1&quot;&gt;'/usr/local/bin'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s1&quot;&gt;'/usr/local/sbin'&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;foreach&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$path&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;is_executable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$p&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$command&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$p&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$command&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;确定命令存在且可执行，就可以用 &lt;code class=&quot;highlighter-rouge&quot;&gt;popen&lt;/code&gt; 了。&lt;/p&gt;
+
+&lt;p&gt;引用一下 &lt;a href=&quot;http://php.net/manual/zh/function.popen.php&quot;&gt;PHP: popen - Manual&lt;/a&gt; 的说明&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;打开一个指向进程的管道，该进程由派生给定的 command 命令执行而产生。返回一个和 &lt;code class=&quot;highlighter-rouge&quot;&gt;fopen()&lt;/code&gt; 所返回的相同的文件指针，只不过它是单向的（只能用于读或写）并且必须用 &lt;code class=&quot;highlighter-rouge&quot;&gt;pclose()&lt;/code&gt; 来关闭。此指针可以用于 &lt;code class=&quot;highlighter-rouge&quot;&gt;fgets()&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;fgetss()&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;fwrite()&lt;/code&gt;。 当模式为 ‘r’，返回的文件指针等于命令的 STDOUT，当模式为 ‘w’，返回的文件指针等于命令的 STDIN。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Emmmm…这啰里八嗦一大堆，还是结合上一段代码看个实例就明白了&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;do_command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$buffer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;find_command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'command not found'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$fp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;popen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$c&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$args&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'r'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!@&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;feof&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$fp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nv&quot;&gt;$buffer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;fread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$fp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2096&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pclose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$fp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$buffer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;上述代码中，用 &lt;code class=&quot;highlighter-rouge&quot;&gt;feof()&lt;/code&gt; 来测试文件指针是否到了文件结束的位，使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;fread()&lt;/code&gt; 读取内容并将所有的结果写入 &lt;code class=&quot;highlighter-rouge&quot;&gt;$buffer&lt;/code&gt;，读取结束后需要使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;pclose()&lt;/code&gt; 关闭 &lt;code class=&quot;highlighter-rouge&quot;&gt;popen()&lt;/code&gt; 打开的指向管道的文件指针。&lt;/p&gt;
+
+&lt;p&gt;实际运行看看：&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;do_command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'nslookup'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'google.com'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;打开页面显示结果如下：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Server:		8.8.8.8
+Address:	8.8.8.8#53
+
+Non-authoritative answer:
+Name:	google.com
+Address: 172.217.24.206
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;说明执行成功！&lt;/p&gt;
+
+&lt;p&gt;这里还有个问题，在终端上使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;ping&lt;/code&gt; 命令时，会不断发起连接请求，需要手动使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;ctrl + c&lt;/code&gt; 来终止。&lt;/p&gt;
+
+&lt;p&gt;因此如果代码直接写成这样：&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;do_command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'ping'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'google.com'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;会导致程序始终处于运行状态，无法返回结果。&lt;/p&gt;
+
+&lt;p&gt;用 &lt;code class=&quot;highlighter-rouge&quot;&gt;-c&lt;/code&gt; 来限制返回结果数就好了，例如：&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;do_command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'ping'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'-c 5 google.com'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;如果需要添加其他命令，但是不知道路径，可以先在终端上用 &lt;code class=&quot;highlighter-rouge&quot;&gt;type&lt;/code&gt; 查找一下&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type &lt;/span&gt;curl
+curl is hashed &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;/usr/local/php5-7.1.8-20170817-170852/bin/curl&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Choipun</name></author><category term="web" /><summary type="html">前言</summary></entry><entry><title type="html">Hello, BLOG</title><link href="http://localhost:4000/2017/10/hello-blog" rel="alternate" type="text/html" title="Hello, BLOG" /><published>2017-10-28T14:54:37+08:00</published><updated>2017-10-28T14:54:37+08:00</updated><id>http://localhost:4000/2017/10/hello-blog</id><content type="html" xml:base="http://localhost:4000/2017/10/hello-blog">&lt;p&gt;一直以来就有写笔记的习惯，记录日常接触到的新内容，或者踩到的坑。时间一长，笔记也就多了起来。&lt;/p&gt;
 
 &lt;p&gt;要是分享出来，一不小心帮到别人，那也是很棒的。&lt;/p&gt;
 
@@ -153,7 +756,7 @@ Header set X-Frame-Options &quot;SAMEORIGIN&quot;
 
 &lt;p&gt;参考了 &lt;a href=&quot;https://github.com/BlackrockDigital/startbootstrap-clean-blog-jekyll/&quot;&gt;Clean Blog &lt;/a&gt; 的样式，基于 Jekyll 的默认模板 &lt;a href=&quot;https://github.com/jekyll/minima&quot;&gt;Minima&lt;/a&gt; 进行二次修改，基本看不到 Minima的影子了。&lt;/p&gt;
 
-&lt;p&gt;看到 &lt;a href=&quot;http://www.wkun.com/&quot;&gt;WKUN&lt;/a&gt; 有个记录站点成长的页面非常漂亮，所以自己也增加了一个 &lt;a href=&quot;/time/&quot;&gt;Time&lt;/a&gt; 页面来记录博客的年龄。&lt;/p&gt;</content><author><name>Choipun</name></author><category term="life" /><summary type="html">一直以来就有写笔记的习惯，记录日常接触到的新内容，或者踩到的坑。时间一长，笔记也就多了起来。</summary></entry><entry><title type="html">使用Jekyll搭建博客的踩坑记录</title><link href="http://localhost:4000/2017/10/install-jekyll" rel="alternate" type="text/html" title="使用Jekyll搭建博客的踩坑记录" /><published>2017-10-24T21:19:37+08:00</published><updated>2017-10-24T21:19:37+08:00</updated><id>http://localhost:4000/2017/10/install-jekyll</id><content type="html" xml:base="http://localhost:4000/2017/10/install-jekyll">&lt;p&gt;What is Jekyll?&lt;/p&gt;
+&lt;p&gt;看到 &lt;a href=&quot;http://www.wkun.com/&quot;&gt;WKUN&lt;/a&gt; 有个记录站点成长的页面非常漂亮，所以自己也增加了一个 &lt;a href=&quot;/time/&quot;&gt;Time&lt;/a&gt; 页面来记录博客的年龄。&lt;/p&gt;</content><author><name>Choipun</name></author><category term="life" /><summary type="html">一直以来就有写笔记的习惯，记录日常接触到的新内容，或者踩到的坑。时间一长，笔记也就多了起来。</summary></entry><entry><title type="html">使用 Jekyll 搭建博客的踩坑记录</title><link href="http://localhost:4000/2017/10/install-jekyll" rel="alternate" type="text/html" title="使用 Jekyll 搭建博客的踩坑记录" /><published>2017-10-24T21:19:37+08:00</published><updated>2017-10-24T21:19:37+08:00</updated><id>http://localhost:4000/2017/10/install-jekyll</id><content type="html" xml:base="http://localhost:4000/2017/10/install-jekyll">&lt;p&gt;What is Jekyll?&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;Transform your plain text into static websites and blogs. &lt;a href=&quot;http://jekyllrb.com/&quot;&gt;jekyllrb.com&lt;/a&gt;&lt;/p&gt;
@@ -341,7 +944,7 @@ Server running... press ctrl-c to stop.
 &lt;pre&gt;&lt;code class=&quot;language-cmd&quot;&gt;&amp;gt; d:
 &amp;gt; cd dirname
 &amp;gt; md .well-known
-&lt;/code&gt;&lt;/pre&gt;</content><author><name>Choipun</name></author><category term="windows" /><summary type="html">IIS 6</summary></entry><entry><title type="html">macOS自带PHP环境配置</title><link href="http://localhost:4000/2017/10/php-env-in-mac" rel="alternate" type="text/html" title="macOS自带PHP环境配置" /><published>2017-10-18T19:00:00+08:00</published><updated>2017-10-18T19:00:00+08:00</updated><id>http://localhost:4000/2017/10/php-env-in-mac</id><content type="html" xml:base="http://localhost:4000/2017/10/php-env-in-mac">&lt;blockquote&gt;
+&lt;/code&gt;&lt;/pre&gt;</content><author><name>Choipun</name></author><category term="windows" /><summary type="html">IIS 6</summary></entry><entry><title type="html">macOS 自带 PHP 环境配置</title><link href="http://localhost:4000/2017/10/php-env-in-mac" rel="alternate" type="text/html" title="macOS 自带 PHP 环境配置" /><published>2017-10-18T19:00:00+08:00</published><updated>2017-10-18T19:00:00+08:00</updated><id>http://localhost:4000/2017/10/php-env-in-mac</id><content type="html" xml:base="http://localhost:4000/2017/10/php-env-in-mac">&lt;blockquote&gt;
   &lt;p&gt;以下内容运行环境 macOS Sierra 10.12.6&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -586,112 +1189,4 @@ mysql_install_db &lt;span class=&quot;nt&quot;&gt;--verbose&lt;/span&gt; &lt;spa
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.sequelpro.com/&quot;&gt;Sequel Pro&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.phpmyadmin.net/&quot;&gt;phpMyAdmin&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Choipun</name></author><category term="macOS" /><summary type="html">以下内容运行环境 macOS Sierra 10.12.6</summary></entry><entry><title type="html">macOS通过终端解压rar文件</title><link href="http://localhost:4000/2017/09/mac-unrar" rel="alternate" type="text/html" title="macOS通过终端解压rar文件" /><published>2017-09-15T15:23:47+08:00</published><updated>2017-09-15T15:23:47+08:00</updated><id>http://localhost:4000/2017/09/mac-unrar</id><content type="html" xml:base="http://localhost:4000/2017/09/mac-unrar">&lt;p&gt;通过 homebrew 安装 unrar&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;brew install unrar  
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;进入 &lt;code class=&quot;highlighter-rouge&quot;&gt;.rar&lt;/code&gt; 文件目录&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;unrar x filename.rar
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;即可解压到当前文件夹&lt;/p&gt;</content><author><name>Choipun</name></author><category term="macOS" /><summary type="html">通过 homebrew 安装 unrar</summary></entry><entry><title type="html">Windwos服务端搭建Shadowsocks</title><link href="http://localhost:4000/2017/09/install-shadowsocks-in-windows-server" rel="alternate" type="text/html" title="Windwos服务端搭建Shadowsocks" /><published>2017-09-07T19:00:00+08:00</published><updated>2017-09-07T19:00:00+08:00</updated><id>http://localhost:4000/2017/09/install-shadowsocks-in-windows-server</id><content type="html" xml:base="http://localhost:4000/2017/09/install-shadowsocks-in-windows-server">&lt;h2 id=&quot;服务端&quot;&gt;服务端&lt;/h2&gt;
-
-&lt;h3 id=&quot;安装-python&quot;&gt;安装 Python&lt;/h3&gt;
-
-&lt;p&gt;首先去到 Python 官网下载 Python V2 ：&lt;a href=&quot;https://www.python.org/downloads/&quot;&gt;点击前往&lt;/a&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.python.org/ftp/python/2.7.14/python-2.7.14rc1.msi&quot;&gt;32位&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.python.org/ftp/python/2.7.14/python-2.7.14rc1.amd64.msi&quot;&gt;64位&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;注意：最好是根据现在系统的环境来选择，并且要与OpenSSL对应，不能用32位 Python 与64位的 OpenSSL 搭配使用。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;安装-openssl&quot;&gt;安装 OpenSSL&lt;/h3&gt;
-
-&lt;p&gt;同样去到 OpenSSL 官网下载：&lt;a href=&quot;https://slproweb.com/products/Win32OpenSSL.html&quot;&gt;OpenSSL&lt;/a&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://slproweb.com/download/Win32OpenSSL-1_0_2L.exe&quot;&gt;32位&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://slproweb.com/download/Win64OpenSSL-1_0_2L.exe&quot;&gt;64位&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;这里需要注意&lt;/p&gt;
-
-&lt;p&gt;OpenSSL 需要 &lt;strong&gt;Visual C++ 2008 Redistributables&lt;/strong&gt; 支持&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.microsoft.com/downloads/details.aspx?familyid=9B2DA534-3E03-4391-8A4D-074B9F2BC1BF&quot;&gt;32位&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.microsoft.com/downloads/details.aspx?familyid=bd2a6171-e2d6-4230-b809-9a8d7548c1b6&quot;&gt;64位&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;安装-shadowsocks&quot;&gt;安装 Shadowsocks&lt;/h3&gt;
-
-&lt;p&gt;安装完成后，如按照默认路径，使用方法如下&lt;/p&gt;
-
-&lt;p&gt;打开 cmd&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;（Windows Server 2012 R2 系统可按 Windows 图标+X+A打开管理员权限的命令提示符）&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;进入 Python 目录&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd C:\Python27\Scripts
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;也可以用资源管理器进入到该目录，然后按住 Shift + 鼠标右键，选择 &lt;strong&gt;在此处打开命令窗口&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;然后输入&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip install shadowsocks
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;看到多出来几个文件，显示finished之类的字样就是下载成功了。&lt;/p&gt;
-
-&lt;h3 id=&quot;配置-shadowsocks&quot;&gt;配置 Shadowsocks&lt;/h3&gt;
-
-&lt;p&gt;同样需要在 C:\Python27\Scripts 运行命令提示符(管理员)&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssserver.exe -p 8893 -k password -m aes-256-cfb
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;8893&lt;/code&gt; 为服务器端口，&lt;code class=&quot;highlighter-rouge&quot;&gt;password&lt;/code&gt; 为密码，到时在客户端填上服务器的 IP 及此处设置的端口和密码就能使用了&lt;/p&gt;
-
-&lt;p&gt;当然，也可以使用配置文件的方法，在 C:\Python27\Scripts 新建一个名为 shadowsocks.json 的文件，以记事本打开&lt;/p&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;server&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;localhost&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;server_port&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8893&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;local_address&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;127.0.0.1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;local_port&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1080&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;password&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;password&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;timeout&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;300&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;method&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;aes-256-cfb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;fast_open&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;然后运行&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssserver.exe -c C:\Python27\Scripts\shadowsocks.json
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;客户端&quot;&gt;客户端&lt;/h2&gt;
-
-&lt;p&gt;Shadowsocks 客户端官网下载页面：&lt;a href=&quot;https://shadowsocks.org/en/download/clients.html&quot;&gt;点我前往&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;解压到任意目录，双击启动 &lt;strong&gt;Shadowsocks.exe&lt;/strong&gt;，可以在右下角的系统任务栏看到一个 &lt;strong&gt;纸飞机&lt;/strong&gt; 的图标，右键纸飞机图标，勾选设置&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;启用系统代理&lt;/li&gt;
-  &lt;li&gt;允许来自局域网的连接&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;点开 &lt;strong&gt;服务器&lt;/strong&gt; –&amp;gt; &lt;strong&gt;编辑服务器&lt;/strong&gt;：&lt;/p&gt;
-
-&lt;p&gt;对应 shadowsocks.json 配置文件，对照相同项目来填写。填写完以后按 &lt;strong&gt;确定&lt;/strong&gt; 保存配置。&lt;/p&gt;
-
-&lt;p&gt;接着右键纸飞机图标 –&amp;gt; &lt;strong&gt;服务器&lt;/strong&gt;，勾选刚刚设置的那个。&lt;/p&gt;</content><author><name>Choipun</name></author><category term="windows" /><summary type="html">服务端</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Choipun</name></author><category term="macOS" /><summary type="html">以下内容运行环境 macOS Sierra 10.12.6</summary></entry></feed>
