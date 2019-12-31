@@ -94,6 +94,32 @@
     
       <li>
         
+        <span class="post-meta">Dec 2, 2019</span>
+        <h2>
+          <a class="post-link" href="/2019/12/lumen-cors-middleware">Lumen 设置 CORS 实现跨域的配置</a>
+        </h2>
+        <div class="post-content-preview">
+          本文主要记录使用中间件来解决的方案。
+
+创建 app/Http/Middleware/Cors.php
+
+&lt;?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+use Illuminate\Http\Request;
+
+class Cors
+{
+    /**
+     * Handle an incoming request.
+   ...
+        </div>
+      </li>
+    
+      <li>
+        
         <span class="post-meta">Nov 18, 2019</span>
         <h2>
           <a class="post-link" href="/2019/11/laravel-vue-develope">Vue CLI 3 + Laravel 混合部署</a>
@@ -114,6 +140,25 @@ cd my-project
 在 Laravel 项目文件夹中移除前端脚手架，并创建 Vue 项目
 
 rm -rf package.jso...
+        </div>
+      </li>
+    
+      <li>
+        
+        <span class="post-meta">Aug 12, 2019</span>
+        <h2>
+          <a class="post-link" href="/2019/08/nginx-dynamic-ssl">配置 Nginx 支持动态证书加载</a>
+        </h2>
+        <div class="post-content-preview">
+          
+  注：本文 Nginx 版本为 1.16
+
+
+最近有个需求是这样的：有任意域名解析到服务器中，希望服务器不做域名绑定，也可访问到我们设置的默认站点，并支持以 https 来访问。由于有的域名是有购买证书的，有的域名没有，又需要绑定到同一个站点上，因此就需要 nginx 能支持证书的动态加载。
+
+设置默认站点，并监听443端口，记得防火墙放行443端口。
+
+listen 80 defaul...
         </div>
       </li>
     

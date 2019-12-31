@@ -1,4 +1,54 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-12-30T21:08:44+08:00</updated><id>http://localhost:4000/</id><title type="html">Choipun</title><subtitle>与你一起探索未知世界</subtitle><author><name>Choipun</name></author><entry><title type="html">Vue CLI 3 + Laravel 混合部署</title><link href="http://localhost:4000/2019/11/laravel-vue-develope" rel="alternate" type="text/html" title="Vue CLI 3 + Laravel 混合部署" /><published>2019-11-18T21:16:00+08:00</published><updated>2019-11-18T21:16:00+08:00</updated><id>http://localhost:4000/2019/11/laravel-vue-develope</id><content type="html" xml:base="http://localhost:4000/2019/11/laravel-vue-develope">&lt;h2 id=&quot;需求说明&quot;&gt;需求说明&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-12-31T17:00:39+08:00</updated><id>http://localhost:4000/</id><title type="html">Choipun</title><subtitle>与你一起探索未知世界</subtitle><author><name>Choipun</name></author><entry><title type="html">Lumen 设置 CORS 实现跨域的配置</title><link href="http://localhost:4000/2019/12/lumen-cors-middleware" rel="alternate" type="text/html" title="Lumen 设置 CORS 实现跨域的配置" /><published>2019-12-02T16:36:00+08:00</published><updated>2019-12-02T16:36:00+08:00</updated><id>http://localhost:4000/2019/12/lumen-cors-middleware</id><content type="html" xml:base="http://localhost:4000/2019/12/lumen-cors-middleware">&lt;p&gt;本文主要记录使用中间件来解决的方案。&lt;/p&gt;
+
+&lt;p&gt;创建 &lt;strong&gt;app/Http/Middleware/Cors.php&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;App\Http\Middleware&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Closure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Illuminate\Http\Request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Cors&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;sd&quot;&gt;/**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;handle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Closure&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$headers&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+            &lt;span class=&quot;s1&quot;&gt;'Access-Control-Allow-Origin'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'*'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;s1&quot;&gt;'Access-Control-Allow-Methods'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'GET, POST, PUT, DELETE, OPTIONS'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;s1&quot;&gt;'Access-Control-Allow-Headers'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Access-Control-Request-Headers'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+            &lt;span class=&quot;s1&quot;&gt;'Access-Control-Allow-Credentials'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'true'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//允许客户端发送cookie
+&lt;/span&gt;            &lt;span class=&quot;s1&quot;&gt;'Access-Control-Max-Age'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1728000&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//该字段可选，用来指定本次预检请求的有效期，在此期间，不用发出另一条预检请求。
+&lt;/span&gt;        &lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+        &lt;span class=&quot;nv&quot;&gt;$response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;withHeaders&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$headers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;注册路由中间件 &lt;strong&gt;bootstrap/app.php&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$app&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;routeMiddleware&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;
+    &lt;span class=&quot;s1&quot;&gt;'cors'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;  &lt;span class=&quot;nx&quot;&gt;App\Http\Middleware\Cors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// ... 其他中间件
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;在需要跨域的路由上使用中间件 &lt;strong&gt;routes/web.php&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$router&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'middleware'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'cors'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$router&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Choipun</name></author><category term="web" /><summary type="html">本文主要记录使用中间件来解决的方案。</summary></entry><entry><title type="html">Vue CLI 3 + Laravel 混合部署</title><link href="http://localhost:4000/2019/11/laravel-vue-develope" rel="alternate" type="text/html" title="Vue CLI 3 + Laravel 混合部署" /><published>2019-11-18T21:16:00+08:00</published><updated>2019-11-18T21:16:00+08:00</updated><id>http://localhost:4000/2019/11/laravel-vue-develope</id><content type="html" xml:base="http://localhost:4000/2019/11/laravel-vue-develope">&lt;h2 id=&quot;需求说明&quot;&gt;需求说明&lt;/h2&gt;
 
 &lt;p&gt;使用 Laravel 提供 API 服务，并使用 Vue CLI 构建前端页面。最终生成的静态页面作为 Laravel 的模板。&lt;/p&gt;
 
@@ -72,7 +122,34 @@ vue create frontend
 
 &lt;p&gt;参考与致谢：&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://github.com/yyx990803/laravel-vue-cli-3&quot;&gt;Laravel + Vue CLI 3&lt;/a&gt;&lt;/p&gt;</content><author><name>Choipun</name></author><category term="web" /><category term="vue" /><summary type="html">需求说明</summary></entry><entry><title type="html">Vue CLI 3 + Socket.io 配置记录</title><link href="http://localhost:4000/2018/07/Vue-cli-3.0-socket.io" rel="alternate" type="text/html" title="Vue CLI 3 + Socket.io 配置记录" /><published>2018-07-14T21:16:00+08:00</published><updated>2018-07-14T21:16:00+08:00</updated><id>http://localhost:4000/2018/07/Vue-cli-3.0-socket.io</id><content type="html" xml:base="http://localhost:4000/2018/07/Vue-cli-3.0-socket.io">&lt;h2 id=&quot;创建&quot;&gt;创建&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/yyx990803/laravel-vue-cli-3&quot;&gt;Laravel + Vue CLI 3&lt;/a&gt;&lt;/p&gt;</content><author><name>Choipun</name></author><category term="web" /><category term="vue" /><summary type="html">需求说明</summary></entry><entry><title type="html">配置 Nginx 支持动态证书加载</title><link href="http://localhost:4000/2019/08/nginx-dynamic-ssl" rel="alternate" type="text/html" title="配置 Nginx 支持动态证书加载" /><published>2019-08-12T17:18:00+08:00</published><updated>2019-08-12T17:18:00+08:00</updated><id>http://localhost:4000/2019/08/nginx-dynamic-ssl</id><content type="html" xml:base="http://localhost:4000/2019/08/nginx-dynamic-ssl">&lt;blockquote&gt;
+  &lt;p&gt;注：本文 Nginx 版本为 &lt;code class=&quot;highlighter-rouge&quot;&gt;1.16&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;最近有个需求是这样的：有任意域名解析到服务器中，希望服务器不做域名绑定，也可访问到我们设置的默认站点，并支持以 https 来访问。由于有的域名是有购买证书的，有的域名没有，又需要绑定到同一个站点上，因此就需要 nginx 能支持证书的动态加载。&lt;/p&gt;
+
+&lt;p&gt;设置默认站点，并监听443端口，记得防火墙放行443端口。&lt;/p&gt;
+
+&lt;div class=&quot;language-nginx highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;listen&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;80&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;default_server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;listen&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;443&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ssl&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;http2&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;default_server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;动态加载证书文件&lt;/p&gt;
+
+&lt;div class=&quot;language-nginx highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;ssl_certificate&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;/home/ssl/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ssl_server_name&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;.crt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ssl_certificate_key&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;/home/ssl/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ssl_server_name&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;.key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ssl_protocols&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;TLSv1.1&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;TLSv1.2&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;TLSv1.3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ssl_ciphers&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ssl_prefer_server_ciphers&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ssl_session_cache&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;shared:SSL:10m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ssl_session_timeout&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;error_page&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;497&lt;/span&gt;  &lt;span class=&quot;s&quot;&gt;https://&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$host$request_uri&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;通过上面的代码片段可知，主要是依赖于 &lt;code class=&quot;highlighter-rouge&quot;&gt;$ssl_server_name&lt;/code&gt; 这个变量。&lt;/p&gt;
+
+&lt;p&gt;当用户以 &lt;code class=&quot;highlighter-rouge&quot;&gt;https://&lt;/code&gt; 开头访问站点时，他能根据当前的受访域名，去指定目录下查找对应的证书文件，若存在，则加载证书，否则提示连接失败。&lt;/p&gt;
+
+&lt;p&gt;而以普通形式 &lt;code class=&quot;highlighter-rouge&quot;&gt;http://&lt;/code&gt; 访问则不受影响。&lt;/p&gt;</content><author><name>Choipun</name></author><category term="server" /><summary type="html">注：本文 Nginx 版本为 1.16</summary></entry><entry><title type="html">Vue CLI 3 + Socket.io 配置记录</title><link href="http://localhost:4000/2018/07/Vue-cli-3.0-socket.io" rel="alternate" type="text/html" title="Vue CLI 3 + Socket.io 配置记录" /><published>2018-07-14T21:16:00+08:00</published><updated>2018-07-14T21:16:00+08:00</updated><id>http://localhost:4000/2018/07/Vue-cli-3.0-socket.io</id><content type="html" xml:base="http://localhost:4000/2018/07/Vue-cli-3.0-socket.io">&lt;h2 id=&quot;创建&quot;&gt;创建&lt;/h2&gt;
 
 &lt;p&gt;创建项目使用如下命令&lt;/p&gt;
 
@@ -884,309 +961,4 @@ Server running... press ctrl-c to stop.
 
 &lt;p&gt;按照 Jekyll 官网说法是，需要根据主题目录，额外以相同路径建立同名文件在自己的博客下，或者新增文件。&lt;/p&gt;
 
-&lt;p&gt;相当于是强制备份吧，折腾坏了也方便还原。&lt;/p&gt;</content><author><name>Choipun</name></author><category term="jekyll" /><summary type="html">What is Jekyll?</summary></entry><entry><title type="html">Windows Server 安装域名证书</title><link href="http://localhost:4000/2017/10/windows-server-ssl" rel="alternate" type="text/html" title="Windows Server 安装域名证书" /><published>2017-10-22T19:00:00+08:00</published><updated>2017-10-22T19:00:00+08:00</updated><id>http://localhost:4000/2017/10/windows-server-ssl</id><content type="html" xml:base="http://localhost:4000/2017/10/windows-server-ssl">&lt;h2 id=&quot;iis-6&quot;&gt;IIS 6&lt;/h2&gt;
-
-&lt;p&gt;假设已经获取到 &lt;code class=&quot;highlighter-rouge&quot;&gt;.pfx&lt;/code&gt; 格式证书：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;打开IIS&lt;/li&gt;
-  &lt;li&gt;选择网站 –&amp;gt; 点击右键 –&amp;gt; &lt;strong&gt;属性&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;点击 &lt;strong&gt;目录安全性&lt;/strong&gt; 选项卡&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;安全通信&lt;/strong&gt;一栏，点击&lt;strong&gt;服务器证书&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;选择&lt;strong&gt;从.pfx文件导入证书&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;导入证书，输入证书密码，一直点击下一步，即可完成。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;强制必须以 &lt;code class=&quot;highlighter-rouge&quot;&gt;https&lt;/code&gt; 打开：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;回到&lt;strong&gt;安全通信&lt;/strong&gt;一栏，点击&lt;strong&gt;编辑&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;勾选 &lt;strong&gt;要求安全通道（SSL）&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;勾选 &lt;strong&gt;要求128位加密&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;这个时候用户输入 &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt; 开头的地址访问网站，服务器将返回一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;403.4&lt;/code&gt; 的错误&lt;/p&gt;
-
-&lt;p&gt;可以自定义一个新的 403.4 错误页面，通过该页面&lt;strong&gt;重定向&lt;/strong&gt;到 &lt;code class=&quot;highlighter-rouge&quot;&gt;https&lt;/code&gt; 开头的地址&lt;/p&gt;
-
-&lt;p&gt;新建一个 &lt;strong&gt;redirect.html&lt;/strong&gt; 文件&lt;/p&gt;
-
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;html&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
-	&lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;charset=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;utf-8&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-	&lt;span class=&quot;nt&quot;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;loading&lt;span class=&quot;nt&quot;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;script&amp;gt;&lt;/span&gt;
-	&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;hostname&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;pathname&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-	&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'https://'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-	&lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;href&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;在网站属性中，找到&lt;strong&gt;自定义错误&lt;/strong&gt;选项卡&lt;/li&gt;
-  &lt;li&gt;找到错误类型为 &lt;code class=&quot;highlighter-rouge&quot;&gt;403:4&lt;/code&gt; 的一栏，点击&lt;strong&gt;编辑&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;替换文件为刚刚保存的&lt;strong&gt;redirect.html&lt;/strong&gt;，点击&lt;strong&gt;确定&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;测试一下， 以 &lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt; 开头访问网站，自动跳转到了 &lt;code class=&quot;highlighter-rouge&quot;&gt;https&lt;/code&gt; 开头的地址，说明设置成功!&lt;/p&gt;
-
-&lt;p&gt;顺便说下生成SSL证书，需要验证域名，要求建立个文件 .well-known/pki-validation/&lt;/p&gt;
-
-&lt;p&gt;windows下直接新建文件夹，重命名成 &lt;code class=&quot;highlighter-rouge&quot;&gt;.well-known&lt;/code&gt; 是无法创建成功的。&lt;/p&gt;
-
-&lt;p&gt;解决办法：打开 cmd 进入网站根目录&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-cmd&quot;&gt;&amp;gt; d:
-&amp;gt; cd dirname
-&amp;gt; md .well-known
-&lt;/code&gt;&lt;/pre&gt;</content><author><name>Choipun</name></author><category term="windows" /><summary type="html">IIS 6</summary></entry><entry><title type="html">macOS 自带 PHP 环境配置</title><link href="http://localhost:4000/2017/10/php-env-in-mac" rel="alternate" type="text/html" title="macOS 自带 PHP 环境配置" /><published>2017-10-18T19:00:00+08:00</published><updated>2017-10-18T19:00:00+08:00</updated><id>http://localhost:4000/2017/10/php-env-in-mac</id><content type="html" xml:base="http://localhost:4000/2017/10/php-env-in-mac">&lt;blockquote&gt;
-  &lt;p&gt;以下内容运行环境 macOS Sierra 10.12.6&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;升级到 macOS High Sierra 10.13 之后，需要重新配置 httpd-vhosts.conf 文件，重启 MySQL 服务&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;apache&quot;&gt;Apache&lt;/h2&gt;
-
-&lt;p&gt;先把执行权限调整成 root&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;su -
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;开启服务&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apachectl start
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;看到 &lt;a href=&quot;http://localhost/&quot;&gt;http://localhost/&lt;/a&gt; 显示 &lt;strong&gt;It works!&lt;/strong&gt; 说明Apache已经正常运作。&lt;/p&gt;
-
-&lt;p&gt;根目录在 /Library/WebServer/Documents 中。&lt;/p&gt;
-
-&lt;p&gt;显示 Apache 版本&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apachectl &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;重启&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apachectl restart
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;php&quot;&gt;PHP&lt;/h2&gt;
-
-&lt;p&gt;开启PHP之前，先把现有的 httpd.conf 备份一下&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /etc/apache2/
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;cp httpd.conf httpd.conf.bak
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;打开 httpd.conf 找到以下这行，删除前面的 &lt;code class=&quot;highlighter-rouge&quot;&gt;#&lt;/code&gt; 解除注释。&lt;/p&gt;
-
-&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#LoadModule php5_module libexec/apache2/libphp5.so
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;然后重启Apache服务&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apachectl restart
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;可以在根目录下写入一个 phpinfo.php&lt;/p&gt;
-
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;phpinfo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;cp&quot;&gt;?&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;然后打开 &lt;a href=&quot;http://localhost/phpinfo.php&quot;&gt;http://localhost/phpinfo.php&lt;/a&gt; 看看是否能获取到信息。&lt;/p&gt;
-
-&lt;p&gt;查看PHP版本&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;php &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;显示为5.6.3&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PHP 5.6.30 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;cli&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;built: Feb  7 2017 16:18:37&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 
-Copyright &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;c&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 1997-2016 The PHP Group
-Zend Engine v2.6.0, Copyright &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;c&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 1998-2016 Zend Technologies
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;有点旧，升级之！&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; https://php-osx.liip.ch/install.sh | bash &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; 7.1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;此时并不是覆盖原来的版本，而是下载了一个新的版本。 
-需要修改默认指向的路径。&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;vim ~/.bash_profile
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;进入vim模式后按 i 键进入编辑状态，插入这一行：&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/local/php5-7.1.8-20170817-170852/bin:&lt;span class=&quot;nv&quot;&gt;$PATH&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;以下载的时候显示的路径为准，后面的数字应该是不一样的。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;然后按 esc 键，输入 &lt;code class=&quot;highlighter-rouge&quot;&gt;:wq&lt;/code&gt; 保存并退出。&lt;/p&gt;
-
-&lt;p&gt;接着执行这句：&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; ~/.bash_profile
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;再次查看PHP版本就会发现已经更新好了。&lt;/p&gt;
-
-&lt;p&gt;最后，把 httpd.conf 中刚刚开启过的 &lt;code class=&quot;highlighter-rouge&quot;&gt;php5_module&lt;/code&gt; 再注释掉，否则会导致冲突。&lt;/p&gt;
-
-&lt;p&gt;再次查看 &lt;a href=&quot;http://localhost/phpinfo.php&quot;&gt;http://localhost/phpinfo.php&lt;/a&gt; 页面，此时显示的版本为7.1.8 ，一切完美。&lt;/p&gt;
-
-&lt;h2 id=&quot;多站点配置&quot;&gt;多站点配置&lt;/h2&gt;
-
-&lt;p&gt;在站点根目录下建个 test 文件夹，即 /Library/WebServer/Documents/test&lt;/p&gt;
-
-&lt;p&gt;打开 test 并放个 index.php 进去，随便内容写点什么。&lt;/p&gt;
-
-&lt;p&gt;接着需要开启vhost服务，打开 httpd.conf，找到以下内容并删除前面的 &lt;code class=&quot;highlighter-rouge&quot;&gt;#&lt;/code&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#Include /private/etc/apache2/extra/httpd-vhosts.conf
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;接着，前往 /etc/apache2/extra，编辑 httpd-vhosts.conf 添加如下内容&lt;/p&gt;
-
-&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;VirtualHost&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;*:80&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-    DocumentRoot &quot;/Library/WebServer/Documents/test&quot;
-    ServerName www.test.com
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/VirtualHost&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;前往 /etc，编辑 hosts 添加本地域名解析规则。建议是直接复制现有的内容，直接修改就好，不要自己写。&lt;/p&gt;
-
-&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;127.0.0.1	www.test.com
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;配置完毕后，重启一下 Apache 服务&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apachectl restart
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;最后，打开地址栏，输入 &lt;a href=&quot;http://www.test.com/&quot;&gt;http://www.test.com/&lt;/a&gt;，看到了之前新建的 index.php 的内容，说明配置成功！&lt;/p&gt;
-
-&lt;h2 id=&quot;mysql&quot;&gt;MySQL&lt;/h2&gt;
-
-&lt;h3 id=&quot;通过-homebrew-来安装&quot;&gt;通过 homebrew 来安装&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;brew install mysql
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;会顺便安装依赖工具 openSSL，当看到 🍺 标志就说明安装成功了。&lt;/p&gt;
-
-&lt;p&gt;可以看下有哪些可用命令及相关信息。&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mysql &lt;span class=&quot;nt&quot;&gt;--help&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;安装完成后要做点简单配置&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;unset &lt;/span&gt;TMPDIR
-mysql_install_db &lt;span class=&quot;nt&quot;&gt;--verbose&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;whoami&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--basedir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;brew &lt;span class=&quot;nt&quot;&gt;--prefix&lt;/span&gt; mysql&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--datadir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/local/var/mysql &lt;span class=&quot;nt&quot;&gt;--tmpdir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/tmp
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;会看到报错提示未知变量&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mysql_install_db: &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;ERROR] unknown variable &lt;span class=&quot;s1&quot;&gt;'tmpdir=/tmp'&lt;/span&gt;
-2017-09-07 16:35:03 &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;ERROR]   Unrecognized options
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;不知道是不是就我遇到了这个情况，暂时没有搜索到什么解决方案，跳过貌似没有什么影响。&lt;/p&gt;
-
-&lt;h3 id=&quot;启动mysql&quot;&gt;启动MySQL&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mysql.server start
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;安全配置&quot;&gt;安全配置&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;/usr/local/Cellar/mysql/5.7.19/bin/mysql_secure_installation
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;版本号以实际安装的为准&lt;/strong&gt;，可以先查询看下&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mysql &lt;span class=&quot;nt&quot;&gt;--version&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;显示如下信息&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mysql  Ver 14.14 Distrib 5.7.19, &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;osx10.12 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;x86_64&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; using  EditLine wrapper
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;也就是 &lt;code class=&quot;highlighter-rouge&quot;&gt;Distrib &lt;/code&gt; 后面的 &lt;code class=&quot;highlighter-rouge&quot;&gt;5.7.19&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;之后就是一些设置了。&lt;/p&gt;
-
-&lt;p&gt;都是英文看不懂？&lt;strong&gt;macOS很方便的一点就是选中单词以后，双指轻触，就可以查询单词意思。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;homebrew 安装的 mysql 的数据存储位置为 &lt;strong&gt;/usr/local/var/mysql&lt;/strong&gt;。 可以通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;find / -name databasename&lt;/code&gt; 的方式根据数据库名称找到具体位置。&lt;/p&gt;
-
-&lt;h3 id=&quot;mysql-基本操作&quot;&gt;MySQL 基本操作&lt;/h3&gt;
-
-&lt;p&gt;登录mysql&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mysql &lt;span class=&quot;nt&quot;&gt;-uroot&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;会提示需要输入密码，完成后就可以连接上去了。&lt;/p&gt;
-
-&lt;p&gt;这个时候，命令行会变成这种形式：&lt;/p&gt;
-
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;mysql&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;查看数据库列表&lt;/p&gt;
-
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;mysql&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;show&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;databases&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;注意：所有的 MySQL 操作语句都不能省略后面的&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;显示如下结果&lt;/p&gt;
-
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;--------------------+&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Database&lt;/span&gt;           &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;--------------------+&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;information_schema&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mysql&lt;/span&gt;              &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;performance_schema&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;                &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;--------------------+&lt;/span&gt;
-&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rows&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;00&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;创新数据库&lt;/p&gt;
-
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;mysql&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;database&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mydb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;打开数据库&lt;/p&gt;
-
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;mysql&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mydb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;查看数据表&lt;/p&gt;
-
-&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;mysql&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;show&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tables&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;gui工具&quot;&gt;GUI工具&lt;/h3&gt;
-
-&lt;p&gt;总是敲命令行比较麻烦，也不太直观。可以使用 GUI 工具来进行操作&lt;/p&gt;
-
-&lt;p&gt;推荐：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.sequelpro.com/&quot;&gt;Sequel Pro&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.phpmyadmin.net/&quot;&gt;phpMyAdmin&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Choipun</name></author><category term="macOS" /><summary type="html">以下内容运行环境 macOS Sierra 10.12.6</summary></entry></feed>
+&lt;p&gt;相当于是强制备份吧，折腾坏了也方便还原。&lt;/p&gt;</content><author><name>Choipun</name></author><category term="jekyll" /><summary type="html">What is Jekyll?</summary></entry></feed>
