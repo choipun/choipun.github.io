@@ -1,4 +1,93 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-12-31T17:00:39+08:00</updated><id>http://localhost:4000/</id><title type="html">Choipun</title><subtitle>与你一起探索未知世界</subtitle><author><name>Choipun</name></author><entry><title type="html">Lumen 设置 CORS 实现跨域的配置</title><link href="http://localhost:4000/2019/12/lumen-cors-middleware" rel="alternate" type="text/html" title="Lumen 设置 CORS 实现跨域的配置" /><published>2019-12-02T16:36:00+08:00</published><updated>2019-12-02T16:36:00+08:00</updated><id>http://localhost:4000/2019/12/lumen-cors-middleware</id><content type="html" xml:base="http://localhost:4000/2019/12/lumen-cors-middleware">&lt;p&gt;本文主要记录使用中间件来解决的方案。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-01-04T20:32:31+08:00</updated><id>http://localhost:4000/</id><title type="html">Choipun</title><subtitle>与你一起探索未知世界</subtitle><author><name>Choipun</name></author><entry><title type="html">检测域名是否被微信封禁</title><link href="http://localhost:4000/2020/01/wx-long2short" rel="alternate" type="text/html" title="检测域名是否被微信封禁" /><published>2020-01-04T19:33:00+08:00</published><updated>2020-01-04T19:33:00+08:00</updated><id>http://localhost:4000/2020/01/wx-long2short</id><content type="html" xml:base="http://localhost:4000/2020/01/wx-long2short">&lt;p&gt;当域名被微信封禁时，访问的链接会先经过微信服务器检测，如果正常就放行，否则会重定向跳转到下面这个链接（右键在新窗口打开，修改这个链接的参数，有趣的现象会发生）&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi?main_type=2&amp;amp;evil_type=20&amp;amp;source=2&amp;amp;url=https://baidu.com&quot;&gt;https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/…&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;如果我们能够让微信自己的域名经过微信的检测，那么这件事就成了。翻遍了微信官方各种api，功夫不负有心人，找到了「&lt;strong&gt;长链接转短链接接口&lt;/strong&gt;」，可以把我们的链接转成微信自己的链接，这样判断短链接的重定向链接即可得知是否被封禁。&lt;/p&gt;
+
+&lt;p&gt;长链转短链需要三个参数&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;access_token&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;action&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;long_url&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;关键的问题来了， &lt;code class=&quot;highlighter-rouge&quot;&gt;access_token&lt;/code&gt; 是从微信获取来的，获取 &lt;code class=&quot;highlighter-rouge&quot;&gt;access_token&lt;/code&gt; 需要在微信后台配置白名单，并且每天限额是1000000次 &lt;code class=&quot;highlighter-rouge&quot;&gt;access_token&lt;/code&gt; 是公众号的全局唯一接口调用凭据，公众号调用各接口时都需使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;access_token&lt;/code&gt; 但是，很多网站是没有公众号的，或者说100万的调用次数都不够我挥霍的，那怎么办？答案是我们可以使用微信公众平台测试账号，它的优势是无需公众帐号、快速申请接口（只要有微信号就可以），可以直接体验和测试公众平台所有高级接口功能，而且不需要绑定ip白名单也可以获得 &lt;code class=&quot;highlighter-rouge&quot;&gt;access_token&lt;/code&gt; ，最大的优势是长链转短链的服务貌似没有调用次数限制（我亲测试了很多，发现使用次数并没有变化，虽然文档上写了1000次）。&lt;/p&gt;
+
+&lt;p&gt;微信公众平台测试账号链接：&lt;a href=&quot;https://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&amp;amp;t=sandbox/index&quot;&gt;https://mp.weixin.qq.com/debug/…&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;所有的准备工作已经ready，那么可以show代码了获取 &lt;code class=&quot;highlighter-rouge&quot;&gt;access_token&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/**
+ * 根据appid和app appsecret来获取acess_token
+ * return @param {String}
+ */
+async getAccessToken() {
+    let query = {
+        appid: this.appid,
+        secret: this.appsecret,
+        grant_type: 'client_credential'
+    };
+     
+    let url = `https://api.weixin.qq.com/cgi-bin/token?${querystring.stringify(query)}`;
+    return await this.request(url);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;长链转短链&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/**
+ * 通过微信api生成短链
+ * @param {String} req_url 待检测url
+ */
+async createShortUrl(req_url) {
+    var requestData = {
+        &quot;access_token&quot;: this.access_token,
+        &quot;action&quot;: &quot;long2short&quot;,
+        &quot;long_url&quot;: req_url
+    }
+    const url = `https://api.weixin.qq.com/cgi-bin/shorturl?access_token=${this.access_token}`;
+    let body = await this.request(url, {
+        method: &quot;POST&quot;,
+        json: true,
+        headers: {
+            &quot;content-type&quot;: &quot;application/json&quot;,
+        },
+        body: requestData
+    });
+ 
+ 
+    return body &amp;amp;&amp;amp; body.short_url;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;检测重定向链接来判断是否被微信封禁&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/**
+ * 根据重定向之后的host是否为weixin110.qq.com来检测url是否被微信封禁
+ * @param {String} url 待检测短链接url
+ */
+checkDomainBanned(url) {
+    return new Promise(function (resolve, reject) {
+        return request(url, function(err, res, body) {
+            if (!err) {
+                if (res &amp;amp;&amp;amp; res.request &amp;amp;&amp;amp; res.request.uri &amp;amp;&amp;amp; res.request.uri.host === 'weixin110.qq.com') {
+                    resolve({ code: -1, msg: 'banned' });
+                } else {
+                    resolve({ code: 0, msg: 'ok' });
+                }
+            } else {
+                reject(err);
+            }
+        })
+    })
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;致谢&quot;&gt;致谢&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;来源：知乎 作者：唐静鑫&lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name>Choipun</name></author><category term="web" /><category term="security" /><summary type="html">当域名被微信封禁时，访问的链接会先经过微信服务器检测，如果正常就放行，否则会重定向跳转到下面这个链接（右键在新窗口打开，修改这个链接的参数，有趣的现象会发生）</summary></entry><entry><title type="html">Lumen 设置 CORS 实现跨域的配置</title><link href="http://localhost:4000/2019/12/lumen-cors-middleware" rel="alternate" type="text/html" title="Lumen 设置 CORS 实现跨域的配置" /><published>2019-12-02T16:36:00+08:00</published><updated>2019-12-02T16:36:00+08:00</updated><id>http://localhost:4000/2019/12/lumen-cors-middleware</id><content type="html" xml:base="http://localhost:4000/2019/12/lumen-cors-middleware">&lt;p&gt;本文主要记录使用中间件来解决的方案。&lt;/p&gt;
 
 &lt;p&gt;创建 &lt;strong&gt;app/Http/Middleware/Cors.php&lt;/strong&gt;&lt;/p&gt;
 
@@ -149,7 +238,40 @@ vue create frontend
 
 &lt;p&gt;当用户以 &lt;code class=&quot;highlighter-rouge&quot;&gt;https://&lt;/code&gt; 开头访问站点时，他能根据当前的受访域名，去指定目录下查找对应的证书文件，若存在，则加载证书，否则提示连接失败。&lt;/p&gt;
 
-&lt;p&gt;而以普通形式 &lt;code class=&quot;highlighter-rouge&quot;&gt;http://&lt;/code&gt; 访问则不受影响。&lt;/p&gt;</content><author><name>Choipun</name></author><category term="server" /><summary type="html">注：本文 Nginx 版本为 1.16</summary></entry><entry><title type="html">Vue CLI 3 + Socket.io 配置记录</title><link href="http://localhost:4000/2018/07/Vue-cli-3.0-socket.io" rel="alternate" type="text/html" title="Vue CLI 3 + Socket.io 配置记录" /><published>2018-07-14T21:16:00+08:00</published><updated>2018-07-14T21:16:00+08:00</updated><id>http://localhost:4000/2018/07/Vue-cli-3.0-socket.io</id><content type="html" xml:base="http://localhost:4000/2018/07/Vue-cli-3.0-socket.io">&lt;h2 id=&quot;创建&quot;&gt;创建&lt;/h2&gt;
+&lt;p&gt;而以普通形式 &lt;code class=&quot;highlighter-rouge&quot;&gt;http://&lt;/code&gt; 访问则不受影响。&lt;/p&gt;</content><author><name>Choipun</name></author><category term="server" /><summary type="html">注：本文 Nginx 版本为 1.16</summary></entry><entry><title type="html">将某个元素固定在页面上</title><link href="http://localhost:4000/2019/03/pinit-js" rel="alternate" type="text/html" title="将某个元素固定在页面上" /><published>2019-03-18T13:12:00+08:00</published><updated>2019-03-18T13:12:00+08:00</updated><id>http://localhost:4000/2019/03/pinit-js</id><content type="html" xml:base="http://localhost:4000/2019/03/pinit-js">&lt;p&gt;最近在尝试改版博客，希望当文章内容导航栏滑动到顶部的时候，始终固定，不随文档滚动。&lt;/p&gt;
+
+&lt;p&gt;主要思路就是监听 &lt;code class=&quot;highlighter-rouge&quot;&gt;scroll&lt;/code&gt; 事件，获取当前文档滚动的高度，再改变导航栏的 &lt;code class=&quot;highlighter-rouge&quot;&gt;position&lt;/code&gt; 属性为 &lt;code class=&quot;highlighter-rouge&quot;&gt;fixed&lt;/code&gt; 或者 &lt;code class=&quot;highlighter-rouge&quot;&gt;relative&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;关于文档滚动高度的获取，各个浏览器存在一定的兼容性差异，主要可以取以下三个值。&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;scrolltop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;pageYOffset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; 
+  &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;documentElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;scrollTop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; 
+  &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;scrollTop&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;乍一看没什么问题，实际在PC端各浏览器里看效果也确实没有遇到什么问题，直到我在手机QQ自带的浏览器里打开来看效果才发现，滑动效果没有办法&lt;strong&gt;实时触发&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;想起来 &lt;a href=&quot;http://www.bootcss.com/&quot;&gt;bootcss&lt;/a&gt; 已经有个插件 &lt;a href=&quot;http://www.bootcss.com/p/jquery.pin/&quot;&gt;jQuery.Pin&lt;/a&gt; 实现了这种效果，但是同样没有解决这个问题，另一方面，为了这么个小功能要额外引入个 jQuery 显得有些没必要。&lt;/p&gt;
+
+&lt;p&gt;直到我在搜索着其他插件的解决方案时，发现了一个 CSS 属性 &lt;code class=&quot;highlighter-rouge&quot;&gt;position: sticky&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;单词sticky的中文意思是「粘性的」，&lt;code class=&quot;highlighter-rouge&quot;&gt;position: sticky&lt;/code&gt; 表现也符合这个粘性的表现。基本上，可以看出是 &lt;code class=&quot;highlighter-rouge&quot;&gt;position: relative&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;position: fixed&lt;/code&gt; 的结合体：当元素在屏幕内，表现为 &lt;code class=&quot;highlighter-rouge&quot;&gt;relative&lt;/code&gt;，就要滚出显示器屏幕的时候，表现为 &lt;code class=&quot;highlighter-rouge&quot;&gt;fixed&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;一番尝试后发现，一行代码即可解决各种痛点，无需使用 JS，简直酸爽。&lt;/p&gt;
+
+&lt;p&gt;不过这是个兼容属性，有的浏览器尚不支持。因此如果非要各个浏览器都兼容，还需要借助 JS 对于不支持 sticky 的浏览器使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;position: fixed&lt;/code&gt; 来解决。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;参考与致谢&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.alloyteam.com/2017/04/secrets-of-mobile-web-scroll-bars-and-drop-refresh/&quot;&gt;移动web之滚动篇&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.ruanyifeng.com/blog/2009/09/find_element_s_position_using_javascript.html&quot;&gt;用Javascript获取页面元素的位置&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://caniuse.com/#search=sticky&quot;&gt;Can I use sticky?&lt;/a&gt;&lt;/p&gt;</content><author><name>Choipun</name></author><category term="web" /><summary type="html">最近在尝试改版博客，希望当文章内容导航栏滑动到顶部的时候，始终固定，不随文档滚动。</summary></entry><entry><title type="html">在 Vue 项目中使用 Web Worker</title><link href="http://localhost:4000/2018/11/web-worker-in-vue" rel="alternate" type="text/html" title="在 Vue 项目中使用 Web Worker" /><published>2018-11-23T16:36:00+08:00</published><updated>2018-11-23T16:36:00+08:00</updated><id>http://localhost:4000/2018/11/web-worker-in-vue</id><content type="html" xml:base="http://localhost:4000/2018/11/web-worker-in-vue">&lt;p&gt;TODO&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;https://github.com/israelss/simple-web-worker/blob/master/src/createDisposableWorker.js&lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name>Choipun</name></author><category term="web" /><summary type="html">TODO</summary></entry><entry><title type="html">Vue CLI 3 + Socket.io 配置记录</title><link href="http://localhost:4000/2018/07/Vue-cli-3.0-socket.io" rel="alternate" type="text/html" title="Vue CLI 3 + Socket.io 配置记录" /><published>2018-07-14T21:16:00+08:00</published><updated>2018-07-14T21:16:00+08:00</updated><id>http://localhost:4000/2018/07/Vue-cli-3.0-socket.io</id><content type="html" xml:base="http://localhost:4000/2018/07/Vue-cli-3.0-socket.io">&lt;h2 id=&quot;创建&quot;&gt;创建&lt;/h2&gt;
 
 &lt;p&gt;创建项目使用如下命令&lt;/p&gt;
 
@@ -680,285 +802,4 @@ Header set X-Frame-Options &quot;SAMEORIGIN&quot;
 
 &lt;h2 id=&quot;最后&quot;&gt;最后&lt;/h2&gt;
 
-&lt;p&gt;大致就是这些了，以上也仅仅只是我所接触到的内容，对于整个WEB安全防范而言可能并不全面，如果对本文有什么疑问或者其他建议，还望在下方给我留言。&lt;/p&gt;</content><author><name>Choipun</name></author><category term="web" /><category term="security" /><summary type="html">新项目上线也有一段时间了，主要是一个小型文章发布系统，支持运营人员登录后台自行操作，处理文章的增删改查。</summary></entry><entry><title type="html">基于 PHP popen() 运行终端命令</title><link href="http://localhost:4000/2017/11/php-popen" rel="alternate" type="text/html" title="基于 PHP popen() 运行终端命令" /><published>2017-11-03T20:40:00+08:00</published><updated>2017-11-03T20:40:00+08:00</updated><id>http://localhost:4000/2017/11/php-popen</id><content type="html" xml:base="http://localhost:4000/2017/11/php-popen">&lt;h2 id=&quot;前言&quot;&gt;前言&lt;/h2&gt;
-
-&lt;p&gt;最近在用系统自带的终端工具来查询域名的解析，总是重复输入命令感觉有些麻烦，因此就搞了个图形化界面出来调用终端命令。&lt;/p&gt;
-
-&lt;p&gt;当然了，只是为了查询域名解析的话可以用其他的工具，比如 PHP 的原生函数 &lt;code class=&quot;highlighter-rouge&quot;&gt;dns_get_record()&lt;/code&gt;，这边主要是想记录一下PHP运行终端函数的过程。&lt;/p&gt;
-
-&lt;p&gt;所使用的核心函数&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;popen / pclose&lt;/li&gt;
-  &lt;li&gt;is_executable&lt;/li&gt;
-  &lt;li&gt;feof&lt;/li&gt;
-  &lt;li&gt;fread&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;正文&quot;&gt;正文&lt;/h2&gt;
-
-&lt;p&gt;首先用 &lt;code class=&quot;highlighter-rouge&quot;&gt;is_executable&lt;/code&gt; 查找输入的命令是否存在且可执行，返回 &lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt; 或者 &lt;code class=&quot;highlighter-rouge&quot;&gt;false&lt;/code&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;find_command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;$path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;s1&quot;&gt;'/bin'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s1&quot;&gt;'/sbin'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s1&quot;&gt;'/usr/bin'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s1&quot;&gt;'/usr/sbin'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s1&quot;&gt;'/usr/local/bin'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s1&quot;&gt;'/usr/local/sbin'&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;foreach&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$path&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;is_executable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$p&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$command&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$p&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$command&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;确定命令存在且可执行，就可以用 &lt;code class=&quot;highlighter-rouge&quot;&gt;popen&lt;/code&gt; 了。&lt;/p&gt;
-
-&lt;p&gt;引用一下 &lt;a href=&quot;http://php.net/manual/zh/function.popen.php&quot;&gt;PHP: popen - Manual&lt;/a&gt; 的说明&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;打开一个指向进程的管道，该进程由派生给定的 command 命令执行而产生。返回一个和 &lt;code class=&quot;highlighter-rouge&quot;&gt;fopen()&lt;/code&gt; 所返回的相同的文件指针，只不过它是单向的（只能用于读或写）并且必须用 &lt;code class=&quot;highlighter-rouge&quot;&gt;pclose()&lt;/code&gt; 来关闭。此指针可以用于 &lt;code class=&quot;highlighter-rouge&quot;&gt;fgets()&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;fgetss()&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;fwrite()&lt;/code&gt;。 当模式为 ‘r’，返回的文件指针等于命令的 STDOUT，当模式为 ‘w’，返回的文件指针等于命令的 STDIN。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Emmmm…这啰里八嗦一大堆，还是结合上一段代码看个实例就明白了&lt;/p&gt;
-
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;do_command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;$buffer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;find_command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'command not found'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$fp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;popen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$c&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$args&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'r'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!@&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;feof&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$fp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;nv&quot;&gt;$buffer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;fread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$fp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2096&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pclose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$fp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$buffer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;上述代码中，用 &lt;code class=&quot;highlighter-rouge&quot;&gt;feof()&lt;/code&gt; 来测试文件指针是否到了文件结束的位，使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;fread()&lt;/code&gt; 读取内容并将所有的结果写入 &lt;code class=&quot;highlighter-rouge&quot;&gt;$buffer&lt;/code&gt;，读取结束后需要使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;pclose()&lt;/code&gt; 关闭 &lt;code class=&quot;highlighter-rouge&quot;&gt;popen()&lt;/code&gt; 打开的指向管道的文件指针。&lt;/p&gt;
-
-&lt;p&gt;实际运行看看：&lt;/p&gt;
-
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;do_command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'nslookup'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'google.com'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;打开页面显示结果如下：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Server:		8.8.8.8
-Address:	8.8.8.8#53
-
-Non-authoritative answer:
-Name:	google.com
-Address: 172.217.24.206
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;说明执行成功！&lt;/p&gt;
-
-&lt;p&gt;这里还有个问题，在终端上使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;ping&lt;/code&gt; 命令时，会不断发起连接请求，需要手动使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;ctrl + c&lt;/code&gt; 来终止。&lt;/p&gt;
-
-&lt;p&gt;因此如果代码直接写成这样：&lt;/p&gt;
-
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;do_command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'ping'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'google.com'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;会导致程序始终处于运行状态，无法返回结果。&lt;/p&gt;
-
-&lt;p&gt;用 &lt;code class=&quot;highlighter-rouge&quot;&gt;-c&lt;/code&gt; 来限制返回结果数就好了，例如：&lt;/p&gt;
-
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;do_command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'ping'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'-c 5 google.com'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;如果需要添加其他命令，但是不知道路径，可以先在终端上用 &lt;code class=&quot;highlighter-rouge&quot;&gt;type&lt;/code&gt; 查找一下&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type &lt;/span&gt;curl
-curl is hashed &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;/usr/local/php5-7.1.8-20170817-170852/bin/curl&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Choipun</name></author><category term="web" /><summary type="html">前言</summary></entry><entry><title type="html">Hello, BLOG</title><link href="http://localhost:4000/2017/10/hello-blog" rel="alternate" type="text/html" title="Hello, BLOG" /><published>2017-10-28T14:54:37+08:00</published><updated>2017-10-28T14:54:37+08:00</updated><id>http://localhost:4000/2017/10/hello-blog</id><content type="html" xml:base="http://localhost:4000/2017/10/hello-blog">&lt;p&gt;一直以来就有写笔记的习惯，记录日常接触到的新内容，或者踩到的坑。时间一长，笔记也就多了起来。&lt;/p&gt;
-
-&lt;p&gt;要是分享出来，一不小心帮到别人，那也是很棒的。&lt;/p&gt;
-
-&lt;p&gt;那就搭个博客吧。&lt;/p&gt;
-
-&lt;h2 id=&quot;用什么搭建&quot;&gt;用什么搭建&lt;/h2&gt;
-
-&lt;p&gt;其实之前试过用 &lt;a href=&quot;https://cn.wordpress.org/&quot;&gt;WordPress&lt;/a&gt;，主要问题是：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;需要购买服务器（或虚拟主机） + 域名&lt;/li&gt;
-  &lt;li&gt;国内的服务器需要备案&lt;/li&gt;
-  &lt;li&gt;用 markdown 来写内容需要安装插件来实现
-    &lt;ul&gt;
-      &lt;li&gt;当然直接复制 HTML 内容粘贴进去也是可以的，但是感觉这样有点傻&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;不想花钱，又不想用那些大众博客程序（太丑了好吗），自然而然关注到了 &lt;a href=&quot;https://pages.github.com/&quot;&gt;Github Pages&lt;/a&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;免费无限空间&lt;/li&gt;
-  &lt;li&gt;个性域名支持&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;缺点是只能放置静态文件。&lt;/p&gt;
-
-&lt;p&gt;有想过用 &lt;a href=&quot;https://vuejs.org/&quot;&gt;Vue&lt;/a&gt; 做个简单的 SPA，数据放在 &lt;a href=&quot;https://leancloud.cn/&quot;&gt;LeanCloud&lt;/a&gt; 上，不过这样又有些问题&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;对 SEO 不友好&lt;/li&gt;
-  &lt;li&gt;需要处理各种数据交互&lt;/li&gt;
-  &lt;li&gt;还是没有直接解决 markdown 的问题
-    &lt;ul&gt;
-      &lt;li&gt;可以利用第三方工具 &lt;a href=&quot;https://github.com/chjj/marked&quot;&gt;marked.js&lt;/a&gt; 对内容进行转化后通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;v-html&lt;/code&gt; 输出&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;所以还是用 Github Pages 官方推荐的 &lt;a href=&quot;https://jekyllrb.com/&quot;&gt;Jekyll&lt;/a&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;熟悉的工作流：git push = blog post&lt;/li&gt;
-  &lt;li&gt;markdwon 语法支持&lt;/li&gt;
-  &lt;li&gt;不需要数据库&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;稍微花点时间了解一下 &lt;code class=&quot;highlighter-rouge&quot;&gt;.yml&lt;/code&gt; 的配置以及 &lt;a href=&quot;https://github.com/Shopify/liquid/wiki&quot;&gt;Liquid&lt;/a&gt; 模板语法，直接起飞！&lt;/p&gt;
-
-&lt;p&gt;遇到的坑可以看这里：&lt;a href=&quot;/2017/10/install-jekyll&quot;&gt;使用Jekyll搭建博客的踩坑记录&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;模板&quot;&gt;模板&lt;/h2&gt;
-
-&lt;p&gt;参考了 &lt;a href=&quot;https://github.com/BlackrockDigital/startbootstrap-clean-blog-jekyll/&quot;&gt;Clean Blog &lt;/a&gt; 的样式，基于 Jekyll 的默认模板 &lt;a href=&quot;https://github.com/jekyll/minima&quot;&gt;Minima&lt;/a&gt; 进行二次修改，基本看不到 Minima的影子了。&lt;/p&gt;
-
-&lt;p&gt;看到 &lt;a href=&quot;http://www.wkun.com/&quot;&gt;WKUN&lt;/a&gt; 有个记录站点成长的页面非常漂亮，所以自己也增加了一个 &lt;a href=&quot;/time/&quot;&gt;Time&lt;/a&gt; 页面来记录博客的年龄。&lt;/p&gt;</content><author><name>Choipun</name></author><category term="life" /><summary type="html">一直以来就有写笔记的习惯，记录日常接触到的新内容，或者踩到的坑。时间一长，笔记也就多了起来。</summary></entry><entry><title type="html">使用 Jekyll 搭建博客的踩坑记录</title><link href="http://localhost:4000/2017/10/install-jekyll" rel="alternate" type="text/html" title="使用 Jekyll 搭建博客的踩坑记录" /><published>2017-10-24T21:19:37+08:00</published><updated>2017-10-24T21:19:37+08:00</updated><id>http://localhost:4000/2017/10/install-jekyll</id><content type="html" xml:base="http://localhost:4000/2017/10/install-jekyll">&lt;p&gt;What is Jekyll?&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Transform your plain text into static websites and blogs. &lt;a href=&quot;http://jekyllrb.com/&quot;&gt;jekyllrb.com&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;安装&quot;&gt;安装&lt;/h2&gt;
-
-&lt;p&gt;需要有&lt;strong&gt;完整的 Ruby 开发环境&lt;/strong&gt;，&lt;a href=&quot;https://jekyllrb.com/docs/installation/#requirements&quot;&gt;前置需求看这里&lt;/a&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gem install jekyll
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;macOS 会遇到这个坑&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Fetching: public_suffix-3.0.0.gem &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;100%&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-ERROR:  While executing gem ... &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Gem::FilePermissionError&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    You dont have write permissions &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;the /Library/Ruby/Gems/2.3.0 directory.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;没有写入权限。可以用 &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo&lt;/code&gt; 解决，往系统自带的 Ruby 库中塞东西&lt;/p&gt;
-
-&lt;p&gt;也可以用 Homebrew 另外装个 Ruby&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;brew install ruby
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;然后可以了？ N A I V E&lt;/p&gt;
-
-&lt;p&gt;还要修改一下 &lt;code class=&quot;highlighter-rouge&quot;&gt;$PATH&lt;/code&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;vim ~/.bash_profile
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;写入这句&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/local/bin:&lt;span class=&quot;nv&quot;&gt;$PATH&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;然后应用&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; ~/.bash_profile
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;再次尝试安装，可以开始下载了！ 不过还是报了错误，大意是说，缺少安装必要的工具，查看 .log&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-log&quot;&gt;package configuration for libffi is not found
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;看了下官网的 &lt;a href=&quot;https://jekyllrb.com/docs/troubleshooting/&quot;&gt;问题排查&lt;/a&gt;，升级了 RubyGems&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gem update &lt;span class=&quot;nt&quot;&gt;--system&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;没有作用，再尝试安装新命令行工具&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;xcode-select &lt;span class=&quot;nt&quot;&gt;--install&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;然后再次尝试安装 Jekyll &lt;strong&gt;就成功了&lt;/strong&gt;！&lt;/p&gt;
-
-&lt;p&gt;好了，初始化一下 blog&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;jekyll new blog
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;blog
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;jekyll serve
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;嗯，果然没有那么顺利&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;-bash&lt;/span&gt;: bundle: &lt;span class=&quot;nb&quot;&gt;command &lt;/span&gt;not found
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;所以要再安装个 &lt;code class=&quot;highlighter-rouge&quot;&gt;bundler&lt;/code&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gem install bundler
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;安装完了再次启动服务试试&lt;/p&gt;
-
-&lt;p&gt;然后可以了？Nope&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Could not find gem &lt;span class=&quot;s1&quot;&gt;'minima (~&amp;gt; 2.0)'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;any of the gem sources listed &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;your Gemfile.
-Run &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;bundle install&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; to install missing gems.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;果不其然可以在 github 找到提过的 issues，更新一下 bundler&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;bundle update
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;就会发现安装上了 &lt;code class=&quot;highlighter-rouge&quot;&gt;minima&lt;/code&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Fetching minima 2.1.1
-Installing minima 2.1.1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;应该不会有问题了吧？小心翼翼再次启动服务试试&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;jekyll serve
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;终于看见了以下信息&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Server address: http://127.0.0.1:4000/
-Server running... press ctrl-c to stop.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;浏览器里打开看看，一切都是那么完美！&lt;/p&gt;
-
-&lt;h2 id=&quot;minima&quot;&gt;Minima&lt;/h2&gt;
-
-&lt;p&gt;minima 是初始化 Jekyll 的默认（也是首个）主题，乍一看没啥问题，就是代码高亮的背景色太丑了，得改。&lt;/p&gt;
-
-&lt;p&gt;找到 minima 的安装目录&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;blundle show minima
-/usr/local/lib/ruby/gems/2.4.0/gems/minima-2.1.1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;然后就可以在 &lt;code class=&quot;highlighter-rouge&quot;&gt;_sass/minima/&lt;/code&gt; 这个目录下修改默认的样式了？&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;跟我一样天真就白费劲了。&lt;/strong&gt; 本机预览没什么问题，传到 gitpage 上就还是&lt;strong&gt;原来的样子&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Let’s say, for a second example, you want to override Minima’s footer. In your Jekyll site, create an &lt;code class=&quot;highlighter-rouge&quot;&gt;_includes&lt;/code&gt; folder and add a file in it called &lt;code class=&quot;highlighter-rouge&quot;&gt;footer.html&lt;/code&gt;. Jekyll will now use your site’s &lt;code class=&quot;highlighter-rouge&quot;&gt;footer.html&lt;/code&gt; file instead of the &lt;code class=&quot;highlighter-rouge&quot;&gt;footer.html&lt;/code&gt; file from the Minima theme gem.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;按照 Jekyll 官网说法是，需要根据主题目录，额外以相同路径建立同名文件在自己的博客下，或者新增文件。&lt;/p&gt;
-
-&lt;p&gt;相当于是强制备份吧，折腾坏了也方便还原。&lt;/p&gt;</content><author><name>Choipun</name></author><category term="jekyll" /><summary type="html">What is Jekyll?</summary></entry></feed>
+&lt;p&gt;大致就是这些了，以上也仅仅只是我所接触到的内容，对于整个WEB安全防范而言可能并不全面，如果对本文有什么疑问或者其他建议，还望在下方给我留言。&lt;/p&gt;</content><author><name>Choipun</name></author><category term="web" /><category term="security" /><summary type="html">新项目上线也有一段时间了，主要是一个小型文章发布系统，支持运营人员登录后台自行操作，处理文章的增删改查。</summary></entry></feed>

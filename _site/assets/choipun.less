@@ -6,6 +6,13 @@ img {
 	max-width: 100%;
 }
 
+a {
+	color: #3eaf7c;
+	&:visited, &:hover {
+		color: #3eaf7c;;
+	}
+}
+
 .clearfix:after {
 	clear: both;
 	display: block;
@@ -33,12 +40,15 @@ body {
 }
 
 .highlighter-rouge .highlight {
-	background: #f2f2f2;
+	background: #f6f8fa;
 }
 
 pre,
 code {
-	background-color: #f2f2f2;
+	background-color: #f6f8fa;
+	color: #476582;
+	font-size: 14px;
+	border: none;
 }
 
 blockquote {
@@ -104,6 +114,8 @@ blockquote {
 		.post-content-preview {
 			padding-bottom: 30px;
 			border-bottom: 1px solid #e8e8e8;
+			color: #909399;
+			font-size: 14px;
 		}
 
 	}
@@ -124,10 +136,18 @@ blockquote {
 	h3,
 	h4 {
 		font-weight: 600;
+		margin-bottom: 16px;
+    	font-weight: 600;
+    	line-height: 1.25;
+	}
+
+	h1, h2 {
+		padding-bottom: .3em;
+    	border-bottom: 1px solid #eaecef;
 	}
 
 	h1 {
-		font-size: 2em;
+		font-size: 2em;	
 	}
 
 	h2 {

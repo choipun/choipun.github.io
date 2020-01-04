@@ -94,6 +94,21 @@
     
       <li>
         
+        <span class="post-meta">Jan 4, 2020</span>
+        <h2>
+          <a class="post-link" href="/2020/01/wx-long2short">检测域名是否被微信封禁</a>
+        </h2>
+        <div class="post-content-preview">
+          当域名被微信封禁时，访问的链接会先经过微信服务器检测，如果正常就放行，否则会重定向跳转到下面这个链接（右键在新窗口打开，修改这个链接的参数，有趣的现象会发生）
+
+https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/…
+
+如果我们能够让微信自己的域名经过微信的检测，那么这件事就成了。翻遍了微信官方各种api，功夫不负有心人，找到了「长链接转短链...
+        </div>
+      </li>
+    
+      <li>
+        
         <span class="post-meta">Dec 2, 2019</span>
         <h2>
           <a class="post-link" href="/2019/12/lumen-cors-middleware">Lumen 设置 CORS 实现跨域的配置</a>
@@ -159,6 +174,40 @@ rm -rf package.jso...
 设置默认站点，并监听443端口，记得防火墙放行443端口。
 
 listen 80 defaul...
+        </div>
+      </li>
+    
+      <li>
+        
+        <span class="post-meta">Mar 18, 2019</span>
+        <h2>
+          <a class="post-link" href="/2019/03/pinit-js">将某个元素固定在页面上</a>
+        </h2>
+        <div class="post-content-preview">
+          最近在尝试改版博客，希望当文章内容导航栏滑动到顶部的时候，始终固定，不随文档滚动。
+
+主要思路就是监听 scroll 事件，获取当前文档滚动的高度，再改变导航栏的 position 属性为 fixed 或者 relative。
+
+关于文档滚动高度的获取，各个浏览器存在一定的兼容性差异，主要可以取以下三个值。
+
+const scrolltop = window.pageYOffset || 
+...
+        </div>
+      </li>
+    
+      <li>
+        
+        <span class="post-meta">Nov 23, 2018</span>
+        <h2>
+          <a class="post-link" href="/2018/11/web-worker-in-vue">在 Vue 项目中使用 Web Worker</a>
+        </h2>
+        <div class="post-content-preview">
+          TODO
+
+
+  https://github.com/israelss/simple-web-worker/blob/master/src/createDisposableWorker.js
+
+
         </div>
       </li>
     
@@ -362,7 +411,7 @@ Fetching: public_suffix-3.0.0.gem (10...
         
         <span class="post-meta">Oct 22, 2017</span>
         <h2>
-          <a class="post-link" href="/2017/10/windows-server-ssl">Windows Server 安装域名证书</a>
+          <a class="post-link" href="/2017/10/IIS-6-ssl">IIS 6 安装域名证书</a>
         </h2>
         <div class="post-content-preview">
           IIS 6
