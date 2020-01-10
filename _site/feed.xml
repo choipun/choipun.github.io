@@ -1,4 +1,128 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-01-04T20:32:31+08:00</updated><id>http://localhost:4000/</id><title type="html">Choipun</title><subtitle>与你一起探索未知世界</subtitle><author><name>Choipun</name></author><entry><title type="html">检测域名是否被微信封禁</title><link href="http://localhost:4000/2020/01/wx-long2short" rel="alternate" type="text/html" title="检测域名是否被微信封禁" /><published>2020-01-04T19:33:00+08:00</published><updated>2020-01-04T19:33:00+08:00</updated><id>http://localhost:4000/2020/01/wx-long2short</id><content type="html" xml:base="http://localhost:4000/2020/01/wx-long2short">&lt;p&gt;当域名被微信封禁时，访问的链接会先经过微信服务器检测，如果正常就放行，否则会重定向跳转到下面这个链接（右键在新窗口打开，修改这个链接的参数，有趣的现象会发生）&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-01-10T20:06:45+08:00</updated><id>http://localhost:4000/</id><title type="html">Choipun</title><subtitle>与你一起探索未知世界</subtitle><author><name>Choipun</name></author><entry><title type="html">Vue 3 + Tinymce 5 实现富文本编辑器</title><link href="http://localhost:4000/2020/01/vue-tinymce" rel="alternate" type="text/html" title="Vue 3 + Tinymce 5 实现富文本编辑器" /><published>2020-01-10T20:01:00+08:00</published><updated>2020-01-10T20:01:00+08:00</updated><id>http://localhost:4000/2020/01/vue-tinymce</id><content type="html" xml:base="http://localhost:4000/2020/01/vue-tinymce">&lt;p&gt;&lt;a href=&quot;https://www.tiny.cloud/&quot;&gt;Tinymce&lt;/a&gt; 是一个比较多人推荐的富文本编辑器，不过我在用的过程中也是踩了不少坑，这里记录一下。&lt;/p&gt;
+
+&lt;p&gt;官网是提供了和Vue搭配食用的教学的 &lt;a href=&quot;https://www.tiny.cloud/docs/integrations/vue/&quot;&gt;Vue integration&lt;/a&gt;，但是按照这个流程走会有如下提示：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;This domain is not registered with Tiny Cloud. Start a free trial to discover our premium cloud services and pro support.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;因为我实在是懒得注册去获得这个 &lt;code class=&quot;highlighter-rouge&quot;&gt;api-key&lt;/code&gt;，而且这个流程所有的插件都是单独下载的，会发起一堆请求，所以我决定换其他方式来使用。&lt;/p&gt;
+
+&lt;h3 id=&quot;安装&quot;&gt;安装&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm install tinymce &lt;span class=&quot;nt&quot;&gt;--save-dev&lt;/span&gt;
+npm install @tinymce/tinymce-vue &lt;span class=&quot;nt&quot;&gt;--save-dev&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;一个是核心文件，一个是官方提供的适配。&lt;/p&gt;
+
+&lt;h3 id=&quot;基础代码&quot;&gt;基础代码&lt;/h3&gt;
+
+&lt;p&gt;结构如下&lt;/p&gt;
+
+&lt;p&gt;HTML&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;template&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;app-container&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;editor&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;v-model=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;content&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;:init=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;init&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/template&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;JS&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tinymce&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'tinymce'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Editor&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'@tinymce/tinymce-vue'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'./config'&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;components&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;Editor&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;lt;p&amp;gt;This is the initial content of the editor&amp;lt;/p&amp;gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;config&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;mounted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;tinymce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({})&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;配置文件-config&quot;&gt;配置文件 config&lt;/h3&gt;
+
+&lt;p&gt;基本上还是照着上文提到的 &lt;a href=&quot;https://www.tiny.cloud/docs/integrations/vue/&quot;&gt;Vue integration&lt;/a&gt; 去配置即可，但是有几个注意的地方。&lt;/p&gt;
+
+&lt;p&gt;汉化包、主题样式等静态文件我是直接上传到了服务器当中（并非使用下文的 &lt;code class=&quot;highlighter-rouge&quot;&gt;process.env.BASE_URL&lt;/code&gt;），省得考虑本地环境与开发的路径问题。&lt;/p&gt;
+
+&lt;p&gt;如果没有设置，那会默认以 &lt;code class=&quot;highlighter-rouge&quot;&gt;localhost:9528&lt;/code&gt; 开头去加载文件，那肯定是找不到文件导致报错了。&lt;/p&gt;
+
+&lt;p&gt;插件在使用之前需要先引入，否则也是会加载远程文件。&lt;/p&gt;
+
+&lt;p&gt;完整配置参考如下：&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'tinymce/themes/silver'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'tinymce/plugins/fullscreen'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'tinymce/plugins/table'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'tinymce/plugins/code'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'tinymce/plugins/help'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'tinymce/plugins/image'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'tinymce/plugins/link'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'tinymce/plugins/preview'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'tinymce/plugins/lists'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'tinymce/plugins/searchreplace'&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;language_url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;BASE_URL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;`/tinymce/zh_CN.js`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;language&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'zh_CN'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;menubar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;branding&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 去水印&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;elementpath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 禁用编辑器底部的状态栏&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;statusbar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 隐藏编辑器底部的状态栏&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;paste_data_images&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 允许粘贴图像&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;skin_url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;BASE_URL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/tinymce/skins/ui/oxide'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// skin 路径&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;content_css&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;BASE_URL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/tinymce/skins/content/default/content.min.css'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// content.css 路径&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;plugins&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;s1&quot;&gt;'table code help fullscreen image link preview lists searchreplace'&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;toolbar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;`
+    newdocument | undo redo | 
+    formatselect | 
+    bold italic backcolor | 
+    alignleft aligncenter alignright alignjustify | 
+    bullist numlist outdent indent | 
+    table image link | 
+    removeformat searchreplace | 
+    code preview fullscreen help
+  `&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;销毁&quot;&gt;销毁&lt;/h3&gt;
+
+&lt;p&gt;离开页面之前先销毁现有的 tinymce 实例：&lt;/p&gt;
+
+&lt;p&gt;在 DOM 上面加个 &lt;code class=&quot;highlighter-rouge&quot;&gt;id&lt;/code&gt; 属性&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;editor&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;tinymce-editor&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;v-model=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;content&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;:init=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;init&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;加上 &lt;code class=&quot;highlighter-rouge&quot;&gt;beforeDestroy&lt;/code&gt; 这个生命周期，在离开页面之前销毁实例&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;beforeDestroy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;tinymce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;editor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tinymce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'tinymce-editor'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;editor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;destroy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;至此也就差不多了，其他根据需求再自定义即可。&lt;/p&gt;
+
+&lt;p&gt;感谢阅读。&lt;/p&gt;</content><author><name>Choipun</name></author><category term="web" /><category term="vue" /><summary type="html">Tinymce 是一个比较多人推荐的富文本编辑器，不过我在用的过程中也是踩了不少坑，这里记录一下。</summary></entry><entry><title type="html">检测域名是否被微信封禁</title><link href="http://localhost:4000/2020/01/wx-long2short" rel="alternate" type="text/html" title="检测域名是否被微信封禁" /><published>2020-01-04T19:33:00+08:00</published><updated>2020-01-04T19:33:00+08:00</updated><id>http://localhost:4000/2020/01/wx-long2short</id><content type="html" xml:base="http://localhost:4000/2020/01/wx-long2short">&lt;p&gt;当域名被微信封禁时，访问的链接会先经过微信服务器检测，如果正常就放行，否则会重定向跳转到下面这个链接（右键在新窗口打开，修改这个链接的参数，有趣的现象会发生）&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi?main_type=2&amp;amp;evil_type=20&amp;amp;source=2&amp;amp;url=https://baidu.com&quot;&gt;https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/…&lt;/a&gt;&lt;/p&gt;
 
@@ -83,10 +207,10 @@ checkDomainBanned(url) {
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;致谢&quot;&gt;致谢&lt;/h2&gt;
+&lt;p&gt;致谢&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;来源：知乎 作者：唐静鑫&lt;/p&gt;
+  &lt;p&gt;知乎作者：唐静鑫&lt;/p&gt;
 &lt;/blockquote&gt;</content><author><name>Choipun</name></author><category term="web" /><category term="security" /><summary type="html">当域名被微信封禁时，访问的链接会先经过微信服务器检测，如果正常就放行，否则会重定向跳转到下面这个链接（右键在新窗口打开，修改这个链接的参数，有趣的现象会发生）</summary></entry><entry><title type="html">Lumen 设置 CORS 实现跨域的配置</title><link href="http://localhost:4000/2019/12/lumen-cors-middleware" rel="alternate" type="text/html" title="Lumen 设置 CORS 实现跨域的配置" /><published>2019-12-02T16:36:00+08:00</published><updated>2019-12-02T16:36:00+08:00</updated><id>http://localhost:4000/2019/12/lumen-cors-middleware</id><content type="html" xml:base="http://localhost:4000/2019/12/lumen-cors-middleware">&lt;p&gt;本文主要记录使用中间件来解决的方案。&lt;/p&gt;
 
 &lt;p&gt;创建 &lt;strong&gt;app/Http/Middleware/Cors.php&lt;/strong&gt;&lt;/p&gt;
@@ -704,102 +828,4 @@ vue create frontend
 
 &lt;p&gt;好在这是用于后台系统，同时只会有一两个运营人员做审核工作。若是用于并发量大一些的场景无疑就是捉襟见肘了。&lt;/p&gt;
 
-&lt;p&gt;一开始不用 &lt;a href=&quot;https://leancloud.cn/docs/livequery-guide.html&quot;&gt;LiveQuery&lt;/a&gt; 主要是不想将这种小功能分离到第三方平台去做，但权衡利弊，LiveQuery 基于 &lt;code class=&quot;highlighter-rouge&quot;&gt;websocket&lt;/code&gt; 实现，看起来就很靠谱的样子啊。照着&lt;a href=&quot;https://leancloud.cn/docs/livequery-guide.html&quot;&gt;官方文档&lt;/a&gt;实现，没什么问题，就成了现在所使用的方案。&lt;/p&gt;</content><author><name>Choipun</name></author><category term="web" /><category term="vue" /><summary type="html">概要</summary></entry><entry><title type="html">谈谈 Web 安全问题</title><link href="http://localhost:4000/2017/11/web-security" rel="alternate" type="text/html" title="谈谈 Web 安全问题" /><published>2017-11-24T13:23:00+08:00</published><updated>2017-11-24T13:23:00+08:00</updated><id>http://localhost:4000/2017/11/web-security</id><content type="html" xml:base="http://localhost:4000/2017/11/web-security">&lt;p&gt;新项目上线也有一段时间了，主要是一个小型文章发布系统，支持运营人员登录后台自行操作，处理文章的增删改查。&lt;/p&gt;
-
-&lt;p&gt;除了基本业务实现外，还要考虑一些安全预防问题。&lt;/p&gt;
-
-&lt;h2 id=&quot;关于xss&quot;&gt;关于XSS&lt;/h2&gt;
-
-&lt;p&gt;XSS 即 Cross-site scripting，跨站脚本攻击，输入代码注入的一种。&lt;/p&gt;
-
-&lt;p&gt;关于 XSS 更多信息，看这里 &lt;a href=&quot;https://en.wikipedia.org/wiki/Cross-site_scripting&quot;&gt;Cross-site scripting&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;虽然文章发布功能只在公司内部开放，但也难保意外状况。不过就我目前的处理来看，XSS 是不存在的。&lt;/p&gt;
-
-&lt;h3 id=&quot;基于vue的模板渲染&quot;&gt;基于Vue的模板渲染&lt;/h3&gt;
-
-&lt;p&gt;使用 &lt;strong&gt;Mustache&lt;/strong&gt; 语法 (双大括号) 的文本插值&lt;/p&gt;
-
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;span&amp;gt;&lt;/span&gt;Message: {{ msg }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;双大括号会将数据解释为普通文本，而非 HTML 代码。&lt;/p&gt;
-
-&lt;h3 id=&quot;入库前转义&quot;&gt;入库前转义&lt;/h3&gt;
-
-&lt;p&gt;使用 PHP 的 &lt;code class=&quot;highlighter-rouge&quot;&gt;htmlspecialchars()&lt;/code&gt; 对提交的内容进行转义。&lt;/p&gt;
-
-&lt;p&gt;数据库操作上，使用了第三方框架 &lt;a href=&quot;https://medoo.in/&quot;&gt;Medoo&lt;/a&gt;，优化SQL语句同时还能防SQL注入，比较省事。&lt;/p&gt;
-
-&lt;h2 id=&quot;关于csrf&quot;&gt;关于CSRF&lt;/h2&gt;
-
-&lt;p&gt;CSRF 即 Cross-site request forgery，跨站伪造请求。&lt;/p&gt;
-
-&lt;p&gt;通过AJAX请求数据是无法跨域的，但是对于提交表单而言是可以的。&lt;/p&gt;
-
-&lt;p&gt;假如我登录过A网站的后台，知道某个接口的内容，例如删除一篇文章，恰好A网站没有做过任何防范，那么我就可以在B网站写如下内容去执行这个接口：&lt;/p&gt;
-
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;form&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;method=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;POST&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;action=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://a.com/action=delete&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-	&lt;span class=&quot;nt&quot;&gt;&amp;lt;input&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hidden&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;id&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-	&lt;span class=&quot;nt&quot;&gt;&amp;lt;input&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;submit&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;submit&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/form&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;因此对用户提交做验证是非常有必要的。&lt;/p&gt;
-
-&lt;h3 id=&quot;csrf-token&quot;&gt;CSRF Token&lt;/h3&gt;
-&lt;p&gt;在用户登录后分配一个随机生成且有一定加密算法的 &lt;code class=&quot;highlighter-rouge&quot;&gt;token&lt;/code&gt; ，并记录在 &lt;code class=&quot;highlighter-rouge&quot;&gt;session&lt;/code&gt; 里。用户提交数据的时候，连同 &lt;code class=&quot;highlighter-rouge&quot;&gt;token&lt;/code&gt; 一起提交，与 &lt;code class=&quot;highlighter-rouge&quot;&gt;session&lt;/code&gt; 里的值进行匹配，&lt;code class=&quot;highlighter-rouge&quot;&gt;token&lt;/code&gt; 不一致的情况下就拒绝此次提交。&lt;/p&gt;
-
-&lt;p&gt;由于B网站无法获取该 &lt;code class=&quot;highlighter-rouge&quot;&gt;token&lt;/code&gt; ，从而也就避免了跨站请求的发生。&lt;/p&gt;
-
-&lt;h3 id=&quot;referer&quot;&gt;Referer&lt;/h3&gt;
-
-&lt;p&gt;还有就是获取HTTP头信息当中的 &lt;code class=&quot;highlighter-rouge&quot;&gt;Referer&lt;/code&gt;，只接受来源于本站的请求。不过这个字段是可以伪造的，因此并不能完全依赖于此方法。&lt;/p&gt;
-
-&lt;h2 id=&quot;关于ssl&quot;&gt;关于SSL&lt;/h2&gt;
-
-&lt;p&gt;之前知乎就曾被人吐槽过用户登录是将明文密码发送到后端的。那么，当有人与你使用同一个公共网络，通过数据抓包工具获取到了这个内容，这个账号信息也就算是泄露了。&lt;/p&gt;
-
-&lt;p&gt;对于需要处理用户登录之类的场景，数据传输过程需要加密，因此网站开启SSL防护是必要的，保障数据的安全及完整性。&lt;/p&gt;
-
-&lt;p&gt;一般流程是先是申请证书，然后到域名注册商等待验证通过，下载证书并到服务器进行相关的配置，再强制 &lt;code class=&quot;highlighter-rouge&quot;&gt;http://&lt;/code&gt; 自动跳转到 &lt;code class=&quot;highlighter-rouge&quot;&gt;https://&lt;/code&gt;，Windows 服务器的配置方法我之前有写过一篇记录 &lt;a href=&quot;/2017/10/windows-server-ssl&quot;&gt;Windows Server 安装域名证书&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;关于-x-frame-options&quot;&gt;关于 X-Frame-Options&lt;/h2&gt;
-
-&lt;p&gt;不想自己的网站以 &lt;code class=&quot;highlighter-rouge&quot;&gt;iframe&lt;/code&gt; 形式被嵌入到别人的网站里，就可以设置这个选项。&lt;/p&gt;
-
-&lt;p&gt;如果是 Apache 环境的话，可以在 httpd.conf 当中配置。&lt;/p&gt;
-
-&lt;p&gt;首先开启 mod_header 模块&lt;/p&gt;
-
-&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;LoadModule headers_module modules/mod_headers.so
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;然后新增以下内容&lt;/p&gt;
-
-&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;IfModule&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;mod_headers.c&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-Header set X-Frame-Options &quot;SAMEORIGIN&quot;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/IfModule&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;即可全站开启，&lt;code class=&quot;highlighter-rouge&quot;&gt;SAMEORIGIN&lt;/code&gt; 是只允许同源访问。&lt;/p&gt;
-
-&lt;p&gt;PHP 也可以直接指定头信息&lt;/p&gt;
-
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'X-Frame-Options: SAMEORIGIN'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;效果是一样的。&lt;/p&gt;
-
-&lt;h2 id=&quot;关于登录验证&quot;&gt;关于登录验证&lt;/h2&gt;
-
-&lt;p&gt;登录界面需要增加一个二维码，防止机器批量注册及跨站登录。&lt;/p&gt;
-
-&lt;p&gt;然而现在有个新兴职业“打字员”，通过人肉方式暴力破解，已经越来越让验证码的有效性变得岌岌可危。知乎上也不乏有各路大神讨论、分享成功拿下诸如&lt;strong&gt;网易云、极验&lt;/strong&gt;等验证码的心得。感兴趣的戳这里 &lt;a href=&quot;https://www.zhihu.com/question/32209043&quot;&gt;滑块验证码（滑动验证码）相比图形验证码，破解难度如何？ - 知乎&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;只靠验证码还不够，可以在用户首次登录之后，要求用户绑定一下谷歌验证器，等于是二重防护。&lt;/p&gt;
-
-&lt;p&gt;能破解得了二维码，但是你不知道人家的验证器上面跳动的数字是啥~&lt;/p&gt;
-
-&lt;h2 id=&quot;最后&quot;&gt;最后&lt;/h2&gt;
-
-&lt;p&gt;大致就是这些了，以上也仅仅只是我所接触到的内容，对于整个WEB安全防范而言可能并不全面，如果对本文有什么疑问或者其他建议，还望在下方给我留言。&lt;/p&gt;</content><author><name>Choipun</name></author><category term="web" /><category term="security" /><summary type="html">新项目上线也有一段时间了，主要是一个小型文章发布系统，支持运营人员登录后台自行操作，处理文章的增删改查。</summary></entry></feed>
+&lt;p&gt;一开始不用 &lt;a href=&quot;https://leancloud.cn/docs/livequery-guide.html&quot;&gt;LiveQuery&lt;/a&gt; 主要是不想将这种小功能分离到第三方平台去做，但权衡利弊，LiveQuery 基于 &lt;code class=&quot;highlighter-rouge&quot;&gt;websocket&lt;/code&gt; 实现，看起来就很靠谱的样子啊。照着&lt;a href=&quot;https://leancloud.cn/docs/livequery-guide.html&quot;&gt;官方文档&lt;/a&gt;实现，没什么问题，就成了现在所使用的方案。&lt;/p&gt;</content><author><name>Choipun</name></author><category term="web" /><category term="vue" /><summary type="html">概要</summary></entry></feed>
