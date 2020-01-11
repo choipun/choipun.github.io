@@ -133,6 +133,25 @@ beforeDestroy() {
 }
 ```
 
+### 粘贴时清除样式
+
+如果从word、excel或者其他网站上复制内容过来，默认会连同样式一起复制过来。
+
+我们希望只复制其结构，不要内容，因此还需要加入以下设置。
+
+```js
+paste_auto_cleanup_on_paste: true,
+paste_remove_styles: true,
+paste_remove_styles_if_webkit: true,
+paste_strip_class_attributes: true
+```
+
+如果连结构都不要只保留文字，那么可以用这个： 
+
+```js
+paste_as_text: true
+```
+
 至此也就差不多了，其他根据需求再自定义即可。
 
 感谢阅读。

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-01-10T20:06:45+08:00</updated><id>http://localhost:4000/</id><title type="html">Choipun</title><subtitle>与你一起探索未知世界</subtitle><author><name>Choipun</name></author><entry><title type="html">Vue 3 + Tinymce 5 实现富文本编辑器</title><link href="http://localhost:4000/2020/01/vue-tinymce" rel="alternate" type="text/html" title="Vue 3 + Tinymce 5 实现富文本编辑器" /><published>2020-01-10T20:01:00+08:00</published><updated>2020-01-10T20:01:00+08:00</updated><id>http://localhost:4000/2020/01/vue-tinymce</id><content type="html" xml:base="http://localhost:4000/2020/01/vue-tinymce">&lt;p&gt;&lt;a href=&quot;https://www.tiny.cloud/&quot;&gt;Tinymce&lt;/a&gt; 是一个比较多人推荐的富文本编辑器，不过我在用的过程中也是踩了不少坑，这里记录一下。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-01-11T15:26:14+08:00</updated><id>http://localhost:4000/</id><title type="html">Choipun</title><subtitle>与你一起探索未知世界</subtitle><author><name>Choipun</name></author><entry><title type="html">Vue 3 + Tinymce 5 实现富文本编辑器</title><link href="http://localhost:4000/2020/01/vue-tinymce" rel="alternate" type="text/html" title="Vue 3 + Tinymce 5 实现富文本编辑器" /><published>2020-01-10T20:01:00+08:00</published><updated>2020-01-10T20:01:00+08:00</updated><id>http://localhost:4000/2020/01/vue-tinymce</id><content type="html" xml:base="http://localhost:4000/2020/01/vue-tinymce">&lt;p&gt;&lt;a href=&quot;https://www.tiny.cloud/&quot;&gt;Tinymce&lt;/a&gt; 是一个比较多人推荐的富文本编辑器，不过我在用的过程中也是踩了不少坑，这里记录一下。&lt;/p&gt;
 
 &lt;p&gt;官网是提供了和Vue搭配食用的教学的 &lt;a href=&quot;https://www.tiny.cloud/docs/integrations/vue/&quot;&gt;Vue integration&lt;/a&gt;，但是按照这个流程走会有如下提示：&lt;/p&gt;
 
@@ -118,6 +118,23 @@ npm install @tinymce/tinymce-vue &lt;span class=&quot;nt&quot;&gt;--save-dev&lt;
     &lt;span class=&quot;nx&quot;&gt;editor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;destroy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;粘贴时清除样式&quot;&gt;粘贴时清除样式&lt;/h3&gt;
+
+&lt;p&gt;如果从word、excel或者其他网站上复制内容过来，默认会连同样式一起复制过来。&lt;/p&gt;
+
+&lt;p&gt;我们希望只复制其结构，不要内容，因此还需要加入以下设置。&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;paste_auto_cleanup_on_paste&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;paste_remove_styles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;paste_remove_styles_if_webkit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;paste_strip_class_attributes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;如果连结构都不要只保留文字，那么可以用这个：&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;paste_as_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;至此也就差不多了，其他根据需求再自定义即可。&lt;/p&gt;
