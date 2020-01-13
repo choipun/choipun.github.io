@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Hello, BLOG"
+title:  "关于这个博客 Hello, BLOG"
 date:   2017-10-28 14:54:37 +0800
 comments: true
 banner: '/assets/images/whale-lowpoly.png'

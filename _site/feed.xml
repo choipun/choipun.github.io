@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-01-11T15:26:14+08:00</updated><id>http://localhost:4000/</id><title type="html">Choipun</title><subtitle>与你一起探索未知世界</subtitle><author><name>Choipun</name></author><entry><title type="html">Vue 3 + Tinymce 5 实现富文本编辑器</title><link href="http://localhost:4000/2020/01/vue-tinymce" rel="alternate" type="text/html" title="Vue 3 + Tinymce 5 实现富文本编辑器" /><published>2020-01-10T20:01:00+08:00</published><updated>2020-01-10T20:01:00+08:00</updated><id>http://localhost:4000/2020/01/vue-tinymce</id><content type="html" xml:base="http://localhost:4000/2020/01/vue-tinymce">&lt;p&gt;&lt;a href=&quot;https://www.tiny.cloud/&quot;&gt;Tinymce&lt;/a&gt; 是一个比较多人推荐的富文本编辑器，不过我在用的过程中也是踩了不少坑，这里记录一下。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-01-13T16:49:41+08:00</updated><id>http://localhost:4000/</id><title type="html">Choipun</title><subtitle>与你一起探索未知世界</subtitle><author><name>Choipun</name></author><entry><title type="html">Vue 3 + Tinymce 5 实现富文本编辑器</title><link href="http://localhost:4000/2020/01/vue-tinymce" rel="alternate" type="text/html" title="Vue 3 + Tinymce 5 实现富文本编辑器" /><published>2020-01-10T20:01:00+08:00</published><updated>2020-01-10T20:01:00+08:00</updated><id>http://localhost:4000/2020/01/vue-tinymce</id><content type="html" xml:base="http://localhost:4000/2020/01/vue-tinymce">&lt;p&gt;&lt;a href=&quot;https://www.tiny.cloud/&quot;&gt;Tinymce&lt;/a&gt; 是一个比较多人推荐的富文本编辑器，不过我在用的过程中也是踩了不少坑，这里记录一下。&lt;/p&gt;
 
 &lt;p&gt;官网是提供了和Vue搭配食用的教学的 &lt;a href=&quot;https://www.tiny.cloud/docs/integrations/vue/&quot;&gt;Vue integration&lt;/a&gt;，但是按照这个流程走会有如下提示：&lt;/p&gt;
 
@@ -408,7 +408,60 @@ vue create frontend
 
 &lt;p&gt;&lt;a href=&quot;http://www.ruanyifeng.com/blog/2009/09/find_element_s_position_using_javascript.html&quot;&gt;用Javascript获取页面元素的位置&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://caniuse.com/#search=sticky&quot;&gt;Can I use sticky?&lt;/a&gt;&lt;/p&gt;</content><author><name>Choipun</name></author><category term="web" /><summary type="html">最近在尝试改版博客，希望当文章内容导航栏滑动到顶部的时候，始终固定，不随文档滚动。</summary></entry><entry><title type="html">在 Vue 项目中使用 Web Worker</title><link href="http://localhost:4000/2018/11/web-worker-in-vue" rel="alternate" type="text/html" title="在 Vue 项目中使用 Web Worker" /><published>2018-11-23T16:36:00+08:00</published><updated>2018-11-23T16:36:00+08:00</updated><id>http://localhost:4000/2018/11/web-worker-in-vue</id><content type="html" xml:base="http://localhost:4000/2018/11/web-worker-in-vue">&lt;p&gt;TODO&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://caniuse.com/#search=sticky&quot;&gt;Can I use sticky?&lt;/a&gt;&lt;/p&gt;</content><author><name>Choipun</name></author><category term="web" /><summary type="html">最近在尝试改版博客，希望当文章内容导航栏滑动到顶部的时候，始终固定，不随文档滚动。</summary></entry><entry><title type="html">给 Nginx 创建个自签名 SSL 证书</title><link href="http://localhost:4000/2018/12/nginx-selfsigned-ssl" rel="alternate" type="text/html" title="给 Nginx 创建个自签名 SSL 证书" /><published>2018-12-13T16:36:00+08:00</published><updated>2018-12-13T16:36:00+08:00</updated><id>http://localhost:4000/2018/12/nginx-selfsigned-ssl</id><content type="html" xml:base="http://localhost:4000/2018/12/nginx-selfsigned-ssl">&lt;h2 id=&quot;创建证书&quot;&gt;创建证书&lt;/h2&gt;
+
+&lt;p&gt;应用自签名证书时，浏览器会提示不受信任，比如谷歌浏览器里需要点击 &lt;code class=&quot;highlighter-rouge&quot;&gt;高级 - 继续访问&lt;/code&gt; 才能打开页面。&lt;/p&gt;
+
+&lt;h3 id=&quot;创建私钥&quot;&gt;创建私钥&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openssl genrsa &lt;span class=&quot;nt&quot;&gt;-out&lt;/span&gt; server.key 1024
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;创建证书签名请求certificate-signing-request&quot;&gt;创建证书签名请求（Certificate Signing Request）&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openssl req &lt;span class=&quot;nt&quot;&gt;-new&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-key&lt;/span&gt; server.key &lt;span class=&quot;nt&quot;&gt;-out&lt;/span&gt; server.csr
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;回车之后会有一堆等着你输入的东西，其它东西我们都不需要关心，唯独一个&lt;code class=&quot;highlighter-rouge&quot;&gt;Common Name&lt;/code&gt;要填成对应网站的IP或者域名，剩余的一路直接回车带过：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Country Name &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;2 letter code&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;AU]:
+State or Province Name &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;full name&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Some-State]:
+Locality Name &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;eg, city&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt;:
+Organization Name &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;eg, company&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Internet Widgits Pty Ltd]:
+Organizational Unit Name &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;eg, section&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt;:
+Common Name &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;e.g. server FQDN or YOUR name&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt;:192.168.1.2
+Email Address &lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt;:
+A challenge password &lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt;:
+An optional company name &lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt;:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;因为iOS设备难以绑host，然后也没有必要买个域名，所以上面我直接填了机器的IP： &lt;code class=&quot;highlighter-rouge&quot;&gt;192.168.1.2&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;创建自签名证书&quot;&gt;创建自签名证书&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openssl x509 &lt;span class=&quot;nt&quot;&gt;-req&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-in&lt;/span&gt; server.csr &lt;span class=&quot;nt&quot;&gt;-signkey&lt;/span&gt; server.key &lt;span class=&quot;nt&quot;&gt;-out&lt;/span&gt; server.crt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;回车后会得到一个 &lt;strong&gt;server.crt&lt;/strong&gt;，就是我们成功创建的自签名证书了。&lt;/p&gt;
+
+&lt;h2 id=&quot;配置-nginx&quot;&gt;配置 Nginx&lt;/h2&gt;
+
+&lt;p&gt;Nginx 的配置文件一般是在 &lt;strong&gt;/usr/local/etc/nginx&lt;/strong&gt; 目录下，打开这个目录下的 &lt;strong&gt;nginx.conf&lt;/strong&gt;  进行编辑：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http {
+  ...
+  server {
+    listen              443 ssl;
+    ssl_certificate     /Users/ios-builder/Documents/server.crt;
+    ssl_certificate_key /Users/ios-builder/Documents/server.key;
+    ...
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;记得修改证书对应地址，这里就给了个片段进行示意。&lt;/p&gt;
+
+&lt;p&gt;最后启动或者重启nginx，保证设置生效后测试一下访问效果即可。&lt;/p&gt;</content><author><name>Choipun</name></author><category term="server" /><summary type="html">创建证书</summary></entry><entry><title type="html">在 Vue 项目中使用 Web Worker</title><link href="http://localhost:4000/2018/11/web-worker-in-vue" rel="alternate" type="text/html" title="在 Vue 项目中使用 Web Worker" /><published>2018-11-23T16:36:00+08:00</published><updated>2018-11-23T16:36:00+08:00</updated><id>http://localhost:4000/2018/11/web-worker-in-vue</id><content type="html" xml:base="http://localhost:4000/2018/11/web-worker-in-vue">&lt;p&gt;TODO&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;https://github.com/israelss/simple-web-worker/blob/master/src/createDisposableWorker.js&lt;/p&gt;
@@ -706,143 +759,4 @@ vue create frontend
   &lt;span class=&quot;kn&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;X-Forwarded-For&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$proxy_add_x_forwarded_for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
   &lt;span class=&quot;kn&quot;&gt;proxy_set_header&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Host&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Choipun</name></author><category term="socket.io" /><summary type="html">operating system: Centos server: Nginx and Nodejs</summary></entry><entry><title type="html">基于 Vue CLI 的全栈开发记录</title><link href="http://localhost:4000/2018/01/vue-cli-full-stack" rel="alternate" type="text/html" title="基于 Vue CLI 的全栈开发记录" /><published>2018-01-01T21:30:00+08:00</published><updated>2018-01-01T21:30:00+08:00</updated><id>http://localhost:4000/2018/01/vue-cli-full-stack</id><content type="html" xml:base="http://localhost:4000/2018/01/vue-cli-full-stack">&lt;h2 id=&quot;概要&quot;&gt;概要&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;调试接口跨域问题&lt;/li&gt;
-  &lt;li&gt;axios 全局配置&lt;/li&gt;
-  &lt;li&gt;直接数据渲染&lt;/li&gt;
-  &lt;li&gt;vuex管理登录状态&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;window.isDev = isNaN(Number('&amp;lt;?= 1 ?&amp;gt;'))&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;SSE长连接&lt;/li&gt;
-  &lt;li&gt;Eslint 排除检查&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;调试接口跨域问题&quot;&gt;调试接口跨域问题&lt;/h2&gt;
-
-&lt;p&gt;安装 vue-cli 时选的是默认模板 webpack&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm install &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; vue-cli
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;vue init webpack project
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;project
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm install
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm run dev
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;首先需要面对的问题是跨域，搜索一番，可以使用基于 node.js 的代理中间件 &lt;a href=&quot;https://github.com/chimurai/http-proxy-middleware#http-proxy-middleware&quot;&gt;http-proxy-middleware&lt;/a&gt; 来解决问题。
-在应用目录下 &lt;code class=&quot;highlighter-rouge&quot;&gt;/config/index.js&lt;/code&gt; 中，作者已经预留了配置项 &lt;code class=&quot;highlighter-rouge&quot;&gt;proxyTable: {}&lt;/code&gt;，往这里面填东西就好了。&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;proxyTable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;s1&quot;&gt;'/api'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nl&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'http://www.test.com'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;changeOrigin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;pathRewrite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;s1&quot;&gt;'^/api'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/api'&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;在开发环境中，由 node.js 拦截一切 &lt;code class=&quot;highlighter-rouge&quot;&gt;/api&lt;/code&gt; 的请求，并代理访问 &lt;code class=&quot;highlighter-rouge&quot;&gt;http://www.test.com/api&lt;/code&gt; 将数据返回给前端。&lt;/p&gt;
-
-&lt;p&gt;例如&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;axios&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/api/user?id=123'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;实际访问的是 &lt;code class=&quot;highlighter-rouge&quot;&gt;http://www.test.com/api/user?id=123&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;axios-全局配置&quot;&gt;axios 全局配置&lt;/h2&gt;
-
-&lt;p&gt;由于一直使用的 &lt;code class=&quot;highlighter-rouge&quot;&gt;vue-resource&lt;/code&gt; 已不再维护更新，所以转投 &lt;a href=&quot;https://github.com/axios/axios&quot;&gt;axios&lt;/a&gt; 的怀抱。
-作为一个高频使用插件，在每次需要用到 &lt;code class=&quot;highlighter-rouge&quot;&gt;axios&lt;/code&gt; 的时候都 &lt;code class=&quot;highlighter-rouge&quot;&gt;import&lt;/code&gt; 一次也是挺麻烦的，所以可以直接写进 &lt;code class=&quot;highlighter-rouge&quot;&gt;Vue&lt;/code&gt; 的原型里&lt;/p&gt;
-
-&lt;p&gt;打开入口文件 &lt;code class=&quot;highlighter-rouge&quot;&gt;src/main.js&lt;/code&gt; 添加&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;axios&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'axios'&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;Vue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$http&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;axios&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;这样就可以使用在任意模板文件中使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;this.$http&lt;/code&gt; 来代替 &lt;code class=&quot;highlighter-rouge&quot;&gt;axios&lt;/code&gt; 了。&lt;/p&gt;
-
-&lt;h2 id=&quot;直接数据渲染&quot;&gt;直接数据渲染&lt;/h2&gt;
-
-&lt;p&gt;实际应用场景中，还是有许多免不了需要由 PHP 直接将数据渲染到页面上的时候，例如 &lt;code class=&quot;highlighter-rouge&quot;&gt;csrf-token&lt;/code&gt; 以及 &lt;code class=&quot;highlighter-rouge&quot;&gt;session&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;vue-cli 构建环境依赖于 node.js，而 PHP 又运行于 apache，开发环境直接渲染是不可能了，只能将数据渲染到生成的生产环境模板页面中。&lt;/p&gt;
-
-&lt;p&gt;修改配置文件 &lt;code class=&quot;highlighter-rouge&quot;&gt;/config/index.js&lt;/code&gt; 将生成的文件扩展名改为 &lt;code class=&quot;highlighter-rouge&quot;&gt;.php&lt;/code&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__dirname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'../dist/index.php'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;有需要 PHP 直接渲染的数据，写在项目目录下的模板文件 index.html 中&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isDev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;isNaN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'&amp;lt;?= 1 ?&amp;gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;例如上述代码中，由于 node.js 不能识别 PHP 代码，所以可以用这种方式来判断当前是处于生产环境还是开发环境。&lt;/p&gt;
-
-&lt;p&gt;回到一开始的问题，比如 &lt;code class=&quot;highlighter-rouge&quot;&gt;session&lt;/code&gt; 验证，在模板上添加了 &lt;code class=&quot;highlighter-rouge&quot;&gt;csrf-token&lt;/code&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;csrf-token&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;content=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&amp;lt;?= $_SESSION['csrf-token'] ?&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;开发环境当中，发送请求的时候带上这个 token&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/api/post?action=add'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;s1&quot;&gt;'csrf-token'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;querySelector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'meta[name=&quot;csrf-token&quot;]'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;content&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;将会直接把 &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;?= $_SESSION['csrf-token'] ?&amp;gt;&lt;/code&gt; 作为普通字符串发送到服务端，而不是具体的 token 值。&lt;/p&gt;
-
-&lt;p&gt;我想到的方案是：由于前后端/数据库部署在本机上，所以可以判断请求来源，不对来自 &lt;code class=&quot;highlighter-rouge&quot;&gt;127.0.0.1&lt;/code&gt; 的请求做拦截处理。上线之后这种方案要被伪造，只能是攻击者登录到了服务器上面去吧？不过攻击者都登录服务器了，还伪造这玩意儿干嘛……&lt;/p&gt;
-
-&lt;p&gt;对于后端部分不在本机的，只能老老实实 &lt;code class=&quot;highlighter-rouge&quot;&gt;npm run build&lt;/code&gt; 之后发布到线上测试了。或者调试期间后端同学关闭掉相关验证，测试没问题了发布线上的时候再开启验证。&lt;/p&gt;
-
-&lt;h2 id=&quot;eslint-排除检查&quot;&gt;Eslint 排除检查&lt;/h2&gt;
-
-&lt;p&gt;安装 vur-cli 的时候一个手抖，开启了 &lt;a href=&quot;https://eslint.org/&quot;&gt;Eslint&lt;/a&gt; 语法检查，刚开始的时候没有适应他的规则，感觉自己好像一下子都不会写代码了。&lt;/p&gt;
-
-&lt;p&gt;适应一段时间，上手了感觉就没啥问题。不过，自己能按照 Eslint 规则来写，插件未必呀～所以当引入某些插件的时候，控制台 warning 停不下来！！！把插件改成符合 Eslint 规范的格式？别闹了……&lt;/p&gt;
-
-&lt;p&gt;第三方插件都是放在 &lt;code class=&quot;highlighter-rouge&quot;&gt;/src/assets/libs&lt;/code&gt; 目录下，所以必须排除掉对这个文件夹的内容做检查&lt;/p&gt;
-
-&lt;p&gt;打开 .eslintignore 把路径添加进去&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/src/assets/libs/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;世界瞬间就清净了。&lt;/p&gt;
-
-&lt;h2 id=&quot;实时数据推送&quot;&gt;实时数据推送&lt;/h2&gt;
-
-&lt;p&gt;后台系统中有一项审核功能，运营人员希望在活动推广期间能实时获得新消息提醒，告诉运营有多少条待审核数据，而不需要自己去定时刷新页面。&lt;/p&gt;
-
-&lt;p&gt;作为一个有逼格的开发者，当然不会使用客户端定时轮询的方式来获取更新，我所想到的有以下方式&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;websocket&lt;/li&gt;
-  &lt;li&gt;SSE + 长连接&lt;/li&gt;
-  &lt;li&gt;LeanCloud LiveQuery 实现&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;虽说 &lt;code class=&quot;highlighter-rouge&quot;&gt;websocket&lt;/code&gt; 很强大，但是开发门槛摆在那里，只是为了这个小功能而花费那么大的精力没什么必要。&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SSE&lt;/code&gt; 即 &lt;code class=&quot;highlighter-rouge&quot;&gt;server send event&lt;/code&gt;（服务端发送事件）是一开始选择的方案。实现逻辑如下：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;客户端发起请求&lt;/li&gt;
-  &lt;li&gt;服务端挂起该请求&lt;/li&gt;
-  &lt;li&gt;服务端定时获取数据库的数据并比对结果，当数据发生变化的时候发送数据到前端&lt;/li&gt;
-  &lt;li&gt;前端接收到更新更改显示的状态&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;主要解决了前端代码不够优雅的问题，一次请求，就能获得源源不断的数据推送。&lt;/p&gt;
-
-&lt;p&gt;不过嘛，其实就是把客户端定时轮询交给了后端去做，依旧没有解决性能浪费的问题。而且当客户端关闭之后，服务端还一直 hold 住这个请求不能及时关闭也是挺傻的。&lt;/p&gt;
-
-&lt;p&gt;好在这是用于后台系统，同时只会有一两个运营人员做审核工作。若是用于并发量大一些的场景无疑就是捉襟见肘了。&lt;/p&gt;
-
-&lt;p&gt;一开始不用 &lt;a href=&quot;https://leancloud.cn/docs/livequery-guide.html&quot;&gt;LiveQuery&lt;/a&gt; 主要是不想将这种小功能分离到第三方平台去做，但权衡利弊，LiveQuery 基于 &lt;code class=&quot;highlighter-rouge&quot;&gt;websocket&lt;/code&gt; 实现，看起来就很靠谱的样子啊。照着&lt;a href=&quot;https://leancloud.cn/docs/livequery-guide.html&quot;&gt;官方文档&lt;/a&gt;实现，没什么问题，就成了现在所使用的方案。&lt;/p&gt;</content><author><name>Choipun</name></author><category term="web" /><category term="vue" /><summary type="html">概要</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Choipun</name></author><category term="socket.io" /><summary type="html">operating system: Centos server: Nginx and Nodejs</summary></entry></feed>

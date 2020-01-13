@@ -3,7 +3,7 @@ layout: post
 title:  "Windwos 服务端搭建 Shadowsocks"
 date:   2017-09-07 19:00:00 +0800
 comments: true
-tags: windows
+tags: server
 ---
 
 ## 服务端
